@@ -1,0 +1,16 @@
+ul{
+    margin: 0;
+}
+
+a{
+    color: inherit;
+    &:hover,
+    &:visited,
+    &:focus{
+        color: inherit;
+    }
+}
+
+button{
+	padding: 0.5rem;
+}

@@ -1,0 +1,196 @@
+<template name="child">
+
+	<div class="child pos-abs">
+		
+		<div class="universe-preview pos-abs full-height">
+			
+			<a href="/editor/{{ _id }}">
+			
+				{{> universePreview universe }}
+			</a>
+			
+		</div>
+		
+		<div class="child-info pos-abs full-height text-center">
+			
+			<div class="center">
+			
+				<h1>{{{ coloredName }}}</h1>
+				
+				<p class="text-1-5">
+					
+					{{#if noUniverse }}
+						
+						Welcome to Muddy Creatures, {{name}}. Time to show us your personality by <a href="/editor/{{ _id }}">creating a universe</a>.
+						
+					{{ else }}
+					
+						{{#if readyToOrder }}
+						
+							Well done, your universe looks great.
+						
+						{{ else }}
+						
+							Almost there – your universe still needs {{#if moreColors}}{{numberAsWords moreColors}} more {{plural moreColors 'colours'}} {{/if}}{{#if moreColors}}{{#if moreLooks}}and {{/if}}{{/if}}{{#if moreLooks}}{{numberAsWords moreLooks}} more {{plural moreLooks 'look'}}{{/if}}. <a href="/editor/{{ _id }}">Add {{plural moreColorsAndLooks 'it' 'them' }} now!</a>
+							
+						{{/if}}
+						
+					{{/ if }}
+
+					
+					{{# if lastOrder }}
+						
+						{{# with lastOrder }}
+						
+							Your order <a href="order/{{_id}}">#{{ number }}</a> was {{ status }} {{ actionTime }}.
+						
+						{{/ with }}
+					
+						{{# if moreOrders }}
+					
+							You have {{ moreOrders }} more {{ plural moreOrders 'order' }} orders in progress as well.
+					
+						{{/ if }}
+						
+					{{/ if }}
+
+					
+					{{#if readyToOrder }}
+					
+						<a href="/orderForm/{{_id}}">
+							{{# if orderInProgress }}
+								Place another order?
+							{{ else }}
+								Place an order!
+							{{/if}}
+						</a>
+										
+					{{/ if }}
+					
+				</p>
+				
+				<p>
+					{{#unless sessionGet 'deleteChildConfirm'}}
+						<a class="remove">Delete {{name}}'s profile</a>
+					{{else}}
+						Are you sure? <a class="confirm-remove">Yes!</a> <a class="cancel-remove">No!</a>
+					{{/unless}}
+				</p>
+			
+			</div>
+			
+		</div>
+		
+	</div>
+    <!-- 
+    <div class="row pad-bottom-4">
+        <div class="small-12 columns">
+
+            <h3>{{ name }}</h3>
+            <h4>{{ getAge dob }}-year-old {{ gender }}</h4>
+            
+         </div>
+    </div>
+    
+    
+
+    <div class="row colors pad-bottom-4">
+	    
+	    <a href="editor/{{_id}}">Edit Universe</a>
+        
+        <div class="small-12 columns pad-bottom-4">
+            <h5>Colours</h5>
+        </div>
+    
+        {{#each colors}}
+            <div class="small-3 columns">
+                <div class="color" style="background: {{value}}"></div>
+                <a class="remove-color">&times;</a>
+            </div>
+        {{/each}}
+        
+        <div class="small-3 columns end">
+            <div class="row">
+                <div class="small-6 columns">
+                    <input type="color" name="newColor">
+                </div>
+                <div class="small-6 columns">
+                    <button class="add-color">Add</button>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+            
+   
+    
+    <div class="row pad-bottom-4">
+        <div class="small-12 columns">
+            
+            <h5>Brands</h5>
+
+            {{#each brands}}
+                <div class="item-toggle brand-toggle cursor-pointer {{likesBrandClass}}">
+                    {{name}}
+                </div>
+            {{/each}}
+            
+        </div>
+    </div>
+
+    <div class="row pad-bottom-4">
+        <div class="small-12 columns">
+            
+            <h5>Universes</h5>
+            
+            {{#each universes}}
+            
+                    {{#if likesUniverse }}
+                        <div class="item-toggle universe-toggle cursor-pointer {{likesUniverseClass}}">
+                            {{name}}
+                            <input type="range" min=0 max=100 class="universe-like" value="{{like}}"> {{like}}%
+                        </div>
+                    {{ else }}
+                        <div class="item-toggle universe-toggle cursor-pointer">{{ name }}</div>
+                    {{/if}}
+                    
+            {{/each}}
+            
+        </div>
+    </div>
+    <div class="row pad-bottom-4">
+        <div class="small-12 columns">
+            
+            {{#if orderOutstanding}}
+                <a href="order/{{lastOrder}}">
+                    <button>View {{name}}'s order</button>
+                </a>
+            {{else}}
+            
+                {{#if canPlaceOrder }}
+            
+                    <a href="orderForm/{{_id}}">
+                        <button>Place an order for {{name}}</button>
+                    </a>
+                
+                {{ else }}
+                
+                    Please select {{ list orderRequirements }} to place an order.
+                
+                {{/if}}
+            {{/if}}
+            
+            <br>
+            
+            {{#unless confirmDelete}}
+                <a class="remove">Delete {{name}}'s profile</a>
+            {{else}}
+                Are you sure? <a class="confirm-remove">Yes</a> <a class="cancel-remove">No</a>
+            {{/unless}}
+            
+        </div>
+    </div>
+    
+    <hr>
+    -->
+</template>

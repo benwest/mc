@@ -1,0 +1,47 @@
+<template name="account">
+    <div class="row pad-top-4">
+        <div class="small-12 medium-6 columns">
+
+            <h2>Account</h2>
+            
+            <form id="changeName" class="pad-bottom-2">
+                {{#if nameErrorMessages}}
+                    {{#each nameErrorMessages}}
+                        {{this}}
+                    {{/each}}
+                {{/if}}
+                <input type="text" name="firstName" value="{{ currentUser.profile.firstName }}">
+                <input type="text" name="lastName" value="{{ currentUser.profile.lastName }}">
+                <button type="submit">Change Name</button>
+            </form>
+            
+            <form id="changePassword" class="pad-bottom-2">
+                {{#if passwordErrorMessages}}
+                    {{#each passwordErrorMessages}}
+                        {{this.type}}: {{this.msg}}
+                    {{/each}}
+                {{/if}}
+                
+                <input type="password" name="old" placeholder="Current Password">
+                <input type="password" name="new" placeholder="New Password">
+                <input type="password" name="confirm" placeholder="Confirm New Password">
+                
+                <button type="submit">Change Password</button>
+                
+            </form>
+            
+            <strong>Delivery Address</strong><br>
+            
+            {{#unless editAddress}}
+                {{ currentUser.profile.address }}<br>
+                <a class="edit-address">Change</a>
+            {{else}}
+                <form class="changeAddress">
+                    <textarea class="address-textarea" value="{{currentAddress}}"></textarea>
+                    <button type="submit">Save</button>
+                </form>
+            {{/unless}}
+
+        </div>    
+    </div>
+</template>

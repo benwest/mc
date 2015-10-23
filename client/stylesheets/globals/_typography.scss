@@ -1,0 +1,63 @@
+@font-face{
+	
+	font-family: 'Soleil';
+	src: url('fonts/Soleil-Light.otf');
+	
+}
+
+@font-face{
+	
+	font-family: 'Soleil';
+	font-weight: bold;
+	src: url('fonts/Soleil-Regular.otf');
+	
+}
+
+@mixin underline{
+	
+	padding-bottom: 0.1em;
+	border-bottom-width: $underlineWidth;
+	border-bottom-style: solid;
+	border-bottom-color: rgba(0,0,0,0.5);
+	transition: border-bottom-color 0.2s;
+	
+	&:hover{
+		border-bottom-color: black;
+	}
+		
+}
+
+$baseFontSize: 22px;
+$lineHeight: 1.6;
+$underlineWidth: 0.05em;
+
+@function lines($number){
+	@return $baseFontSize * $lineHeight * $number;
+}
+
+html{
+	font-size: $baseFontSize;
+	line-height: $lineHeight;
+	font-family: Soleil;
+}
+
+a{
+	@include underline;
+}
+
+a.no-line{
+	padding-bottom: 0.1em;
+	border-bottom-width: $underlineWidth;
+	border-bottom-style: solid;
+	border-bottom-color: rgba(0,0,0,0);
+	transition: border-bottom-color 0.2s;
+	&:hover{
+		border-bottom-color: black;
+	}
+}
+
+$text-class-names: (text font-size), (text font-size);
+$text-class-count: 6;
+$text-class-step: 0.5;
+
+@include class-creator( $text-class-names, $text-class-count, $text-class-step, rem);

@@ -1,0 +1,16 @@
+<template name="placedOrder">
+    
+    {{#if cancellingOrder }}
+        
+        Are you sure?
+        
+        <button class="cancel-confirm">Cancel Order</button>
+        <button class="cancel-cancel">Don't Cancel</button>
+        
+    {{else}}
+    
+        <button class="cancel-button">Cancel Order</button>
+    
+    {{/if}}
+    
+</template>

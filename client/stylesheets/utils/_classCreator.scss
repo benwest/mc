@@ -1,0 +1,34 @@
+@function dashDecimal($n){
+  
+  @if $n % 1 == 0 {
+    @return $n;
+  } @else {
+    
+    $decimal: $n % 1;
+    $decimal: floor($decimal * 100);
+    
+    @while $decimal % 10 == 0 {
+      $decimal: $decimal / 10;
+    }
+    
+    @return floor($n)+'-'+$decimal;
+  }
+  
+}
+
+@mixin class-creator($names, $max, $step, $unit){
+  
+  $steps: 1/$step;
+  
+  @each $name in $names{
+  
+    $className: nth($name, 1);
+    $property: nth($name, 2);
+
+    @for $i from 0 through $max*$steps {
+      .#{$className}-#{dashDecimal($i/$steps)} {
+        #{$property}: ($i/$steps) + $unit;
+      }
+    }
+  }
+}

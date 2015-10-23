@@ -1,0 +1,68 @@
+<template name="header">
+    <header>
+        
+        <a href="/">
+            <h1>Muddy Creatures</h1>
+        </a>
+        
+        <nav class="row">
+            <div class="small-12 columns pad-top-0-5 pad-bottom-0-5">
+
+                <ul>
+            
+                    {{#if currentUser}}
+                
+                        <a href="{{pathFor 'profile'}}">
+                            <li class="profile {{selectedIfRoute 'profile'}}">
+                                {{ currentUser.profile.firstName }} {{ currentUser.profile.lastName }}
+                            </li>
+                        </a>
+                            
+                        <a href="{{pathFor 'account'}}">
+                            <li class="{{selectedIfRoute 'account'}}">
+                                Account
+                            </li>
+                        </a>
+                        
+                        <a href="{{pathFor 'about'}}">
+                            <li class="{{selectedIfRoute 'about'}}">
+                                How it works
+                            </li>
+                        </a>
+                        
+                        {{#if isAdmin }}
+                    
+                            <a href="{{ pathFor 'admin' }}">
+                                    <li class="{{selectedIfRoute 'admin'}}">
+                                        Admin
+                                        {{# unless isRoute 'admin' }}
+                                            {{> admin_customerNotifications }}
+                                        {{/ unless }}
+                                    </li>
+                            </a>
+                        
+                        {{/if}}
+                        
+                        <a href="" class="logout">
+                            <li>Logout</li>
+                        </a>
+                    
+                    {{else}}
+                        
+                        <a href="{{pathFor 'login'}}">
+                            <li class="{{selectedIfRoute 'login'}}">Log In</li>
+                        </a>
+                        
+                        <a href="{{pathFor 'signup'}}">
+                            <li class="{{selectedIfRoute 'signup'}}">Sign Up</li>
+                        </a>
+                    
+                    {{/if}}
+                
+                </ul>
+                
+            </div>
+        </nav>
+        
+    </header>
+</template>

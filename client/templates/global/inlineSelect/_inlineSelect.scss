@@ -1,0 +1,80 @@
+.inline-select{
+	
+	display: inline-block;
+	height: 1.42em;
+	width: auto;
+	border-bottom-width: $underlineWidth;
+	border-bottom-style: dashed;
+	border-bottom-color: rgba(0, 0, 0, 0.5);
+	position: relative;
+	cursor: pointer;
+	padding-right: 1em * ($lineHeight * 0.61);
+	vertical-align: top;
+	transition: border-bottom-color 0.2s, width 0.2s;
+	
+	&:after{
+		content: '';
+		position: absolute;
+		top: 1em * ($lineHeight * 0.2);
+		right: 0;
+		height: 1em * ($lineHeight * 0.55);
+		width: 1em * ( $lineHeight * 0.55 * (56/81) );
+		background: url(img/downArrow.svg);
+		background-size: auto 100%;
+		background-repeat: no-repeat;
+		transition: opacity 0.2s;
+		opacity: 0.5;
+	}
+	
+	&.open{
+		border-bottom-color: rgba(0, 0, 0, 1);
+		padding-right: 0;
+	}
+	
+	&:hover{
+		border-bottom-color: rgba(0, 0, 0, 1);
+	}
+	
+	&.open:after,
+	&:hover:after{
+		opacity: 1;
+	}
+	
+	.inline-select-options{
+		
+		position: relative;
+		width: auto;
+		top: 0;
+		max-height: 0;
+		overflow: hidden;
+		padding-right: 1em * ($lineHeight * 0.61);
+		transition: max-height 1s, padding-right 0.2s;
+		display: none;
+		background: $lightGrey;
+	
+		&.scroll{
+			overflow-y: scroll;
+		}
+				
+	}
+	
+	.scroll-fadeout{
+		position: absolute;
+		width: 100%;
+		top: 1.42em + (6.5em * $lineHeight) - 0.4em;
+		pointer-events: none;
+		height: 0.5em;
+		background: linear-gradient($lightGreyTransparent, $lightGrey)
+	}
+	
+	&.open .inline-select-options{
+		top: 1.42em;
+		display: inline-block;
+		max-height: 6.5em * $lineHeight;
+	}
+	
+	
+	
+}
+
+

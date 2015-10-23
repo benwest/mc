@@ -1,0 +1,61 @@
+<template name="admin_customerDetailOrderRow">
+    
+    <div class="order-header row">
+        
+        <div class="small-12 columns pad-top-2">
+            
+            <strong>Order #{{number}}: {{getOrderStatus this}}</strong>
+            
+        </div>
+        
+    </div>
+    
+    <div class="order-details row pad-top-2">
+        
+        <div class="small-4 columns">
+            
+            <h3>Recipient</h3>
+            {{#with child}}
+                <strong>{{name}}</strong> ({{getAge dob}}-year-old {{gender}})<br>
+            {{/with}}
+            {{ address }}
+            
+        </div>
+        
+        <div class="small-4 columns">
+            
+            <h3>Garments Wanted</h3>
+            
+            {{#each garments}}
+                <strong>{{name}}</strong><br>
+                {{size}}
+            {{/each}}
+            
+        </div>
+        
+        <div class="small-4 columns">
+            
+            <h3>Preferences</h3>
+            <strong>Colours</strong><br>
+            <div class="colors">
+                {{# each colors }}
+                    <div class="color" style="background: {{this}}"></div>
+                {{/each}}
+            </div>
+            <strong>Brands</strong><br>
+            <p>
+                {{ list brands }}
+            </p>
+            <strong>Universes</strong>
+            <p>
+                {{ list universes }}
+            </p>
+
+        </div>
+        
+    </div>
+        
+    {{> admin_orderActions }}
+        
+    
+</template>

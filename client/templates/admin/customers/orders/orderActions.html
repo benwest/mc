@@ -1,0 +1,102 @@
+<template name="admin_orderActions">
+    
+    <div class="row">
+        
+        <div class="small-12 columns">
+
+            {{#if orderWarnings }}
+                <ul class="warnings">
+                    {{# each orderWarnings }}
+                        <li>{{this}}</li>
+                    {{/ each }}
+                </ul>
+            {{/ if }}
+            
+            {{#if orderNotifications }}
+                <ul class="notifications">
+                    {{# each orderNotifications }}
+                        <li>{{this}}</li>
+                    {{/ each }}
+                </ul>
+            {{/ if }}
+            
+
+        </div>
+        
+    </div>
+    
+    <div class="row">
+        
+        <div class="small-12 columns">
+        
+            <h3>Items</h3>
+            
+        </div>
+        
+    </div>
+    
+    {{# unless status 'placed' }}
+    
+        {{> admin_itemReturns }}
+    
+    {{ else }}
+        
+        {{> admin_itemPicker }}
+        
+    {{/ unless }}
+        
+    {{>admin_datePicker}}
+        
+    <div class="row">
+        
+        <div class="small-12 columns pad-bottom-2">
+            
+            {{# if orderNeedsDispatch }}
+                
+                <button class="order-dispatch">Mark order as dispatched</button>
+                
+            {{/if }}
+            
+            {{# if orderNeedsCompleting }}
+            
+                <button class="order-complete">Complete Order</button>
+            
+            {{/ if }}
+            
+            {{# unless status 'cancelled' }}
+                
+                {{# unless cancellingOrder }}
+                
+                    <button class="order-cancel">Cancel Order</button>
+                
+                {{else}}
+                
+                    Are you sure? 
+                    <button class="confirm-cancel">Cancel Order</button>
+                    <button class="cancel-cancel">Don't Cancel</button>
+                
+                {{/unless}}
+            
+            {{/ unless }}
+        
+        </div>
+        
+    </div>
+        
+    {{#if feedback }}
+    
+        <div class="row">
+            
+            <div class="small-12 columns pad-bottom-2">
+        
+                <h3>Feedback</h3>
+        
+                <p>{{feedback}}</p>
+        
+            </div>
+        
+        </div>
+        
+    {{/if}}
+    
+</template>

@@ -1,0 +1,26 @@
+.customer-list-row{
+    
+    height: 3rem;
+    border-bottom: 1px solid gray;
+    
+    &.selected{
+        background: $selected;
+    }
+    
+    .notifications-count,
+    .warnings-count{
+        float: right;
+        margin: 0.75rem 0 0 1rem;
+    }
+    
+    .customer-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        float: left;
+        line-height: 1;
+        padding: 1rem 0;
+    }
+
+    
+}

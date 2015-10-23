@@ -1,0 +1,28 @@
+.inline-input{
+	
+	height: 1.42em;
+	border-bottom-width: $underlineWidth;
+	border-bottom-style: dashed;
+	border-bottom-color: rgba(0, 0, 0, 0.5);
+	display: inline-block;
+	min-width: 0;
+	transition: min-width 0.2s, border-bottom-color 0.2s;
+	
+	&.empty{
+		min-width: 2em;
+	}
+	
+	&.placeholder{
+		font-style: italic;
+		color: rgba(0,0,0,0.5);
+	}
+	
+	&:hover{
+		border-bottom-color: rgba(0, 0, 0, 1);
+	}
+	
+	&:focus{
+		outline: 0;
+		border-bottom-color: rgba(0, 0, 0, 1);
+	}
+}

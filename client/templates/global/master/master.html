@@ -1,0 +1,131 @@
+<template name="master">
+			
+	<div id="menuButton">Menu</div>
+	
+	<div id="menu" class="{{ menuClass }}">
+		
+		<div id="menu-top">
+			
+			<ul>
+			
+				{{# if currentUser }}
+				
+					<li>
+						<a class='no-line' href="/profile"><b>{{ currentUser.profile.firstName }} {{ currentUser.profile.lastName }}</b></a>
+					</li>
+					
+					<li>
+						<a href="/orders">Order history</a>
+					</li>
+				
+					<li>
+						<a href="/account">Manage account</a>
+					</li>
+					
+					<li>
+						<a class="logout">Log out</a>
+					</li>
+					
+					<li></li>
+					
+					<li><b>Children</b></li>
+					
+					{{# each children }}
+					
+						<li>
+							<a href="/child/{{ _id }}">{{ name }}</a>
+						</li>
+					
+					{{/ each }}
+					
+					<li> + <a href="/addChild">Add</a></li>
+					
+					{{#if isAdmin}}
+					
+						<li></li>
+						
+						<li><b>Admin</b></li>
+						
+						<li>
+							<a href="/admin/customers">Customers</a>
+						</li>
+						
+						<li>
+							<a href="/admin/inventory">Inventory</a>
+						</li>
+						
+						<li>
+							<a href="/admin/customers">Looks</a>
+						</li>
+						
+						<li>
+							<a href="/admin/customers">Brands</a>
+						</li>
+						
+						<li>
+							<a href="/admin/garment-types">Garment Types</a>
+						</li>
+						
+						<li>
+							<a href="/admin/settings">Settings</a>
+						</li>
+						
+					{{/if}}
+				
+				{{ else }}
+				
+					<li>
+						<a href="/signup">Create account</a>
+					</li>
+				
+					<li>
+						<a href="/login">Log in</a>
+					</li>
+				
+				{{/ if }}
+			
+			</ul>
+			
+		</div>
+		
+		<div id="menu-bottom">
+			
+			<ul>
+				
+				<li>
+					<a href="/about">How it works</a>
+				</li>
+				
+				<li>
+					<a href="/faq">FAQ</a>
+				</li>
+				
+				<li>
+					<a href="/terms">Terms and conditions</a>
+				</li>
+				
+				<li>
+					<a href="/privacy">Privacy policy</a>
+				</li>
+				
+				<li>
+					<a href="/contact">Contact</a>
+				</li>
+				
+			</ul>
+			
+		</div>
+		
+	</div>
+	
+	<div id="overlay" class="{{ menuClass }}"></div>
+    
+    <div id="transition-container">
+	    {{#each thisArray}}
+	    	<div class="container">
+				{{> yield}}
+	    	</div>
+		{{/each}}
+	</div>
+    
+</template>

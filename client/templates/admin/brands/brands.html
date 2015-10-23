@@ -1,0 +1,74 @@
+<template name="admin_brands">
+    
+    <div class="row">
+        <div class="small-12 columns pad-top-1 pad-bottom-1">
+            <h2>Brands</h2>            
+        </div>
+    </div>
+
+    <div class="table-header row pad-bottom-1">
+        
+        <div class="small-8 columns">
+            <strong>Name</strong>
+        </div>
+        
+        <div class="small-1 column">
+            <strong>Liked</strong>
+        </div>
+        
+        <div class="small-2 column">
+            <strong>On Homepage</strong>
+        </div>
+        
+        <div class="small-1 column">
+            
+        </div>
+        
+    </div>
+    
+    {{#each brands}}
+    
+        <div class="table-body row">
+            
+            <div class="small-8 columns">
+                {{name}}
+            </div>
+            
+            <div class="small-1 column">
+                {{liked}}
+            </div>
+            
+            <div class="small-2 column">
+                <input type="checkbox" class="show-on-home" checked="{{shownOnHome}}">
+            </div>
+            
+            <div class="small-1 column">
+                 <a class="remove-brand">&times;</a>
+            </div>
+            
+        </div>   
+        
+        <div class="row">
+            <div class="small-12 columns">
+                <hr>
+            </div>
+        </div>
+    {{/each}}
+    
+    <div class="table-body row pad-top-2">
+        
+        <form>
+            
+            <div class="small-10 columns">
+                <input type="text" name="name" placeholder="Add new brand">
+            </div>
+            
+            <div class="small-2 columns">
+                <button type="submit" class="button expand">Add</button>
+            </div>
+            
+        </form>
+    
+    </div>
+    
+</template>

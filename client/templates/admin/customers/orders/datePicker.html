@@ -1,0 +1,105 @@
+<template name="admin_datePicker">
+
+    {{# unless editingDates }}
+    
+        <div class="row">
+    
+            <div class="small-6 columns">
+                
+                <h3>Estimated Delivery Date</h3>
+                
+                {{ estimatedDelivery }}
+                
+                <a class="edit-delivery-date">Change</a>
+                
+            </div>
+        
+            <div class="small-6 columns">
+                
+                {{# if returnBy }}
+                
+                    <h3>Returns Due By</h3>
+                
+                    {{ returnBy }}
+                
+                    <a class="edit-return-date">Change</a>
+                
+                {{/if}}
+                
+            </div>
+        
+        </div>
+    
+    {{ /unless }}
+    
+    {{# if editingDeliveryDate }}
+    
+        <div class="row">
+    
+            <div class="small-12 columns">
+                
+                <h3>Estimated Delivery Date</h3>
+        
+            </div>
+        
+        </div>
+    
+        <div class="row">
+        
+            <form class="delivery-date">
+                
+                <div class="small-3 columns">
+                    <input type="number" name="deliveryD" min="1" max="31" maxlength="2" value="{{deliveryDay}}">
+                </div>
+                <div class='small-3 columns'>
+                    <input type="number" name="deliveryM" min="1" max="12" maxlength="2" value="{{deliveryMonth}}">
+                </div>
+                <div class="small-3 columns">
+                    <input type="number" name="deliveryY" maxlength="4" value="{{deliveryYear}}">
+                </div>
+                <div class="small-3 columns">
+                    <button type="submit" name="add">Set Delivery Date</button>
+                </div>
+                
+            </form>
+            
+        </div>
+    
+    {{/ if }}
+    
+    {{# if editingReturnDate }}
+    
+        <div class="row">
+    
+            <div class="small-12 columns">
+                
+                <h3>Returns Due By</h3>
+        
+            </div>
+        
+        </div>
+    
+        <div class="row">
+        
+            <form class="return-date">
+                
+                <div class="small-3 columns">
+                    <input type="number" name="returnD" min="1" max="31" maxlength="2" value="{{deliveryDay}}">
+                </div>
+                <div class='small-3 columns'>
+                    <input type="number" name="returnM" min="1" max="12" maxlength="2" value="{{deliveryMonth}}">
+                </div>
+                <div class="small-3 columns">
+                    <input type="number" name="returnY" maxlength="4" value="{{deliveryYear}}">
+                </div>
+                <div class="small-3 columns">
+                    <button type="submit" name="add">Set Return Date</button>
+                </div>
+                
+            </form>
+            
+        </div>
+    
+    {{/ if }}
+    
+</template>

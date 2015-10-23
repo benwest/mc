@@ -1,0 +1,21 @@
+<template name="itemSummary">
+
+	<div class="item-summary row">
+		
+		<div class="small-8 columns">
+			
+			<strong>{{brand}} {{garment}}</strong> {{#if quantity}} &times; {{quantity}}{{/if}}<br>
+			{{description}}
+			
+		</div>
+		
+		<div class="small-4 columns text-right">
+			
+			Size {{size}}<br>
+			{{money cost}}
+			
+		</div>
+		
+	</div>
+
+</template>

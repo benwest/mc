@@ -1,0 +1,59 @@
+<template name="addChild">
+
+	<h1>Add a child</h1>
+		
+	<p class="text-2">
+		I have a {{> inlineSelect id='newChildGender' options='boy, girl' }}
+		
+		{{# if sessionGet 'newChildGender'}}
+		
+			called {{> inlineInput id='newChildName' autofocus=true }}.
+			
+			{{# if sessionGet 'newChildName'}}
+				
+				{{ heShe (sessionGet 'newChildGender') true }} was born on {{> inlineDateInput id="newChildDob" after="." }}
+				
+				{{#if sessionGet 'newChildDobYear' }}
+				
+					<a class="done">Add {{ sessionGet 'newChildName' }}!</a>
+				
+				{{/ if }}
+				
+			{{/if}}
+			
+		{{/ if }}
+		
+	</p>
+			
+	<!--
+	
+	<div class="row">
+        <div class="small-12 medium-6 columns">
+            <form>
+                <h3>Add a child</h3>
+                
+                <br>
+                {{#if errorMessages}}
+                    {{#each errorMessages}}
+                        {{this}}
+                    {{/each}}
+                {{/if}}
+                <br>
+                
+                <input type="text" name="name" placeholder="Name"/>
+        
+                Gender:
+                <input type="radio" name="gender" value="girl" id="F"/><label for="F">Girl</label>
+                <input type="radio" name="gender" value="boy" id="M"/><label for="M">Boy</label>
+        
+                <label for="dobD">Date of birth:</label>
+                <input type="number" name="dobD" id="dobD" min="1" max="31" maxlength="2" placeholder="DD">
+                <input type="number" name="dobM" min="1" max="12" maxlength="2" placeholder="MM">
+                <input type="number" name="dobY" maxlength="4" placeholder="YYYY">
+                <button type="submit" name="add">Add</button>
+            </form>
+        </div>
+    </div>
+	-->
+
+</template>

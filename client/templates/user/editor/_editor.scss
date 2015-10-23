@@ -1,0 +1,256 @@
+$helpTextHeight: 50px;
+
+.editor-title{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 100;
+	
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+
+.editor{
+	
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+		
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background: #f0f0f0;
+	overflow: hidden;
+	
+	&.no-cursor{
+		cursor: none;
+	}
+	
+	.editor-help{
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		text-align: center;
+	}
+	
+	.editor-region{
+		
+		position: absolute;
+		transition: transform 1s, width 1s, height 1s, opacity 1s;
+		
+		&.hidden{
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
+	
+	.editor-ui{
+		position: absolute;
+		transform: translate3d(-50%, -50%, 0);
+		top: 50%;
+		left: 50%;
+	}
+	
+	.editor-canvas{
+		
+		width: 100%;
+		padding-bottom: 141%;
+		background: white;
+		
+		& canvas{
+						
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			
+		}
+		
+	}
+		
+	.editor-pen{
+		
+		margin-top: -15px;
+		margin-left: -15px;
+		position: absolute;
+		width: 30px;
+		height: 30px;
+		border: 2px solid white;
+		border-radius: 50% 50%;
+		z-index: 100;
+		pointer-events: none;
+		
+		/*
+		$penWidth: 15;
+		$penLength: 50;
+		
+		@function pythagoras($x){
+			@return sqrt($x * $x + $x * $x);
+		}
+		
+		@function invPythagoras($x){
+			@return sqrt( ($x * $x) / 2 );
+		}		
+		
+		position: absolute;
+		width: $penWidth * 1px;
+		height: $penLength * 1px;
+		pointer-events: none;
+		z-index: 100;
+		border: 1px solid white;
+		transform-origin: ( ($penWidth/2) * 1px ) ( ($penLength + ($penWidth/2)) * 1px );
+		transform: rotate(45deg);
+		margin-top: ( $penLength + invPythagoras($penWidth) ) * -1px;
+		
+		&:after,
+		&:before{
+			content: '';
+			position: absolute;
+			transform: rotate(-45deg);
+		}
+						
+		&:before{
+			width: invPythagoras($penWidth) * 1px;
+			height: invPythagoras($penWidth) * 1px;
+			left: 1px;
+			top: ($penLength - $penWidth/2) * 1px;
+			z-index: 101;
+			border-width: 5px;
+			border-style: solid;
+			border-top-color: transparent;
+			border-right-color: transparent;
+			border-left-color: white;
+			border-bottom-color: white;
+		}
+		
+		&:after{
+			width: invPythagoras($penWidth - 2) * 1px;
+			height: invPythagoras($penWidth - 2) * 1px;
+			left: 2px;
+			background: inherit;
+			top: ($penLength - $penWidth/2 + 1) * 1px;
+			z-index: 101;
+		}
+		*/
+		&.hidden{
+			display: none;
+		}
+	}
+	
+	.editor-shape-controls{
+		
+		position: absolute;
+		z-index: 1000;
+		
+		&>div{
+			position: absolute;
+			color: white;
+			border-radius: 50% 50%;
+			border: 2px solid white;
+			background: black;
+			width: 30px;
+			height: 30px;
+			cursor: pointer;
+			transition: transform 0.2s;
+			
+			&:hover{
+				transform: scale(1.15);
+			}
+
+		}
+		
+		
+		@mixin controls-line{
+			content: '';
+			position: absolute;
+			width: 16px;
+			height: 2px;
+			top: 12px;
+			left: 5px;
+			background: white;
+			border-radius: 1px;
+		}
+		
+		.controls-scaledown{
+			top: -35px;
+			left: -35px;
+			
+			&:after{
+				@include controls-line;
+			}
+		}
+		
+		.controls-scaleup{
+			top: -35px;
+			left: 5px;
+			
+			&:before{
+				@include controls-line;
+				transform: rotate(90deg);
+			}
+			&:after{
+				@include controls-line;
+				
+			}
+
+		}
+		
+		.controls-delete{
+			top: 5px;
+			left: -15px;
+			
+			&:before{
+				@include controls-line;
+				transform: rotate(45deg);
+			}
+			&:after{
+				@include controls-line;
+				transform: rotate(-45deg);
+			}
+
+
+		}
+		
+		
+		
+	}
+	
+	.color-wheel,
+	.colors-button .icon {
+		width: 100%;
+		padding-bottom: 100%;
+		border-radius: 50% 50%;
+		background-image: url(img/colorWheel.jpg);
+		background-size: 100% 100%;	
+	}
+	
+	.editor-button{
+		
+		cursor: pointer;
+		width: 100%;
+		text-align: center;
+		
+		&:hover .icon{
+			transform: scale(1.05);
+		}
+		
+		.icon{
+			margin-bottom: 0.5em;
+			padding-bottom: 100%;
+			transition: transform 0.2s;
+		}
+		
+	}
+	
+}

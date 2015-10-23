@@ -1,0 +1,14 @@
+<template name="about">
+    <div class="row">
+        <div class="small-12 columns pad-top-4">  
+            <h2>How it Works</h2>
+            
+            <p>Explorers of Young Style</p>
+            
+            {{# if hasBrands }}
+                <p>We stock {{#each brands}}<strong>{{name}}</strong>, {{/each}}</p>
+            {{/if}}
+            
+        </div>
+    </div>
+</template>

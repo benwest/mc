@@ -1,0 +1,87 @@
+<template name="admin_inventory">
+    
+    <div class="row">
+        
+        <div class="small-12 columns pad-top-1 pad-bottom-1">
+    
+            <h2>Inventory</h2>
+        
+        </div>
+    
+    </div>
+    
+    <div class="row">
+        
+        <div class="small-2 columns">
+            <select id="filter-garments">
+                <option value="">All</option>
+                {{#each garmentTypes}}
+                    <option value="{{this}}">{{this}}</option>
+                {{/each}}
+            </select>
+        </div>
+        
+        <div class="small-5 columns">
+            <input id="inventory-search" type="text" placeholder="Search">
+        </div>
+        
+        <div class="small-1 columns end">
+            <input id="inventory-size-filter" type="text" placeholder="Size">
+        </div>
+        
+    </div>
+    
+    {{> admin_inventoryListHeadings }}
+    
+    {{# with inventoryQuery }}
+    
+        {{# each filteredInventory }}
+    
+            {{> admin_inventoryListRow }}
+        
+        {{/ each }}
+    
+    {{/ with }}
+    
+    {{#if errorMessages}}
+        {{#each errorMessages}}
+            {{this}}
+        {{/each}}
+    {{/if}}
+    
+    <form>
+        <div class="row">
+            
+            <div class="small-7 columns">
+                <div class="row">
+                    <div class="small-6 columns">
+                        <input type="text" name="brand" placeholder="Brand">
+                    </div>
+                    <div class="small-6 columns">
+                        <input type="text" name="garment" placeholder="Garment">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="small-12 columns">
+                        <input type="text" name="description" placeholder="Description">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="small-1 columns">
+                <input type="text" name="size" placeholder="Size">
+                <input type="number" name="cost" min="0.01" step="0.01" placeholder="£0.00">
+            </div>
+            
+            <div class="small-2 columns">
+                <input type="number" name="quantity" min=1 placeholder="Quantity">
+            </div>
+            
+            <div class="small-2 columns">
+                <button type="submit">Add SKU</button>
+            </div>
+            
+        </div>
+    </form>
+    
+</template>

@@ -1,0 +1,32 @@
+@import "vendor/_normalize";
+@import "vendor/foundation/_settings";
+@import "vendor/_foundation";
+
+@import "vendor/math/_math";
+
+@import 'utils/_variables.scss';
+@import 'utils/_classCreator.scss';
+
+@import 'globals/reset.scss';
+@import 'globals/_typography.scss';
+@import 'globals/_colors.scss';
+@import 'globals/_pads_gaps.scss';
+@import 'globals/_notifications.scss';
+@import 'globals/_swatch.scss';
+@import 'globals/_layout.scss';
+
+@import '../templates/global/master/_master.scss';
+@import '../templates/global/inlineInput/_inlineInput.scss';
+@import '../templates/global/inlineSelect/_inlineSelect.scss';
+@import '../templates/global/universePreview/_universePreview.scss';
+
+@import '../templates/anon/header/_header.scss';
+
+@import '../templates/user/profile/_profile.scss';
+@import '../templates/user/child/_child.scss';
+@import '../templates/user/editor/_editor.scss';
+
+@import '../templates/admin/_main.scss';
+@import '../templates/admin/customers/_customers.scss';
+@import '../templates/admin/customers/_customerList.scss';
+@import '../templates/admin/customers/_customerDetail.scss';

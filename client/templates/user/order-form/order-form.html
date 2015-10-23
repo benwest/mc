@@ -1,0 +1,51 @@
+<template name="orderForm">
+    
+    <h1>New Order</h1>
+    <h3>for {{name}}</h3>
+    
+    {{#if errorMessages}}
+        {{#each errorMessages}}
+            {{this}}
+        {{/each}}
+    {{/if}}
+    
+    <p class="text-2">You're ordering clothes based on these colours:</p>
+    
+    {{#each universe.colors}}
+    	<div class="swatch text-2" style="background: {{this}}"></div>
+    {{/each}}
+    
+    <p class="text-2">And these looks:</p>
+    
+    {{#each looks}}
+    	{{this}}
+    {{/each}}
+    
+	<p class="text-2">
+		
+		{{name}} needs
+		
+		{{#if sessionGet 'orderFormSelectingGarments'}}
+			
+			{{#each selectedGarments }}
+				<b>{{name}}</b><a class="remove-garment no-line">&times;</a>{{#if notLast}}, {{/if}}
+			{{/each}}
+						
+			{{#unless allGarmentsSelected}}{{#if selectedGarments }} and {{/if}}{{> inlineSelect id="orderFormNewGarment" options=garmentNames }}{{/unless}}
+			.
+			{{#if selectedGarments }}<a class='select-garments'>That's all</a>{{/if}}
+		
+		{{else}}
+		
+			{{{ list selectedGarments 'name' }}}. <a class="select-garments">Change</a>
+		
+		{{/if}}
+		
+		{{#if sessionGet 'orderFormHasSelectedGarments' }}
+		
+			<p class='text-2'><b>Deliver this order to:</b></p>
+		
+		{{/ if }}
+	</p>
+	    
+</template>

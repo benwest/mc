@@ -1,0 +1,39 @@
+<template name="dispatchedOrder">
+    
+    <h3>Items</h3>
+    
+    {{#each items}}
+    
+        <div class="row">
+            
+            <div class="small-6 columns">
+                
+                {{> itemSummary }}
+                
+            </div>
+            
+            <div class="small-6 columns">
+	            
+	            {{#unless markedForReturn}}
+	            
+		            {{#unless returningItem}}
+		            	<button class="return-start">Arrange return</button>
+		            {{else}}
+			            <form class="return-form">
+				            I want to return
+							<input type="number" class="return-quantity" value="{{quantity}}">
+							because
+							<input type="text" class="return-feedback">
+							<button type="submit">Confirm Return</button>
+			            </form>
+		            {{/unless}}
+	            
+	            {{/unless}}
+	            
+            </div>
+            
+        </div>
+    
+    {{/each}}
+    
+</template>

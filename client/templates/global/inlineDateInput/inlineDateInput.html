@@ -1,0 +1,19 @@
+<template name="inlineDateInput">
+	
+	{{> inlineSelect options=monthNames id=monthInputId }}
+	
+	{{#if sessionGet monthInputId }}
+	
+		the {{> inlineInput type="number" max=daysInMonth step="1" id=dayInputId placeholder="day" autofocus=true }}<sup>{{ ordinal (sessionGet dayInputId) }}</sup>
+		
+		{{#if sessionGet dayInputId }}
+		
+			, {{> inlineInput type="number" id=yearInputId placeholder="year" maxLength=4 }}{{after}}
+		
+		{{/ if }}
+	
+	{{/ if }}
+	
+	<input type="hidden" id="{{ id }}" class="{{ valid}}" value="{{ value }}">
+
+</template>

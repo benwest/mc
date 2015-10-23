@@ -1,0 +1,32 @@
+<template name="login">
+  <div class="row">
+      <div class="small-12 medium-6 columns pad-top-4">
+
+        <h2>Log In</h2>
+        
+        <form>
+            {{#if errorMessages}}
+              {{#each errorMessages}}
+                {{this.type}}: {{this.msg}}
+              {{/each}}
+            {{/if}}
+        
+            <input type="email" name="email" placeholder="Your Email" />
+            {{#unless forgotPassword}}
+              <input type="password" name="password" placeholder="Password" />
+            {{/unless}}
+            <button type="submit">
+              {{#if forgotPassword}}
+                Reset Password
+              {{else}}
+                Log in
+              {{/if}}
+            </button>
+        </form>
+        
+        <a class="forgotPassword">Forgot password?</a>
+        
+      </div>
+  </div>   
+</template>
+

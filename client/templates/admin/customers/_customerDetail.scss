@@ -1,0 +1,34 @@
+.order-details{
+    
+    .color{
+        width: 2rem;
+        height: 2rem;
+        margin-right: 1rem;
+        border-radius: 50% 50%;
+    }
+    
+}
+
+.order-item-picker{
+    
+    .table-header{
+        background: $text;
+        color: $background;
+        font-weight: bold;
+    }
+    
+    .item-row{
+        padding: 0.5rem 0;
+        border-bottom: 1px solid black;
+    }
+    
+    .items-order{
+        border-right: 1px solid black;
+    }
+    
+    .scroller{
+        height: 15rem;
+        overflow: scroll;
+    }
+    
+}

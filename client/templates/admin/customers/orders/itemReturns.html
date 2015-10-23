@@ -1,0 +1,35 @@
+<template name="admin_itemReturns">
+
+	{{#each items}}
+	
+		{{#if notifications}}
+			<div class="row">
+				<div class="small-12 columns">
+					<ul class="notifications">
+						{{#each notifications}}
+							<li>{{this}}</li>
+						{{/each}}
+					</ul>
+				</div>
+			</div>
+		{{/if}}
+
+		<div class="row">
+			
+			<div class="small-8 columns">
+				
+				{{> itemSummary }}
+				
+			</div>
+			
+			<div class="small-4 columns">
+				
+				{{markedForReturn}} marked for return, <input class="returned-input" type="number" value="{{returned}}" style="display: inline; width: 3rem"> returned
+				
+			</div>
+			
+		</div>
+	
+	{{/each}}
+	
+</template>

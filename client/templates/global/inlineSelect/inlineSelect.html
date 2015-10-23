@@ -1,0 +1,15 @@
+<template name="inlineSelect">
+
+	<div class="inline-select {{#unless value}}open{{/unless}}">
+		{{value}}
+		<div class="inline-select-options {{#if scrolling}}scroll{{/if}}">
+			{{#each options}}
+				<div class="inline-select-option">{{this}}</div>
+			{{/each}}
+		</div>
+		{{#if scrolling}}<div class="scroll-fadeout"></div>{{/if}}
+	</div>
+	
+	<input type="hidden" id="{{ id }}" class="{{#if value}}valid{{/if}}" value="{{ value }}">
+
+</template>

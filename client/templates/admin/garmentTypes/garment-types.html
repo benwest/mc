@@ -1,0 +1,44 @@
+<template name="admin_garment_types">
+    
+    <div class="row">
+        <div class="small-12 columns pad-top-1 pad-bottom-1">
+            
+            <h2>Garment Types</h2>
+            
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="small-12 columns">
+        
+            <ul class="no-bullet">
+            
+                {{#each garment_type}}
+                
+                    <li>
+                        
+                        {{name}} <a class="remove-garment-type">&times;</a>
+                        
+                    </li>
+                
+                {{/each}}
+                
+            </ul>
+            
+            
+            <div class="row pad-top-2">
+                
+                <form>
+                    <div class="small-10 columns">
+                        <input type="text" name="name" placeholder="Add new type">
+                    </div>
+                    
+                    <div class="small-2 columns">
+                        <button type="submit">Add</button>
+                    </div>
+                </form>
+        
+            </div>
+        </div>
+    </div>
+</template>

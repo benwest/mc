@@ -1,0 +1,17 @@
+<template name='cancelledOrder'>
+    
+    {{# unless feedback }}
+    
+        Please let us know why you cancelled your order.
+        
+        <textarea class="order-feedback"></textarea>
+        
+        <button class="send-feedback">Send Feedback</button>
+        
+    {{ else }}
+    
+        Thank you for your feedback.
+    
+    {{/ unless }}
+    
+</template>

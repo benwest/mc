@@ -1,0 +1,36 @@
+<template name="admin_customers">
+    
+    <div class="customer-panels">
+        
+        <div class="row">
+    
+            {{# admin_leftPanel }}
+                
+                {{> admin_customerList }}
+                
+            {{/ admin_leftPanel}}
+            
+            {{# admin_rightPanel }}
+            
+                {{# if this }}
+                
+                    {{# with this }}
+                        {{> admin_customerDetail }}
+                    {{/ with}}
+                    
+                {{ else }}
+                
+                    {{# with 'customer' }}
+                        {{> admin_blankRightPanel }}
+                    {{/ with}}
+                    
+                {{/ if }}
+                
+            {{/ admin_rightPanel }}
+            
+        </div>
+    
+    </div>
+
+    
+</template>

@@ -1,0 +1,14 @@
+$pad-gap-class-names: (pad-top padding-top),
+  (pad-left padding-left),
+  (pad-bottom padding-bottom),
+  (pad-left padding-left),
+  (pad padding),
+  (gap-top margin-top),
+  (gap-bottom margin-bottom),
+  (gap-left margin-left),
+  (gap-right margin-right),
+  (gap margin);
+$pad-gap-count: 6;
+$pad-gap-step: 0.25;
+
+@include class-creator($pad-gap-class-names, $pad-gap-count, $pad-gap-step, rem);

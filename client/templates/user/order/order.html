@@ -1,0 +1,28 @@
+<template name="order">
+    
+    <h2>{{childName}}'s Order</h2>
+    
+    #{{number}}<br>
+    
+    Status: <strong>{{ getOrderStatus this }}</strong><br>
+    
+    Garments requested: <strong>{{list garments}}</strong><br>
+    
+    Deliver to: <strong>{{address}}</strong><br>
+
+    Estimated delivery:
+    <strong>
+        {{# if estimatedDelivery }}
+            {{estimatedDelivery}}
+        {{else}}
+            Pending
+        {{/if}}
+    </strong>
+    <br>
+    {{#if returnBy}}
+    	Returns due by <strong>{{returnBy}}</strong>
+    {{/if}}
+    
+    {{> Template.dynamic template=templateName }}
+    
+</template>

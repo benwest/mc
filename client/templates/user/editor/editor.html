@@ -1,0 +1,85 @@
+<template name="editor">
+
+	<div class="editor-title row">
+		
+		<div class="small-3 columns">
+			{{#if canUndo}}<a id="undo">Undo</a>{{/if}}&nbsp;
+		</div>
+		
+		<div class="small-6 columns text-center">
+			{{name}}'s Universe
+		</div>
+		
+		<div class="small-3 columns text-right">
+			<a id="finished">Finished!</a>
+		</div>		
+		
+	</div>
+
+	<div class="editor {{sessionGet 'editorOrientation'}} {{#if sessionGet 'editorShowPen'}}no-cursor{{/if}}">
+		
+		<div class="editor-help">
+			{{ helpText }}
+		</div>
+		
+		<div class="editor-pen {{#unless sessionGet 'editorShowPen'}}hidden{{/unless}}"></div>
+		
+		<div class="editor-shape-controls" style="{{ shapeControlsStyle }}">
+			
+			<div class="controls-scaleup"></div>
+			<div class="controls-scaledown"></div>
+			<div class="controls-delete"></div>
+			
+		</div>
+		
+		<div class="editor-region" style="{{ canvasStyle }}">
+			
+			<div class="editor-ui editor-canvas">
+								
+				<canvas width=420 height=594></canvas>
+				
+			</div>
+								
+		</div>
+		
+		<div class="editor-region" style="{{ colorWheelStyle }}">
+			
+			<div class="editor-ui color-wheel"></div>
+			
+		</div>
+		
+		<div class="editor-region" style="{{ colorButtonStyle }}">
+
+			<div class="editor-ui editor-button colors-button">
+				<div class="icon"></div>
+				<div class="label">
+					<a>Pick a colour</a>
+				</div>
+			</div>
+						
+		</div>
+				
+		<div class="editor-region" style="{{ lookButtonStyle }}">
+
+			<div class="editor-ui editor-button look-button">
+				<div class="icon"></div>
+				<div class="label">
+					<a>Pick a look</a>
+				</div>
+			</div>
+						
+		</div>
+				
+		<div class="editor-region" style="{{ doneButtonStyle }}">
+			
+			<div class="editor-ui editor-button done-button">
+				
+				<a>Done</a>
+				
+			</div>
+			
+		</div>
+		
+	</div>
+
+</template>
