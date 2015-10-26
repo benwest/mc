@@ -14,7 +14,8 @@ Meteor.startup(function(){
             password: 'admin',
             profile: {
                 firstName: 'Anja',
-                lastName: 'Stavnsbjerg'
+                lastName: 'Stavnsbjerg',
+                addresses: []
             }
         });
     
@@ -23,7 +24,8 @@ Meteor.startup(function(){
             password: 'whatever',
             profile: {
                 firstName: 'William',
-                lastName: 'Dadson'
+                lastName: 'Dadson',
+                addresses: []
             }
         });
     
@@ -32,7 +34,8 @@ Meteor.startup(function(){
             password: 'whatever',
             profile: {
                 firstName: 'Stephen',
-                lastName: 'Dadson'
+                lastName: 'Dadson',
+                addresses: []
             }
         });
     
@@ -41,7 +44,8 @@ Meteor.startup(function(){
             password: 'whatever',
             profile: {
                 firstName: 'Emily',
-                lastName: 'Mumsworth'
+                lastName: 'Mumsworth',
+                addresses: []
             }
         });
     
@@ -50,7 +54,8 @@ Meteor.startup(function(){
             password: 'whatever',
             profile: {
                 firstName: 'Sheila',
-                lastName: 'Mumsworth'
+                lastName: 'Mumsworth',
+                addresses: []
             }
         });
     
@@ -130,19 +135,45 @@ Meteor.startup(function(){
     if(!GarmentTypes.find().count()){
         
         GarmentTypes.insert({
-            name: 'T-Shirts'
+            name: 'T-Shirts',
+            sizing: 'tops',
+            gender: 'Both'
         });
         
         GarmentTypes.insert({
-            name: 'Jumpers'
+            name: 'Jumpers',
+            sizing: 'tops',
+            gender: 'Both'
         });
         
         GarmentTypes.insert({
-            name: 'Trousers'
+            name: 'Trousers',
+            sizing: 'bottoms',
+            gender: 'Both'
         });
         
         GarmentTypes.insert({
-            name: 'Socks'
+            name: 'Socks',
+            sizing: 'shoes & socks',
+            gender: 'Both'
+        });
+        
+        GarmentTypes.insert({
+            name: 'Skirts',
+            sizing: 'bottoms',
+            gender: 'Both'
+        });
+        
+        GarmentTypes.insert({
+            name: 'Dresses',
+            sizing: 'dresses',
+            gender: 'Both'
+        });
+                
+        GarmentTypes.insert({
+            name: 'Shoes',
+            sizing: 'shoes & socks',
+            gender: 'Both'
         });
         
     }

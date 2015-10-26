@@ -1,18 +1,18 @@
 <template name="inlineMultiSelect">
 
 	{{#if modifying }}
-		
-		{{#each options }}
-			<b>{{name}}</b><a class="remove-selection no-line">&times;</a>{{#if notLast}}, {{/if}}
+	
+		{{#each values }}
+			<b>{{name}}</b><a class="remove-selection no-line">&times;</a>{{ listSeparator .. }}
 		{{/each}}
 					
-		{{#unless allOptionsSelected}}{{#if selectedOptions }} and {{/if}}{{> inlineSelect id=id options=options }}{{/unless}}
+		{{#unless allOptionsSelected}}{{> inlineSelect id=selectId options=filteredOptions }}{{/unless}}
 		.
-		{{#if selectedOptions }}<a class='select-garments'>That's all</a>{{/if}}
+		{{#if values }}<a class='select-modify'>That's all</a>{{/if}}
 	
 	{{else}}
 	
-		{{ list selectedOptions 'name' }}. <a class="select-garments">Change</a>
+		{{ list values 'name' }}. <a class="select-modify">Change</a>
 	
 	{{/if}}
 

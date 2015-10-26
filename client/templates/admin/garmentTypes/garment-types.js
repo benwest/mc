@@ -1,6 +1,36 @@
 Template.admin_garment_types.helpers({
-    'garment_type': function(){
+    'garmentTypes': function(){
         return GarmentTypes.find({});
+    },
+    'garmentTypeSchema': function(){
+	    
+	    return {
+		    collection: 'GarmentTypes',
+		    fields: [
+			    {
+				    name: 'name',
+				    type: 'text',
+				    required: 'true'
+			    },{
+				    name: 'sizing',
+				    type: 'text'
+			    },{
+				    name: 'minAge',
+				    niceName: 'Min age',
+				    type: 'number'
+			    },{
+				    name: 'maxAge',
+				    niceName: 'Max age',
+				    type: 'number'
+			    },{
+				    name: 'gender',
+				    type: 'select',
+				    options: 'Both, Boy, Girl',
+				    'default': 'Both'
+			    }
+		    ]
+	    }
+	    
     }
 });
 
@@ -11,12 +41,14 @@ Template.admin_garment_types.events({
         event.preventDefault();
         
         var name = template.$('[name=name]').val();
+        var sizing = template.$('[name=sizing]').val();
         
         if(!name) return;
         
-        GarmentTypes.insert({name: name});
+        GarmentTypes.insert({name: name, sizing: sizing});
         
-        template.$('[name=name]').val('');
+        template.$('[name=name]').val('').focus();
+        template.$('[name=sizing]').val('');
         
     },
     

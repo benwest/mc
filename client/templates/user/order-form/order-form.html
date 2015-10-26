@@ -25,27 +25,33 @@
 		
 		{{name}} needs
 		
-		{{#if sessionGet 'orderFormSelectingGarments'}}
+		{{> inlineMultiSelect id="orderFormGarments" options=garmentNames }}
+	</p>
+	
+	{{#if sessionGet 'orderFormGarmentsValid' }}
+	
+		<p class='text-2'>
+		
+			{{ heShe ../gender }} wears 
 			
-			{{#each selectedGarments }}
-				<b>{{name}}</b><a class="remove-garment no-line">&times;</a>{{#if notLast}}, {{/if}}
-			{{/each}}
-						
-			{{#unless allGarmentsSelected}}{{#if selectedGarments }} and {{/if}}{{> inlineSelect id="orderFormNewGarment" options=garmentNames }}{{/unless}}
-			.
-			{{#if selectedGarments }}<a class='select-garments'>That's all</a>{{/if}}
+			{{#each sizingInstructions}}
+			
+				{{> inlineInput id=name value=value placeholder="size" }} {{name}} {{ listSeparator length i }}
+			
+			{{/each}}.
 		
-		{{else}}
+		</p>
 		
-			{{{ list selectedGarments 'name' }}}. <a class="select-garments">Change</a>
+		{{#if sizingValid }}
+		
+			<p class='text-2'><b>Deliver this order to:</b></p>
+			
+			{{> addressSelect id="orderFormAddress" }}
+			
 		
 		{{/if}}
 		
-		{{#if sessionGet 'orderFormHasSelectedGarments' }}
-		
-			<p class='text-2'><b>Deliver this order to:</b></p>
-		
-		{{/ if }}
-	</p>
+	
+	{{/ if }}
 	    
 </template>

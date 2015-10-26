@@ -1,9 +1,10 @@
 Template.inlineSelect.onCreated(function(){
-	Session.set(this.data.id, false);
+	Session.set(this.data.id, this.data.value || false);
 });
 
 Template.inlineSelect.onDestroyed(function(){
 	Session.set(this.data.id, false);
+	delete Session.keys[this.data.id];
 })
 
 Template.inlineSelect.helpers({
@@ -26,7 +27,7 @@ Template.inlineSelect.helpers({
 Template.inlineSelect.events({
 	
 	'click .inline-select': function(event, template){
-						
+		
 		Session.set( template.data.id, false );
 		
 	},

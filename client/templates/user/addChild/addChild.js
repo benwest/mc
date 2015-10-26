@@ -25,6 +25,7 @@ Template.addChild.events({
 			name: name,
 			dob: moment().year(year).month(month).date(date).toDate(),
 			gender: gender,
+			sizing: {},
 			universe: {
 				shapes: [],
 				colors: [],

@@ -1,3 +1,8 @@
+sessionDelete = function(key){
+	Session.set(key, false);
+	delete Session.keys[key];
+}
+
 deepClone = function(obj) {
     var copy;
 
@@ -80,11 +85,33 @@ numberAsWords = function(num){
 
 Template.registerHelper('numberAsWords', numberAsWords);
 
+Template.registerHelper('equals', function(thing1, thing2){
+	return thing1 === thing2;
+})
+
+Template.registerHelper('or', function(thing1, thing2){
+	return thing1 || thing2;
+})
+
+Template.registerHelper('oneOf', function(value, list){
+	return _.contains( list.split(' '), value );
+})
+
+lowerCase = function(string){
+	return string.toLowerCase();
+}
+
 capitalise = function(string){
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+titleCase = function(string){
+	return _.map(string.split(' '), capitalise).join(' ');
+}
+
+Template.registerHelper('lowerCase', lowerCase);
 Template.registerHelper('capitalise', capitalise);
+Template.registerHelper('titleCase', titleCase);
 
 function genderWordSelectorFactory(maleWord, femaleWord){
 	
@@ -126,9 +153,11 @@ Template.registerHelper('isAdmin', function(){
     return Meteor.user() && Meteor.user().username === 'admin';
 });
 
-Template.registerHelper('getAge', function(dob){
-    return moment().diff(dob, 'years');
-});
+getAge = function(dob){
+	return moment().diff(dob, 'years');
+}
+
+Template.registerHelper('getAge', getAge);
 
 Template.registerHelper('money', function(number){
     return number.toFixed(2);
@@ -154,7 +183,7 @@ Template.registerHelper('sessionGet', function(key){
 
 Template.registerHelper('list', function(array, pluck){
     
-    if(pluck) array = _.pluck(array, pluck);
+    if( array[0][pluck] ) array = _.pluck(array, pluck);
     
     var ret = '';
     
@@ -170,8 +199,10 @@ Template.registerHelper('list', function(array, pluck){
     
 })
 
-Template.registerHelper('listSeparator', function(list, i){
-	if(i === list.length - 2) return ' and';
+Template.registerHelper('listSeparator', function(length, i){
+	if(_.isArray(length)) length = length.length;
+	if(length === 1 || i === length - 1) return '';
+	if(i === length - 2) return ' and';
 	return ',';
 })
 
