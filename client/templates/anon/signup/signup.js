@@ -56,7 +56,8 @@ Template.signup.events({
             password: password,
             profile: {
                 firstName: firstName,
-                lastName: lastName
+                lastName: lastName,
+                addresses: []
             },
         }, function(error) {
                 

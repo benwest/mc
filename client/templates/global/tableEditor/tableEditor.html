@@ -1,0 +1,89 @@
+<template name='tableEditor'>
+	
+	<div class="row">
+		
+		{{#each fields }}
+		
+			<div class="small-{{columns}} columns">
+				<b>{{capitalise (or niceName name) }}</b>
+			</div>
+		
+		{{/each}}
+		
+		<div class="small-2 columns">
+			&nbsp;
+		</div>
+		
+	</div>
+	
+	{{#each values}}
+	
+		<form class="table-update">
+	
+			<div class="row">
+				
+				{{#each fillFields ../fields }}
+				
+					<div class="small-{{columns}} columns">
+						
+						{{> tableEditorField }}
+						
+					</div>
+				
+				{{/each}}
+				
+				<div class="small-1 columns">
+					<button type="submit">Update</button>
+				</div>
+				
+				<div class="small-1 columns">
+					<a class="remove-item">&times;</a>
+				</div>
+				
+			</div>
+			
+		</form>
+	
+	{{/each}}
+	
+	<form class="table-add">
+	
+		<div class="row">
+			
+			{{#each fields}}
+			
+				<div class="small-{{columns}} columns">
+					
+					{{> tableEditorField }}
+					
+				</div>
+			
+			{{/each}}
+			
+			<div class="small-2 columns">
+				
+				<button type="submit">Add</button>
+				
+			</div>
+			
+		</div>
+	
+	</form>
+
+</template>
+
+<template name="tableEditorField">
+
+	{{#if oneOf type 'text number' }}
+	
+		{{> inlineInput id=fieldId type=type value=value }}
+	
+	{{/if}}
+	
+	{{#if equals type 'select' }}
+		
+		{{> inlineSelect id=fieldId placeholder=(capitalise name) options=options value=(or value default) }}
+		
+	{{/if}}
+
+</template>

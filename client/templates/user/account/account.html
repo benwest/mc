@@ -30,8 +30,10 @@
                 
             </form>
             
-            <strong>Delivery Address</strong><br>
+            <strong>Delivery Addresses</strong><br>
             
+            {{> addressSelect id="accountAddressSelect" }}
+            <!--
             {{#unless editAddress}}
                 {{ currentUser.profile.address }}<br>
                 <a class="edit-address">Change</a>
@@ -41,6 +43,8 @@
                     <button type="submit">Save</button>
                 </form>
             {{/unless}}
+            
+            -->
 
         </div>    
     </div>

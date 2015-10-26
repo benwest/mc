@@ -2,12 +2,19 @@ Template.inlineInput.onCreated(function(){
 	this.data.min = this.data.min ? Number(this.data.min) : -Infinity;
 	this.data.max = this.data.max ? Number(this.data.max) : Infinity;
 	this.data.maxLength = this.data.maxLength ? Number(this.data.maxLength) : Infinity;
-	Session.set( this.data.id, false );
+	this.data.placeholder = this.data.placeholder || '';
+	Session.set( this.data.id, this.data.value || false );
 });
 
 Template.inlineInput.onRendered(function(){
-	if(this.data.autofocus) this.$('.inline-input').focus();
+	this.input = this.$('.inline-input');
+	if(this.data.autofocus) this.input.focus();
+	this.input.text(this.data.value || this.data.placeholder || '');
 });
+
+Template.inlineInput.onDestroyed(function(){
+	sessionDelete(this.data.id);
+})
 
 Template.inlineInput.helpers({
 	
@@ -16,7 +23,10 @@ Template.inlineInput.helpers({
 	},
 	
 	'value': function(){
-		return Session.get( this.id );
+		var value = Session.get( this.id );
+		var input = Template.instance().input;
+		if(value === false && input) input.text(this.placeholder || '');
+		return value;
 	},
 	
 	'valid': function(){
@@ -29,8 +39,11 @@ Template.inlineInput.helpers({
 Template.inlineInput.events({
 		
 	'keydown span': function(event, template){
-		
-		if(event.which === 110) event.preventDefault;
+				
+		if(event.which === 13) {
+			event.preventDefault();
+			$(event.target).trigger('submit');
+		};
 		
 		if( 
 			// Allow backspace, delete, tab, escape, .
@@ -73,7 +86,7 @@ Template.inlineInput.events({
 		
 		var span = $(event.target);
 		var text = span.text();
-		
+				debugger;
 		if( this.placeholder !== '' && text === '' ) span.text(this.placeholder);
 		
 		Session.set( template.data.id, text );

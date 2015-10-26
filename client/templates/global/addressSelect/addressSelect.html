@@ -1,0 +1,23 @@
+<template name="addressSelect">
+
+	<ul class="small-block-grid-3">
+		
+		{{#each addresses}}
+		
+			<li>{{{html}}}</li>
+		
+		{{/each}}
+		
+		<li>
+		
+			{{#each newAddressLines }}
+			
+				{{> inlineInput id=id value=value placeholder=placeholder }}<br>
+				
+			{{/each}}
+		
+		</li>
+		
+	</ul>
+
+</template>

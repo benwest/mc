@@ -23,60 +23,53 @@ Template.orderForm.helpers({
 		return 'orderFormGarment' + this.valueOf();
 	},
 	'garmentNames': function(){
-		var names = _.pluck( GarmentTypes.find({}).fetch(), 'name' );
+		var child = this;
+		var age = getAge(child.dob);
+		var garments = GarmentTypes.find({}).fetch();
 		var selected = Session.get(SELECTED_GARMENTS);
-		var ret = _.filter( names, function(name){
-			return !_.some( selected, function(garment){
-				return garment.name === name
+		var ret = _.filter( garments, function(garment){
+			if( garment.gender !== 'Both' && garment.gender.toLowerCase !== child.gender ) return false;
+			if( garment.minAge && garment.minAge >= age ) return false;
+			if( garment.maxAge && garment.maxAge <= age ) return false;
+			if( _.some( selected, function(selectedGarment){
+				return garment.name === selectedGarment.name;
+			}) ) return false;
+			return true;
+		});
+		return _.pluck(ret, 'name').join(', ');
+	},
+	'sizingInstructions': function(){
+		var child = this;
+		var list = _.chain(Session.get('orderFormGarments'))
+			.pluck('name')
+			.map(function(garment){
+				return GarmentTypes.findOne({name: garment}).sizing;
 			})
-		}).join(', ');
-		console.log(ret);
-		return ret;
+			.uniq()
+			.map(function(name, i){
+				return {
+					name: name,
+					i: i,
+					value: child.sizing[name] || false
+				}
+			})
+			.value();
+		
+		Session.set('orderFormSizing', list);
+		
+		return _.map(list, function(item){ item.length = list.length; return item })
 	},
-	'notLast': function(){
-		return this.i !== Session.get(SELECTED_GARMENTS).length - 1;
-	},
-	'selectedGarments': function(){
+	'sizingValid': function(){
 		
-		var selected = Session.get(SELECTED_GARMENTS)
-		var newGarment = Session.get('orderFormNewGarment');
+		var sizings = Session.get('orderFormSizing');
 		
-		if(newGarment) {
-			newGarment = GarmentTypes.findOne({name: newGarment});
-			newGarment.i = selected.length;
-			selected.push(newGarment);
-			Session.set('orderFormNewGarment', false);
-			Session.set(SELECTED_GARMENTS, selected);
-		}
+		return _.every(sizings, function(s){return Session.get(s.name)});
 		
-		return selected;
-		
-	},
-	'allGarmentsSelected': function(){
-		return Session.get(SELECTED_GARMENTS).length >= GarmentTypes.find({}).count();
 	}
 })
 
 Template.orderForm.events({
-    
-	'click .select-garments': function(event, template){
-		
-		Session.set('orderFormHasSelectedGarments', true);
-		Session.set(SELECTING_GARMENTS, !Session.get(SELECTING_GARMENTS));
-		
-	},
-	
-	'click .remove-garment': function(){
-		
-		var selected = Session.get(SELECTED_GARMENTS);
-		selected.splice(this.i, 1);
-		_.forEach(selected, function(garm, i){
-			garm.i = i;
-		})
-		Session.set(SELECTED_GARMENTS, selected);
-		
-	},
-    
+
     'click .place-order': function(event, template){
         
         var address = Session.get(ORDER_ADDRESS);
