@@ -1,5 +1,7 @@
 <template name="editor">
 
+<!--<canvas id="cropCanvas"></canvas>-->
+
 	<div class="editor-title row">
 		
 		<div class="small-3 columns">
@@ -24,20 +26,20 @@
 		
 		<div class="editor-pen {{#unless sessionGet 'editorShowPen'}}hidden{{/unless}}"></div>
 		
-		<div class="editor-shape-controls" style="{{ shapeControlsStyle }}">
-			
-			<div class="controls-scaleup"></div>
-			<div class="controls-scaledown"></div>
-			<div class="controls-delete"></div>
-			
-		</div>
-		
 		<div class="editor-region" style="{{ canvasStyle }}">
 			
 			<div class="editor-ui editor-canvas">
 								
-				<canvas width=420 height=594></canvas>
+				<canvas id="draw-canvas" width=420 height=594></canvas>
 				
+				<div class="editor-shape-controls" style="{{ shapeControlsStyle }}">
+					
+					<div class="controls-scaleup"></div>
+					<div class="controls-scaledown"></div>
+					<div class="controls-delete"></div>
+					
+				</div>
+		
 			</div>
 								
 		</div>
@@ -61,7 +63,7 @@
 				
 		<div class="editor-region" style="{{ lookButtonStyle }}">
 
-			<div class="editor-ui editor-button look-button">
+			<div class="editor-ui editor-button looks-button">
 				<div class="icon"></div>
 				<div class="label">
 					<a>Pick a look</a>
@@ -75,6 +77,50 @@
 			<div class="editor-ui editor-button done-button">
 				
 				<a>Done</a>
+				
+			</div>
+			
+		</div>
+		
+		<div class="editor-region" style="{{ lookPickerStyle }}">
+			
+			<div class="editor-ui look-picker">
+				
+				{{#each looks }}
+				
+					<div class="look-thumb" style="background-image: url({{lookPreview}})"></div>
+				
+				{{/each}}
+				
+			</div>
+			
+		</div>
+		
+		<div class="editor-region" style="{{lookNameStyle}}">
+			
+			<div class="editor-ui look-name">
+				{{ lookName }}
+			</div>
+			
+		</div>
+		
+		<div class="editor-region" style="{{selectedImageStyle}}">
+			
+			<div class="editor-ui selected-image" style="background-image: url({{selectedImage}})">
+				<canvas id="select-canvas"></canvas>
+			</div>
+						
+		</div>
+		
+		<div class="editor-region" style="{{imageListStyle}}">
+			
+			<div class="editor-ui image-list">
+				
+				<div class="image-list-container" style="transform: translateY({{selectedImageTranslate}}%)">
+					{{#each imageList}}
+						<div class="image-container {{selectedImageClass}}" style="background-image: url('{{url}}')"></div>					
+					{{/each}}
+				</div>
 				
 			</div>
 			

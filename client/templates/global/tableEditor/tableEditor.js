@@ -30,8 +30,6 @@ Template.tableEditor.events({
 	
 	'submit form': function(event, template){
 		
-		debugger;
-		
 		event.preventDefault();
 		
 		var form = $(event.target);

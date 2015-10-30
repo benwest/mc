@@ -113,6 +113,10 @@ Template.registerHelper('lowerCase', lowerCase);
 Template.registerHelper('capitalise', capitalise);
 Template.registerHelper('titleCase', titleCase);
 
+Template.registerHelper('ago', function(date){
+	return moment(date).fromNow();
+})
+
 function genderWordSelectorFactory(maleWord, femaleWord){
 	
 	return function(gender, capitalised){

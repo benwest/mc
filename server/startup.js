@@ -81,26 +81,6 @@ Meteor.startup(function(){
         
     }
     
-    if(!Universes.find({}).count()){
-        
-        Universes.insert({
-            name: 'Nautical'
-        });
-        
-        Universes.insert({
-            name: 'Great Outdoors'
-        });
-        
-        Universes.insert({
-            name: 'Summer Vibes'
-        });
-        
-        Universes.insert({
-            name: 'Disco'
-        });
-        
-    }
-    
     if(!Inventory.find().count()){
         
         Inventory.insert({
@@ -176,6 +156,254 @@ Meteor.startup(function(){
             gender: 'Both'
         });
         
+    }
+    
+    if(!LookImages.find({}).count()){
+	    
+	    var shells = Looks.insert({
+		    name: 'Sea shells on the sea shore'
+	    })
+	    
+	    var prints = Looks.insert({
+		    name: 'Pint-sized prints'
+	    })
+	    
+	    var happy = Looks.insert({
+		    name: 'Happy-go-lucky'
+	    })
+	    
+	    var basics = Looks.insert({
+		    name: 'Back to basics'
+	    })
+	    
+	    var roar = Looks.insert({
+		    name: 'Hear them roar'
+	    })
+	    
+	    var fjords = Looks.insert({
+		    name: 'Over the Fjords and Far Away'
+	    })
+	    
+	    var home = Looks.insert({
+		    name: 'Make Yourself at Home'
+	    })
+	    
+	    var glad = Looks.insert({
+		    name: 'Glad Rags'
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/1/img0.jpg',
+		    w: 683,
+		    h: 1024,
+		    owner: shells
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/1/img1.jpg',
+		    w: 683,
+		    h: 1024,
+		    owner: shells
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/1/img2.jpg',
+		    w: 693,
+		    h: 1024,
+		    owner: shells
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/1/img3.jpg',
+		    w: 1024,
+		    h: 683,
+		    owner: shells
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/2/img0.jpg',
+		    w: 447,
+		    h: 670,
+		    owner: prints
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/2/img1.jpg',
+		    w: 447,
+		    h: 670,
+		    owner: prints
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/2/img2.jpg',
+		    w: 740,
+		    h: 629,
+		    owner: prints
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/2/img3.jpg',
+		    w: 447,
+		    h: 670,
+		    owner: prints
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/2/img4.jpg',
+		    w: 492,
+		    h: 535,
+		    owner: prints
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/2/img5.jpg',
+		    w: 670,
+		    h: 1005,
+		    owner: prints
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/3/img0.jpg',
+		    w: 455,
+		    h: 683,
+		    owner: happy
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/3/img1.jpg',
+		    w: 447,
+		    h: 670,
+		    owner: happy
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/3/img2.jpg',
+		    w: 1024,
+		    h: 683,
+		    owner: happy
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/3/img3.jpg',
+		    w: 455,
+		    h: 683,
+		    owner: happy
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/4/img0.jpg',
+		    w: 670,
+		    h: 1005,
+		    owner: basics
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/4/img1.jpg',
+		    w: 670,
+		    h: 1005,
+		    owner: basics
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/4/img2.jpg',
+		    w: 683,
+		    h: 683,
+		    owner: basics
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/4/img3.jpg',
+		    w: 1024,
+		    h: 683,
+		    owner: basics
+	    })
+	    
+	    LookImages.insert({
+		    url: '/img/looks/4/img4.jpg',
+		    w: 456,
+		    h: 683,
+		    owner: basics
+	    })
+	    
+		LookImages.insert({
+		    url: '/img/looks/5/img0.jpg',
+		    w: 447,
+		    h: 670,
+		    owner: roar
+	    })
+	    
+		LookImages.insert({
+		    url: '/img/looks/5/img1.jpg',
+		    w: 446,
+		    h: 669,
+		    owner: roar
+	    })
+	    
+		LookImages.insert({
+		    url: '/img/looks/5/img2.jpg',
+		    w: 683,
+		    h: 683,
+		    owner: roar
+	    })
+	    
+		LookImages.insert({
+		    url: '/img/looks/5/img3.jpg',
+		    w: 456,
+		    h: 683,
+		    owner: roar
+	    })
+	    
+		LookImages.insert({
+		    url: '/img/looks/5/img4.jpg',
+		    w: 683,
+		    h: 1024,
+		    owner: roar
+	    })
+	    
+		LookImages.insert({
+		    url: '/img/looks/5/img5.jpg',
+		    w: 455,
+		    h: 683,
+		    owner: roar
+	    })
+	    
+		LookImages.insert({
+		    url: '/img/looks/6/img0.jpg',
+		    w: 447,
+		    h: 670,
+		    owner: fjords
+	    })
+	    
+		LookImages.insert({
+		    url: '/img/looks/6/img1.jpg',
+		    w: 365,
+		    h: 548,
+		    owner: fjords
+	    })
+	    
+		LookImages.insert({
+		    url: '/img/looks/6/img2.jpg',
+		    w: 670,
+		    h: 1005,
+		    owner: fjords
+	    })
+	    
+		LookImages.insert({
+		    url: '/img/looks/7/img0.jpg',
+		    w: 447,
+		    h: 670,
+		    owner: home
+	    })
+	    
+		LookImages.insert({
+		    url: '/img/looks/8/img0.jpg',
+		    w: 670,
+		    h: 1005,
+		    owner: glad
+	    })
+	    
+	    
+	    
     }
     
     var adminUser = Meteor.users.findOne({username: 'admin'});

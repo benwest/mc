@@ -45,8 +45,10 @@ $helpTextHeight: 50px;
 	
 	.editor-region{
 		
+		//border: 1px solid red;
 		position: absolute;
-		transition: transform 1s, width 1s, height 1s, opacity 1s;
+		transition: transform 0.5s, opacity 0.5s;
+		transform-origin: 0 0;
 		
 		&.hidden{
 			opacity: 0;
@@ -150,7 +152,7 @@ $helpTextHeight: 50px;
 	
 	.editor-shape-controls{
 		
-		position: absolute;
+		position: fixed;
 		z-index: 1000;
 		
 		&>div{
@@ -251,6 +253,79 @@ $helpTextHeight: 50px;
 			transition: transform 0.2s;
 		}
 		
+	}
+	
+	.looks-button .icon{
+		border-radius: 50% 50%;
+		border: $underlineWidth solid black;
+	}
+	
+	.look-picker{
+		width: 100%;
+		height: 100%;
+		
+		.look-thumb{
+			width: 33%;
+			height: 33%;
+			background-size: cover;
+			background-position: center center;
+			float: left;
+			cursor: pointer;
+		}
+		
+		
+	}
+	
+	.look-name{
+		font-size: 2em;
+		text-align: center;
+		width: 100%;
+	}
+	
+	.selected-image{
+		width: 100%;
+		height: 100%;
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	#select-canvas{
+		width: 100%;
+		height: 100%;
+	}
+	
+	.image-list{
+		
+		height: 0;
+		width: 100%;
+		
+		.image-list-container{
+			transition: transform 0.2s;
+		}
+		
+		.image-container{
+			
+			height: 0;
+			padding-bottom: 100%;
+			margin-bottom: 5%;
+			position: relative;
+			background-size: contain;
+			background-position: center center;
+			background-repeat: no-repeat;
+			cursor: pointer;
+			opacity: 0.5;
+			transition: opacity 0.2s;
+			
+			&:first-child{
+				margin-top: -50%;
+			}
+			
+			&.selected{
+				opacity: 1;
+			}
+			
+		}
 	}
 	
 }

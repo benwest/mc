@@ -1,20 +1,25 @@
 <template name="account">
-    <div class="row pad-top-4">
-        <div class="small-12 medium-6 columns">
 
             <h2>Account</h2>
+            {{#if nameErrorMessages}}
+            	<ul>
+                {{#each nameErrorMessages}}
+                    <li>{{this}}</li>
+                {{/each}}
+            	</ul>
+            {{/if}}
+            {{> inlineInput id="accountFirstName" value=currentUser.profile.firstName }}
+            {{> inlineInput id="accountLastName" value=currentUser.profile.lastName }}
             
+            {{#if nameTouched }}<a class="change-name">Change Name</a>{{/if}}
+            
+            <!--
             <form id="changeName" class="pad-bottom-2">
-                {{#if nameErrorMessages}}
-                    {{#each nameErrorMessages}}
-                        {{this}}
-                    {{/each}}
-                {{/if}}
                 <input type="text" name="firstName" value="{{ currentUser.profile.firstName }}">
                 <input type="text" name="lastName" value="{{ currentUser.profile.lastName }}">
                 <button type="submit">Change Name</button>
             </form>
-            
+            -->
             <form id="changePassword" class="pad-bottom-2">
                 {{#if passwordErrorMessages}}
                     {{#each passwordErrorMessages}}
@@ -33,19 +38,6 @@
             <strong>Delivery Addresses</strong><br>
             
             {{> addressSelect id="accountAddressSelect" }}
-            <!--
-            {{#unless editAddress}}
-                {{ currentUser.profile.address }}<br>
-                <a class="edit-address">Change</a>
-            {{else}}
-                <form class="changeAddress">
-                    <textarea class="address-textarea" value="{{currentAddress}}"></textarea>
-                    <button type="submit">Save</button>
-                </form>
-            {{/unless}}
-            
-            -->
 
-        </div>    
-    </div>
+
 </template>

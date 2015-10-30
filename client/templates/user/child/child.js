@@ -28,7 +28,7 @@ Template.child.helpers({
 			
 		}
 		
-		var colors = _.filter( this.universe.colors, function(color){
+		var colors = _.filter( _.keys(this.universe.colors), function(color){
 			return tinycolor(color).getBrightness() < 185;
 		});
 		
@@ -64,18 +64,18 @@ Template.child.helpers({
 	
 	'moreColors': function(){
 		var settings = globalSettings();
-		return Math.max( settings.minColors - this.universe.colors.length, 0 );
+		return Math.max( settings.minColors - _.keys(this.universe.colors).length, 0 );
 	},
 
 	'moreLooks': function(){
 		var settings = globalSettings();
-		return Math.max( settings.minLooks - this.universe.looks.length, 0 );
+		return Math.max( settings.minLooks - _.keys(this.universe.looks).length, 0 );
 	},
 	
 	'moreColorsAndLooks': function(){
 		var settings = globalSettings();
-		var colors = Math.max( settings.minColors - this.universe.colors.length, 0 );
-		var looks = Math.max( settings.minLooks - this.universe.looks.length, 0 );
+		var colors = Math.max( settings.minColors - _.keys(this.universe.colors).length, 0 );
+		var looks = Math.max( settings.minLooks - _.keys(this.universe.looks).length, 0 );
 		return colors + looks;
 	}
 

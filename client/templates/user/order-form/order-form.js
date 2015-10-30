@@ -71,6 +71,42 @@ Template.orderForm.helpers({
 Template.orderForm.events({
 
     'click .place-order': function(event, template){
+		
+		debugger;
+		
+        var orderNumber = Orders.find({}).count() + 1;
+        
+        var sizing = {};
+        
+        _.forEach(Session.get('orderFormSizing'), function(category){
+	        sizing[category.name] = Session.get(category.name);
+        })
+        
+        var garments = _.map( Session.get('orderFormGarments'), function(garm){
+	        return GarmentTypes.findOne({name: garm.name})._id;
+        });
+        
+        Orders.insert({
+            owner: Meteor.user()._id,
+            number: orderNumber,
+            forChild: this._id,
+            address: Session.get('orderFormAddress')._id,
+            garments: garments,
+            sizing: sizing,
+            colors: this.universe.colors,
+            looks: this.universe.looks,
+            placedAt: new Date(),
+            status: 'placed',
+            items: {}
+        });
+		
+		Children.update(this._id, {
+			$set: {sizing: sizing}
+		})
+		
+        Router.go('/order/' + orderNumber);
+        
+        /*
         
         var address = Session.get(ORDER_ADDRESS);
         var garms = Session.get(ORDER_GARMENTS);
@@ -112,6 +148,8 @@ Template.orderForm.events({
         }
         
         Router.go('/order/' + orderNumber);
+        
+        */
         
     }
     

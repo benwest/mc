@@ -8,7 +8,9 @@
     
     Garments requested: <strong>{{list garments}}</strong><br>
     
-    Deliver to: <strong>{{address}}</strong><br>
+    Sizes: <strong>{{list sizes}}</strong><br>
+    
+    Deliver to: <strong>{{#each address}}{{this}}<br>{{/each}}</strong><br>
 
     Estimated delivery:
     <strong>

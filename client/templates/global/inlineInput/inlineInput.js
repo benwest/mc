@@ -1,9 +1,11 @@
 Template.inlineInput.onCreated(function(){
+	console.log(this.data.value);
 	this.data.min = this.data.min ? Number(this.data.min) : -Infinity;
 	this.data.max = this.data.max ? Number(this.data.max) : Infinity;
 	this.data.maxLength = this.data.maxLength ? Number(this.data.maxLength) : Infinity;
 	this.data.placeholder = this.data.placeholder || '';
 	Session.set( this.data.id, this.data.value || false );
+	Session.set( this.data.id + 'Touched', false );
 });
 
 Template.inlineInput.onRendered(function(){
@@ -14,6 +16,7 @@ Template.inlineInput.onRendered(function(){
 
 Template.inlineInput.onDestroyed(function(){
 	sessionDelete(this.data.id);
+	sessionDelete(this.data.id + "Touched");
 })
 
 Template.inlineInput.helpers({
@@ -37,6 +40,25 @@ Template.inlineInput.helpers({
 })
 
 Template.inlineInput.events({
+	
+	'focus span': function(event){
+			
+		setTimeout(function() {
+	        var sel, range;
+	        if (window.getSelection && document.createRange) {
+	            range = document.createRange();
+	            range.selectNodeContents(event.target);
+	            sel = window.getSelection();
+	            sel.removeAllRanges();
+	            sel.addRange(range);
+	        } else if (document.body.createTextRange) {
+	            range = document.body.createTextRange();
+	            range.moveToElementText(event.target);
+	            range.select();
+	        }
+	    }, 1);		
+		
+	},
 		
 	'keydown span': function(event, template){
 				
@@ -86,10 +108,11 @@ Template.inlineInput.events({
 		
 		var span = $(event.target);
 		var text = span.text();
-				debugger;
-		if( this.placeholder !== '' && text === '' ) span.text(this.placeholder);
+
+		if( this.placeholder && text === '' ) span.text(this.placeholder);
 		
 		Session.set( template.data.id, text );
+		Session.set( template.data.id + 'Touched', true );
 				
 	}
 		
