@@ -29,6 +29,7 @@ function draw(step){
 			
 			if(drawnPoints >= steps) break;
 			
+			
 			ctx.lineTo(
 				shape.points[j] * canvas.width,
 				shape.points[j+1] * canvas.height
