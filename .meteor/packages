@@ -27,3 +27,4 @@ check
 mrt:modernizr-meteor
 aramk:tinycolor
 velocityjs:velocityjs
+fastclick

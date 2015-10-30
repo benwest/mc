@@ -54,7 +54,7 @@ Template.child.helpers({
 		
 		var settings = globalSettings();
 		
-		return this.universe.colors.length > settings.minColors && this.universe.looks.length >= settings.minLooks;
+		return _.keys(this.universe.colors).length > settings.minColors && _.keys(this.universe.looks).length >= settings.minLooks;
 		
 	},
 	
