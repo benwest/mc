@@ -46,7 +46,13 @@
 		
 			<p class='text-2'><b>Deliver this order to:</b></p>
 			
-			{{> addressSelect id="orderFormAddress" }}
+			{{> addressSelect id="orderFormAddress" select=true }}
+			
+			{{#if sessionGet 'orderFormAddress' }}
+			
+				<a class="place-order">Place your order!</a>
+			
+			{{/if}}
 			
 		
 		{{/if}}

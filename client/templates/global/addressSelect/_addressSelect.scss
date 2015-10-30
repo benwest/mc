@@ -1,0 +1,7 @@
+.can-select .saved-address{
+	cursor: pointer;
+}
+
+.saved-address.selected{
+	border: $underlineWidth dashed black;
+}

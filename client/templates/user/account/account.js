@@ -9,6 +9,9 @@ Template.account.onCreated(function(){
 })
 
 Template.account.helpers({
+	nameTouched: function(){
+		return Session.get('accountFirstNameTouched') || Session.get('accountLastNameTouched');
+	},
     nameErrorMessages: function() {
         return _.values(Session.get(NAME_ERRORS));
     },
@@ -28,12 +31,10 @@ Template.account.helpers({
 
 Template.account.events({
     
-    'submit form#changeName': function(event, template){
+    'click .change-name': function(event, template){
         
-        event.preventDefault();
-
-        var first = template.$('#changeName [name=firstName]').val();
-        var last = template.$('#changeName [name=lastName]').val();
+        var first = Session.get('accountFirstName');
+        var last = Session.get('accountLastName');
         
         var errors = {};
         
@@ -51,6 +52,9 @@ Template.account.events({
                 'profile.lastName': last
             }
         });
+        
+        Session.set('accountFirstNameTouched', false);
+        Session.set('accountLastNameTouched', false);
         
     },
     'submit form#changePassword': function(event, template){
@@ -109,10 +113,8 @@ Template.account.events({
         
         var address = template.$('.address-textarea').val();
         
-        Meteor.users.update(Meteor.userId(), {
-            $set: {'profile.address': address}
-        });
         
+                
         Session.set(EDITING_ADDRESS, false);
 
     }

@@ -9,12 +9,19 @@ var SELECTED_SHAPE = 'editorSelectedShape';
 var DRAGGING_SHAPE = 'editorDraggingShape';
 var UNDO = 'editorUndo';
 var ORIENTATION = 'editorOrientation';
+var LOOK_NAME = 'editorLookName';
+var SELECTED_LOOK = 'editorSelectedLook';
+var SELECTED_IMAGE = 'editorSelectedImage';
+var DRAWING_IMAGE_SELECTION = 'editorDrawingImageSelection';
+var IMAGE_SELECTION = 'editorImageSelection';
 var modes = {};
 
 _.each([
 	'PICKING_TOOL',
 	'PICKING_COLOR',
-	'DRAWING_COLOR'
+	'DRAWING_COLOR',
+	'PICKING_LOOK',
+	'PICKING_IMAGE'
 ], function(mode, i){ modes[mode] = i });
 
 var dpr = window.devicePixelRatio || 1;
@@ -22,27 +29,69 @@ var dpr = window.devicePixelRatio || 1;
 var pen;
 var canvasContainer, canvas, ctx;
 
-function draw(shapes){
+var selectCanvas, selectCtx;
+
+function drawShape(points, canvas, ctx){
 	
-	function drawShape(shape){
+	ctx.moveTo( points[0] * canvas.width, points[1] * canvas.height );
+	
+	ctx.beginPath();
+	
+	for( var i = 2; i < points.length; i += 2 ){
 		
-		ctx.moveTo( shape.points[0], shape.points[1] );
-		
-		ctx.beginPath();
-		
-		for( var i = 2; i < shape.points.length; i += 2 ){
-			
-			ctx.lineTo(
-				shape.points[i] * canvas.width,
-				shape.points[i+1] * canvas.height
-			);
-			
-		}
-		
-		ctx.closePath();
+		ctx.lineTo(
+			points[i] * canvas.width,
+			points[i+1] * canvas.height
+		);
 		
 	}
+	
+	ctx.closePath();
+	
+}
+
+function ants(shape, canvas, ctx){
+	
+	ctx.strokeStyle = '#000000';
+	ctx.lineWidth = 1.5 * dpr;
+	ctx.setLineDash( [] );
+	drawShape( shape, canvas, ctx );
+	ctx.stroke();
+	
+	ctx.strokeStyle = '#FFFFFF';
+	ctx.lineWidth = 2 * dpr;
+	ctx.setLineDash( [10 * dpr, 10 * dpr] );
+	drawShape( shape, canvas, ctx );
+	ctx.stroke();
+	
+}
+
+var imageCropCanvas = document.createElement('canvas');
+var imageCropCtx = imageCropCanvas.getContext('2d');
+
+function imageCache(id){
+	
+	if(!imageCache.cache[id]){
+	
+		var imageObj = LookImages.findOne(id);
+		var img = new Image();
+		img.src = imageObj.url;
 		
+		imageCache.cache[id] = {
+			ratio: imageObj.w / imageObj.h,
+			element: img
+		};
+		
+	}
+	
+	return imageCache.cache[id];
+	
+}
+
+imageCache.cache = {};
+
+function draw(shapes){
+			
 	ctx.clearRect( 0, 0, canvas.width, canvas.height );
 	
 	var shape, i, j;
@@ -51,30 +100,108 @@ function draw(shapes){
 		
 		shape = shapes[i];
 		
-		ctx.fillStyle = shape.color;
-		
-		drawShape(shape);
-		
-		ctx.fill('evenodd');
-		
+		if(shape.color){
+			
+			ctx.fillStyle = shape.color;
+			drawShape(shape.points, canvas, ctx);
+			ctx.fill('evenodd');
+			
+		} else if(shape.image){
+						
+			imageCropCanvas.width = shape.bounds.width * canvas.width;
+			imageCropCanvas.height = shape.bounds.height * canvas.height;
+			imageCropCtx.globalCompositeOperation = 'source-over';
+			imageCropCtx.fillStyle = 'white';
+			drawShape(
+				_.map(shape.points, function(point, i){
+					return point - (i % 2 ? shape.bounds.top : shape.bounds.left);
+				}),
+				canvas,
+				imageCropCtx
+			);
+			imageCropCtx.fill();
+			var img = imageCache(shape.image);
+			imageCropCtx.globalCompositeOperation = 'source-atop';
+			if(img.ratio > CANVAS_RATIO){
+				var imageW = canvas.width;
+				var imageH = canvas.width / img.ratio;
+			} else {
+				var imageW = canvas.height * img.ratio;
+				var imageH = canvas.height				
+			}
+			imageCropCtx.drawImage(
+				img.element,
+				-shape.offset.x * canvas.width,
+				-shape.offset.y * canvas.height,
+				imageW * shape.scale,
+				imageH * shape.scale
+			);
+			ctx.drawImage(imageCropCanvas, shape.bounds.left * canvas.width, shape.bounds.top * canvas.height);
+			
+		}
+
 	}
 	
 	var selectedShape = Session.get(SELECTED_SHAPE);
 	
 	if(selectedShape !== false){
-			
-		ctx.strokeStyle = '#000000';
-		ctx.lineWidth = 2 * dpr;
-		ctx.setLineDash( [] );
-		drawShape( shapes[selectedShape] );
-		ctx.stroke();
 		
-		ctx.strokeStyle = '#FFFFFF';
-		ctx.setLineDash( [10 * dpr, 10 * dpr] );
-		drawShape( shapes[selectedShape] );
-		ctx.stroke();
+		ants(shapes[selectedShape].points, canvas, ctx);
 		
 	}
+	
+}
+
+function drawSelection(){
+		
+	var selection = Session.get(IMAGE_SELECTION);
+	
+	if(!selection) return;
+	
+	selectCtx.clearRect(0,0,canvas.width, canvas.height);
+	selectCtx.fillStyle = 'rgba(226,226,226,0.5)';
+	selectCtx.fillRect(0,0, selectCanvas.width, selectCanvas.height);
+	selectCtx.globalCompositeOperation = 'destination-out';
+	selectCtx.fillStyle = 'black';
+	drawShape(selection, selectCanvas, selectCtx);
+	selectCtx.fill();
+	selectCtx.globalCompositeOperation = 'source-over';
+	ants(selection, selectCanvas, selectCtx);
+	
+}
+
+function getColorsAndLooks(universe){
+		
+	var colors = {};
+	var looks = {};
+	
+	_.each(universe.shapes, function(shape){
+		if(shape.color){
+			if(!colors[shape.color]){
+				colors[shape.color] = 1;
+			} else {
+				colors[shape.color]++;
+			}
+		} else if(shape.image) {
+			var look = LookImages.findOne(shape.image).owner;
+			if(!looks[look]){
+				looks[look] = 1;
+			} else {
+				looks[look]++;
+			}
+		}
+	});
+	
+	universe.colors = colors;
+	universe.looks = looks;
+	
+}
+
+var MIN_DIMENSION = 0.05;
+
+function bigEnough(shape){
+		
+	return shape.bounds.width > MIN_DIMENSION || shape.bounds.height > MIN_DIMENSION;
 	
 }
 
@@ -140,6 +267,60 @@ function findShape(shapes, x, y, lazy){
 	
 }
 
+function getBounds(shape){
+	
+	var maxX = -Infinity;
+	var maxY = -Infinity;
+	var minX = Infinity;
+	var minY = Infinity;
+	
+	for( var i = 0; i < shape.points.length; i += 2){
+		
+		maxX = Math.max(maxX, shape.points[i]);
+		minX = Math.min(minX, shape.points[i]);
+		maxY = Math.max(maxY, shape.points[i+1]);
+		minY = Math.min(minY, shape.points[i+1]);
+		
+	}
+	
+	shape.center = {
+		x: minX + (maxX-minX)/2,
+		y: minY + (maxY-minY)/2
+	};
+	
+	shape.bounds = {
+		top: minY,
+		left: minX,
+		bottom: maxY,
+		right: maxX,
+		width: maxX - minX,
+		height: maxY - minY
+	}
+	
+	return shape;
+	
+}
+
+function moveShape(shape, x, y){
+	
+	for(var i = 0; i < shape.points.length; i += 2){
+		
+		shape.points[i] += x;
+		shape.points[i+1] += y;
+		
+	}
+	
+	shape.center.x += x;
+	shape.center.y += y;
+	
+	shape.bounds.left += x;
+	shape.bounds.top += y;
+	shape.bounds.right += x;
+	shape.bounds.bottom += y;
+
+	return shape;
+	
+}
 
 // Layout helpers
 
@@ -149,17 +330,20 @@ var GUTTERS = 20;
 var HELP_TEXT_HEIGHT = 50;
 var MAX_SIDE_COLUMN_SIZE = 200;
 
-function makeCSSTransform(x, y){
-	return 'transform: translate3d(' + x + 'px, ' + y + 'px, 0);';
+function makeCSSTransform(x, y, scale){
+	var ret = 'transform: translate3d(' + x + 'px, ' + y + 'px, 0)';
+	if(scale) ret +=  ' scale(' + scale + ')';
+	return ret + ';';
 }
 
-function makeCSS(x, y, w, h){
+function makeCSS(x, y, w, h, font, scale){
 	
 	var ret = '';
 	
 	ret += 'width: ' + w + 'px; ';
 	ret += 'height: ' + h + 'px; ';
-	ret += makeCSSTransform(x, y);
+	ret += 'font-size: ' + font + 'em; ';
+	ret += makeCSSTransform(x, y, scale);
 	
 	return ret;
 	
@@ -179,9 +363,9 @@ function makeSizes(){
 		var primaryTop = TOP_BAR_HEIGHT;
 	
 		var secondaryWidth = Math.min( ((window.innerWidth - primaryWidth) / 2) - GUTTERS * 2, MAX_SIDE_COLUMN_SIZE );
-		var secondaryHeight = primaryHeight;
+		var secondaryHeight = secondaryWidth / CANVAS_RATIO;
 		var secondaryLeft = (primaryLeft / 2) - (secondaryWidth / 2);
-		var secondaryTop = TOP_BAR_HEIGHT;
+		var secondaryTop = primaryTop + (primaryHeight - secondaryHeight) / 2;
 			
 		var leftLeft = secondaryLeft;
 		var leftTop = secondaryTop;
@@ -220,29 +404,30 @@ function makeSizes(){
 	}
 	
 	return {
+		size: {
+			w: primaryWidth,
+			h: primaryHeight,
+			font: 1 / (secondaryWidth / primaryWidth)
+		},
 		primary: {
 			x: primaryLeft,
 			y: primaryTop,
-			w: primaryWidth,
-			h: primaryHeight
+			scale: 1
 		},
 		secondary: {
 			x: secondaryLeft, 
 			y: secondaryTop, 
-			w: secondaryWidth,
-			h: secondaryHeight
+			scale: secondaryWidth / primaryWidth
 		},
 		left: {
 			x: leftLeft,
 			y: leftTop,
-			w: leftWidth,
-			h: leftHeight
+			scale: leftWidth / primaryWidth
 		},
 		right: {
 			x: rightLeft,
 			y: rightTop,
-			w: rightWidth,
-			h: rightHeight
+			scale: rightWidth / primaryWidth
 		}
 	}
 	
@@ -250,9 +435,11 @@ function makeSizes(){
 
 function getCSS(region, hidden){
 	
-	var box = Session.get(LAYOUT)[region];
+	var layout = Session.get(LAYOUT);
+	var region = layout[region];
+	var size = layout.size;
 	
-	var css = makeCSS(box.x, box.y, box.w, box.h);
+	var css = makeCSS(region.x, region.y, size.w, size.h, size.font, region.scale);
 	
 	if(hidden) css += hiddenStyle;
 	
@@ -261,24 +448,58 @@ function getCSS(region, hidden){
 }
 
 function scaleShape(shape, scale){
-
-	var x, y, d, a;
 	
-	for(var i = 0; i < shape.points.length; i += 2){
+	var shapeCx = shape.center.x;
+	var shapeCy = shape.center.y;
+	
+	function scalePoint(x, y, cx, cy){
 		
-		x = shape.points[i];
-		y = shape.points[i+1];
+		var d, a;
 		
-		x -= shape.center.x;
-		y -= shape.center.y;
+		var cx = cx === undefined ? shapeCx : cx;
+		var cy = cy === undefined ? shapeCy : cy;
+				
+		x -= cx;
+		y -= cy;
 		
 		d = Math.sqrt( x*x + y*y );
 		
 		a = Math.atan2(y, x);
 		
-		shape.points[i] = (Math.cos(a) * d * scale) + shape.center.x;
-		shape.points[i+1] = (Math.sin(a) * d * scale) + shape.center.y;
+		return[
+			(Math.cos(a) * d * scale) + cx,
+			(Math.sin(a) * d * scale) + cy
+		]
 		
+	}
+
+	var pt;
+	
+	for(var i = 0; i < shape.points.length; i += 2){
+		
+		pt = scalePoint(shape.points[i], shape.points[i+1]);
+		
+		shape.points[i] = pt[0];
+		shape.points[i+1] = pt[1];
+				
+	}
+	
+	pt = scalePoint(shape.bounds.left, shape.bounds.top);
+	shape.bounds.left = pt[0];
+	shape.bounds.top = pt[1];
+	
+	pt = scalePoint(shape.bounds.right, shape.bounds.bottom);
+	shape.bounds.right = pt[0];
+	shape.bounds.bottom = pt[1];
+	
+	shape.bounds.width *= scale;
+	shape.bounds.height *= scale;
+	
+	if(shape.image){
+		pt = scalePoint(shape.offset.x, shape.offset.y, 0, 0);
+		shape.offset.x = pt[0];
+		shape.offset.y = pt[1];
+		shape.scale *= scale;
 	}
 	
 }
@@ -314,6 +535,11 @@ Template.editor.onCreated(function(){
 	Session.set(SELECTED_SHAPE, false);
 	Session.set(DRAGGING_SHAPE, false);
 	Session.set(UNDO, [[]]);
+	Session.set(LOOK_NAME, '');
+	Session.set(SELECTED_LOOK, false);
+	Session.set(SELECTED_IMAGE, false);
+	Session.set(DRAWING_IMAGE_SELECTION, false);
+	Session.set(IMAGE_SELECTION, false);
 	
 });
 
@@ -323,20 +549,27 @@ Template.editor.onRendered(function(){
 	canvasContainer = this.$('.editor-canvas');
 	var width = canvasContainer.width();
 	var height = width * 1.41;
-	canvas = this.$('canvas')[0];
+	canvas = this.$('#draw-canvas')[0];
 	canvas.width = width * dpr;
 	canvas.height = height * dpr;
 	ctx = canvas.getContext('2d');
 	draw(this.data.universe.shapes);
 	
+	selectCanvas = this.$('#select-canvas')[0];
+	selectCtx = selectCanvas.getContext('2d');
+	selectCanvas.width = width;
+	selectCanvas.height = height;
+
 	var self = this;
 	var canvasSizer = $('#sizer');
 	
 	$(window).on('resize.editorCanvas', function(){
-		Session.set(LAYOUT, makeSizes());
-		canvas.height = (window.innerHeight - HELP_TEXT_HEIGHT) * dpr;
-		canvas.width = canvas.height * CANVAS_RATIO;
+		var layout = makeSizes();
+		canvas.height = selectCanvas.height = layout.size.h * dpr;
+		canvas.width = selectCanvas.width = layout.size.w * dpr;
 		draw(self.data.universe.shapes);
+		drawSelection();
+		Session.set(LAYOUT, layout);
 	});
 	
 });
@@ -354,9 +587,7 @@ Template.editor.helpers({
 			case modes.PICKING_TOOL:
 			
 				if(this.universe.shapes.length){
-					
-					debugger;
-					
+										
 					var settings = globalSettings();
 					
 					var moreColors = Math.max( settings.minColors - this.universe.colors.length, 0 );
@@ -406,10 +637,14 @@ Template.editor.helpers({
 				return getCSS('primary');
 				
 			case modes.PICKING_COLOR:
+			case modes.PICKING_LOOK:
 				return getCSS('secondary');
 				
 			case modes.DRAWING_COLOR:
 				return getCSS('primary');
+				
+			case modes.PICKING_IMAGE:
+				return getCSS('primary', true);
 				
 			default:
 				return getCSS('secondary', true);
@@ -441,6 +676,9 @@ Template.editor.helpers({
 	'lookButtonStyle': function(){
 		
 		switch( Session.get(MODE) ){
+			
+			case modes.PICKING_LOOK:
+				return getCSS('primary', true);
 			
 			case modes.PICKING_TOOL:
 				return getCSS('right')
@@ -489,14 +727,102 @@ Template.editor.helpers({
 	
 	},
 	
-	'shapeControlsClass': function(){
+	'lookPickerStyle': function(){
 		
-		
+		switch( Session.get(MODE) ){
+			
+			case modes.PICKING_LOOK:
+				return getCSS('primary');
+				
+			case modes.PICKING_IMAGE:
+				return getCSS('left');
+				
+			case modes.PICKING_TOOL:
+				return getCSS('right', true);
+				
+			default:
+				return getCSS('left', true);
+			
+		}
 		
 	},
 	
-	'shapeControlsStyle': function(){
+	'lookNameStyle': function(){
 		
+		if(Modernizr.touch) return getCSS('right', true);
+		
+		switch( Session.get(MODE) ){
+			
+			case modes.PICKING_LOOK:
+				return getCSS('right');
+								
+			default:
+				return getCSS('right', true);
+			
+		}
+		
+	},
+	
+	'lookName': function(){
+		return Session.get(LOOK_NAME);
+	},
+	
+	'selectedImageStyle': function(){
+		
+		if(Session.get(MODE) === modes.PICKING_IMAGE){
+			return getCSS('primary');
+		} else {
+			return getCSS('primary', true);
+		}
+		
+	},
+	
+	'selectedImage': function(){
+		var img = LookImages.findOne(Session.get(SELECTED_IMAGE));
+		if(!img) return false;
+		return img.url;
+	},
+	
+	'selectedImageClass': function(){
+		return Session.get(SELECTED_IMAGE) === this._id && 'selected';
+	},
+	
+	'selectedImageTranslate': function(){
+
+		var lookId = Session.get(SELECTED_LOOK);
+		var imgId = Session.get(SELECTED_IMAGE);
+		if(!lookId || !imgId) return 0;
+		var imgs = LookImages.find({owner: lookId});
+		var length = imgs.count();
+		imgs = imgs.fetch();
+		for(var i = 0; i < imgs.length; ++i){
+			if(imgs[i]._id === imgId) break;
+		}
+		return -100 * (i / length);
+	},
+
+	'imageListStyle': function(){
+		
+		if(Session.get(MODE) === modes.PICKING_IMAGE){
+			return getCSS('right');
+		} else {
+			return getCSS('right', true);
+		}
+		
+	},
+	
+	'imageList': function(){
+		var lookId = Session.get(SELECTED_LOOK);
+		if(!lookId) return false;
+		return LookImages.find({owner: lookId});
+	},
+	
+	'scaledScreenHeight': function(){
+		return window.innerHeight / Session.get(LAYOUT).secondary.scale;
+	},
+
+	'shapeControlsStyle': function(){
+				
 		var selectedShape = Session.get(DRAGGING_SHAPE);
 		
 		if( selectedShape === false ) {
@@ -512,20 +838,26 @@ Template.editor.helpers({
 		var cx = shape.center.x;
 		var cy = shape.center.y;
 				
-		var offset = Session.get(LAYOUT).primary;
+		var layout = Session.get(LAYOUT);
 		
-		cx *= offset.w;
-		cy *= offset.h;
+		cx *= layout.size.w;
+		cy *= layout.size.h;
 		
-		cx += offset.x;
-		cy += offset.y;
-		
-		cx = Math.min( offset.x + offset.w, Math.max( cx, offset.x ) );
-		cy = Math.min( offset.y + offset.h, Math.max( cy, offset.y ) );
+		cx = Math.min( layout.size.w, Math.max( cx, 0 ) );
+		cy = Math.min( layout.size.h, Math.max( cy, 0 ) );
 		
 		return makeCSSTransform(cx, cy);
 		
-	}
+	},
+	
+	'looks': function(){
+		return Looks.find({});
+	},
+	
+	'lookPreview': function(){
+		var img = LookImages.findOne({owner: this._id});
+		return img.url;
+	}	
 		
 });
 
@@ -558,7 +890,15 @@ Template.editor.events({
 	
 	'click .colors-button': function(){
 		
+		Session.set(SELECTED_SHAPE, false);
 		Session.set( MODE, modes.PICKING_COLOR );
+		
+	},
+	
+	'click .looks-button': function(){
+		
+		Session.set(SELECTED_SHAPE, false);
+		Session.set( MODE, modes.PICKING_LOOK );
 		
 	},
 	
@@ -633,17 +973,19 @@ Template.editor.events({
 		
 	},
 	
-	'mouseleave canvas': function(){
+	'mouseleave .editor-canvas': function(){
 		
+		Session.set(SELECTED_SHAPE, false);
 		hidePen();
 		
 	},
 	
-	'click canvas': function(){
+	'click #draw-canvas': function(){
 		
 		switch( Session.get(MODE) ){
 			
 			case modes.PICKING_COLOR:
+			case modes.PICKING_LOOK:
 				Session.set(MODE, modes.PICKING_TOOL);
 				break;
 			
@@ -651,7 +993,7 @@ Template.editor.events({
 		
 	},
 	
-	'mousedown canvas': function(event){
+	'mousedown #draw-canvas': function(event){
 		
 		if( event.button !== 0 ) return;
 		
@@ -672,13 +1014,13 @@ Template.editor.events({
 				points: [x, y]
 			})
 			
-			this.universe.colors = _.uniq( _.pluck( this.universe.shapes, 'color' ) );
+			getColorsAndLooks(this.universe);
 			
 		} else if (mode === modes.PICKING_TOOL ){
 			
 			var selectedShape;
 			
-			if(Modernizr.touch){
+			if(true){
 				
 				selectedShape = findShape(this.universe.shapes, x, y);
 				
@@ -701,6 +1043,9 @@ Template.editor.events({
 				});
 				
 			}
+			
+			draw(this.universe.shapes);
+			
 		}
 
 	},
@@ -711,33 +1056,51 @@ Template.editor.events({
 			
 			var shape = this.universe.shapes[0];
 			
-			var cx = 0;
-			var cy = 0;
+			getBounds(shape);
 			
-			for( var i = 0; i < shape.points.length; i += 2){
-				
-				cx += shape.points[i];
-				cy += shape.points[i+1];
-				
+			if(!bigEnough(shape)) {
+				this.universe.shapes.shift();
+				getColorsAndLooks(this.universe);
 			}
 			
-			cx /= shape.points.length / 2;
-			cy /= shape.points.length / 2;
-			
-			shape.center = {x: cx, y: cy};
-				
 			Session.set(DRAWING, false);
 			
 		}
 		
-		if(Session.get(DRAGGING_SHAPE)){
-			Session.set(DRAGGING_SHAPE, false);
+		Session.set(DRAGGING_SHAPE, false);
+		
+		if(Session.equals(DRAWING_IMAGE_SELECTION, true)){
+			
+			var selection = Session.get(IMAGE_SELECTION);
+			
+			var shape = getBounds({points: selection});
+			
+			if(bigEnough(shape)){
+				
+				debugger;
+				
+				var image = LookImages.findOne( Session.get(SELECTED_IMAGE) );
+				
+				shape.image = image._id;
+				shape.scale = 1;
+				var imgRatio = image.w / image.h;
+				shape.offset = imgRatio > CANVAS_RATIO ? {x: 0,  y: 1-(imgRatio/CANVAS_RATIO) } : {x: (CANVAS_RATIO - imgRatio) / 2, y: 0 };
+				shape.offset.x = shape.bounds.left - shape.offset.x;
+				shape.offset.y = shape.bounds.top - shape.offset.y;
+				this.universe.shapes.unshift(shape);
+				getColorsAndLooks(this.universe);
+				Session.set(MODE, modes.PICKING_TOOL);
+			}
+			
+			Session.set(IMAGE_SELECTION, false);
+			Session.set(DRAWING_IMAGE_SELECTION, false);
+			draw( this.universe.shapes );
+			
 		}
-
 		
 	},
 	
-	'mousemove canvas': function(event){
+	'mousemove #draw-canvas': function(event){
 		
 		var canvas = $(event.target);
 		var x = event.offsetX / canvas.width();
@@ -758,15 +1121,7 @@ Template.editor.events({
 				var deltaX = x - draggingShape.x;
 				var deltaY = y - draggingShape.y;
 								
-				for(var i = 0; i < shape.points.length; i += 2){
-					
-					shape.points[i] += deltaX;
-					shape.points[i+1] += deltaY;
-					
-				}
-				
-				shape.center.x += deltaX;
-				shape.center.y += deltaY;
+				moveShape(shape, deltaX, deltaY);
 				
 				Session.set(DRAGGING_SHAPE, {
 					shape: draggingShape.shape,
@@ -795,6 +1150,8 @@ Template.editor.events({
 			pushUndo(this.universe.shapes);
 			
 			this.universe.shapes.splice(selectedShape, 1);
+			
+			getColorsAndLooks(this.universe);
 			
 			Session.set(SELECTED_SHAPE, false);
 			
@@ -844,15 +1201,94 @@ Template.editor.events({
 		
 		Session.set(UNDO, undos);
 		
+		getColorsAndLooks(this.universe);
+		
 		draw(this.universe.shapes);
 		
 	},
 	
 	'click #finished': function(){
-				
+						
 		Children.update(this._id, {$set: {universe: this.universe}});
 		
 		Router.go('/child/' + this._id);
+		
+	},
+	
+	'click .look-picker': function(){
+		
+		if(Session.get(MODE) === modes.PICKING_IMAGE){
+			Session.set(MODE, modes.PICKING_LOOK);
+		}
+		
+	},
+	
+	'mouseenter .look-thumb': function(){
+		
+		Session.set(LOOK_NAME, this.name);
+		
+	},
+	
+	'mouseleave .look-thumb': function(){
+		
+		Session.set(LOOK_NAME, '');
+		
+	},
+	
+	'click .look-thumb': function(event){
+		
+		if(Session.get(MODE) === modes.PICKING_LOOK){
+			Session.set(SELECTED_LOOK, this._id);
+			Session.set(SELECTED_IMAGE, LookImages.findOne({owner: this._id})._id );
+			selectCtx.clearRect(0,0,selectCanvas.width, selectCanvas.height);
+			Session.set(MODE, modes.PICKING_IMAGE);
+			event.stopPropagation();
+		}
+		
+	},
+	
+	'click .image-container': function(){
+		
+		Session.set(SELECTED_IMAGE, this._id);
+		selectCtx.clearRect(0,0,selectCanvas.width, selectCanvas.height);
+		
+	},
+	
+	'mousedown #select-canvas': function(event){
+				
+		if(!Session.get(IMAGE_SELECTION)){
+			
+			var canvas = $(event.target);
+			
+			var x = event.offsetX / canvas.width();
+			var y = event.offsetY / canvas.height();
+			
+			Session.set(DRAWING_IMAGE_SELECTION, true);
+			Session.set(IMAGE_SELECTION, [x, y]);
+						
+		}
+	
+	},
+	
+	'mousemove #select-canvas': function(event){
+				
+		if(Session.get(DRAWING_IMAGE_SELECTION)){
+			
+			var canvas = $(event.target);
+			
+			var x = event.offsetX / canvas.width();
+			var y = event.offsetY / canvas.height();
+			
+			var selection = Session.get(IMAGE_SELECTION);
+			
+			selection.push(x, y);
+			
+			Session.set(IMAGE_SELECTION, selection);
+						
+			drawSelection();
+			
+		}
+		
 		
 	}
 	

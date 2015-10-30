@@ -1,0 +1,20 @@
+<template name="orders">
+
+	{{#each orders}}
+	
+		<a href="order/{{number}}">
+	
+			<div class="row">
+				
+				<div class="small-4 columns">
+					<strong>#{{number}}</strong>, for <strong>{{forChild}}</strong><br>
+					{{capitalise status}} {{ago lastActionDate}}
+				</div>
+				
+			</div>
+		
+		</a>
+	
+	{{/each}}
+
+</template>
