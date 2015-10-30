@@ -31,122 +31,22 @@ var canvasContainer, canvas, ctx;
 
 var selectCanvas, selectCtx;
 
-function drawShape(points, canvas, ctx){
-	
-	ctx.moveTo( points[0] * canvas.width, points[1] * canvas.height );
-	
-	ctx.beginPath();
-	
-	for( var i = 2; i < points.length; i += 2 ){
-		
-		ctx.lineTo(
-			points[i] * canvas.width,
-			points[i+1] * canvas.height
-		);
-		
-	}
-	
-	ctx.closePath();
-	
-}
-
-function ants(shape, canvas, ctx){
-	
-	ctx.strokeStyle = '#000000';
-	ctx.lineWidth = 1.5 * dpr;
-	ctx.setLineDash( [] );
-	drawShape( shape, canvas, ctx );
-	ctx.stroke();
-	
-	ctx.strokeStyle = '#FFFFFF';
-	ctx.lineWidth = 2 * dpr;
-	ctx.setLineDash( [10 * dpr, 10 * dpr] );
-	drawShape( shape, canvas, ctx );
-	ctx.stroke();
-	
-}
-
-var imageCropCanvas = document.createElement('canvas');
-var imageCropCtx = imageCropCanvas.getContext('2d');
-
-function imageCache(id){
-	
-	if(!imageCache.cache[id]){
-	
-		var imageObj = LookImages.findOne(id);
-		var img = new Image();
-		img.src = imageObj.url;
-		
-		imageCache.cache[id] = {
-			ratio: imageObj.w / imageObj.h,
-			element: img
-		};
-		
-	}
-	
-	return imageCache.cache[id];
-	
-}
-
-imageCache.cache = {};
-
 function draw(shapes){
 			
 	ctx.clearRect( 0, 0, canvas.width, canvas.height );
-	
+		
 	var shape, i, j;
 	
 	for( i = shapes.length - 1; i >= 0; --i ){
 		
-		shape = shapes[i];
-		
-		if(shape.color){
-			
-			ctx.fillStyle = shape.color;
-			drawShape(shape.points, canvas, ctx);
-			ctx.fill('evenodd');
-			
-		} else if(shape.image){
-						
-			imageCropCanvas.width = shape.bounds.width * canvas.width;
-			imageCropCanvas.height = shape.bounds.height * canvas.height;
-			imageCropCtx.globalCompositeOperation = 'source-over';
-			imageCropCtx.fillStyle = 'white';
-			drawShape(
-				_.map(shape.points, function(point, i){
-					return point - (i % 2 ? shape.bounds.top : shape.bounds.left);
-				}),
-				canvas,
-				imageCropCtx
-			);
-			imageCropCtx.fill();
-			var img = imageCache(shape.image);
-			imageCropCtx.globalCompositeOperation = 'source-atop';
-			if(img.ratio > CANVAS_RATIO){
-				var imageW = canvas.width;
-				var imageH = canvas.width / img.ratio;
-			} else {
-				var imageW = canvas.height * img.ratio;
-				var imageH = canvas.height				
-			}
-			imageCropCtx.drawImage(
-				img.element,
-				-shape.offset.x * canvas.width,
-				-shape.offset.y * canvas.height,
-				imageW * shape.scale,
-				imageH * shape.scale
-			);
-			ctx.drawImage(imageCropCanvas, shape.bounds.left * canvas.width, shape.bounds.top * canvas.height);
-			
-		}
+		drawShape(shapes[i], canvas, ctx);
 
 	}
 	
 	var selectedShape = Session.get(SELECTED_SHAPE);
 	
 	if(selectedShape !== false){
-		
-		ants(shapes[selectedShape].points, canvas, ctx);
+		drawShape(shapes[selectedShape], canvas, ctx, {selected: true});
 		
 	}
 	
@@ -324,7 +224,6 @@ function moveShape(shape, x, y){
 
 // Layout helpers
 
-var CANVAS_RATIO = 210/297;
 var TOP_BAR_HEIGHT = 50;
 var GUTTERS = 20;
 var HELP_TEXT_HEIGHT = 50;
