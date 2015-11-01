@@ -1,29 +1,32 @@
 <template name="addChild">
+  <div class="bg-teal">
 
-	<h1>Add a child</h1>
-		
-	<p class="text-2">
-		I have a {{> inlineSelect id='newChildGender' options='boy, girl' }}
-		
-		{{# if sessionGet 'newChildGender'}}
-		
-			called {{> inlineInput id='newChildName' autofocus=true }}.
-			
-			{{# if sessionGet 'newChildName'}}
+    <div class="row pad-bottom-4">
+        <div class="small-12 medium-6 medium-centered columns pad-top-3 pad-bottom-4 text-center">
+            <h2 class="pad-bottom-4">Add a Little One</h2>
+
+			<p class="text-2 pad-top-5 pad-bottom-5">
+				I have a {{> inlineSelect id='newChildGender' options='boy, girl' }}
 				
-				{{ heShe (sessionGet 'newChildGender') true }} was born on {{> inlineDateInput id="newChildDob" after="." }}
+				{{# if sessionGet 'newChildGender'}}
 				
-				{{#if sessionGet 'newChildDobYear' }}
-				
-					<a class="done">Add {{ sessionGet 'newChildName' }}!</a>
-				
+					called {{> inlineInput id='newChildName' autofocus=true }}.
+					
+					{{# if sessionGet 'newChildName'}}
+						
+						{{ heShe (sessionGet 'newChildGender') true }} was born on {{> inlineDateInput id="newChildDob" after="." }}
+						
+						{{#if sessionGet 'newChildDobYear' }}
+						
+							<a class="done">Add {{ sessionGet 'newChildName' }}!</a>
+						
+						{{/ if }}
+						
+					{{/if}}
+					
 				{{/ if }}
 				
-			{{/if}}
-			
-		{{/ if }}
-		
-	</p>
+			</p>
 			
 	<!--
 	
@@ -56,4 +59,7 @@
     </div>
 	-->
 
+		</div>
+	</div>
+</div>
 </template>

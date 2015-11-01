@@ -1,26 +1,31 @@
-<template name="signup">
-    <div class="row">
-        <div class="small-12 medium-6 columns pad-top-4">
+<template name="signup">    
+    <div class="wave" style="background-image: url('/img/bg/wave_1.png');">
+        
+      
+        <div class="row">
+            <div class="small-12 medium-6 medium-centered columns pad-top-3 pad-bottom-4 text-center">
+                <h2 class="pad-bottom-4">Sign Up</h2>
+            
+                <form class="regular text-1-5">
+                    
+                    {{#if errorMessages}}
+                        {{#each errorMessages}}
+                            {{this}}
+                        {{/each}}
+                    {{/if}}
+                     
+                    <input type="text" name="firstName" placeholder="First Name" />
+                    <input type="text" name="lastName" placeholder="Last Name" />
+                    <input type="email" name="email" placeholder="Email" />
+                    <input type="password" name="password" placeholder="Password" />
+                    <input type="password" name="confirm" placeholder="Confirm Password" />
+                    <button type="submit" class="pad-top-3">Sign Up</button>
+            
+                </form>
+            
+            </div>      
+        </div>  
 
-            <h2>Sign Up</h2>
-        
-            <form>
-                
-                {{#if errorMessages}}
-                    {{#each errorMessages}}
-                        {{this}}
-                    {{/each}}
-                {{/if}}
-                 
-                <input type="text" name="firstName" placeholder="First Name" />
-                <input type="text" name="lastName" placeholder="Last Name" />
-                <input type="email" name="email" placeholder="Email" />
-                <input type="password" name="password" placeholder="Password" />
-                <input type="password" name="confirm" placeholder="Confirm Password" />
-                <button type="submit">Sign Up</button>
-        
-            </form>
-        
-        </div>      
-    </div>  
+
+    </div>
 </template>

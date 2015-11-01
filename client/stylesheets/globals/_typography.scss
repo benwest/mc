@@ -61,3 +61,11 @@ $text-class-count: 6;
 $text-class-step: 0.5;
 
 @include class-creator( $text-class-names, $text-class-count, $text-class-step, rem);
+
+
+
+h2 {
+	font-size:1.5rem;
+}
+
+
