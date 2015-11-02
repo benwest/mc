@@ -45,7 +45,7 @@ $helpTextHeight: 50px;
 	
 	.editor-region{
 		
-		//border: 1px solid red;
+		border: 1px solid red;
 		position: absolute;
 		transition: transform 0.5s, opacity 0.5s;
 		transform-origin: 0 0;
@@ -251,6 +251,10 @@ $helpTextHeight: 50px;
 			margin-bottom: 0.5em;
 			padding-bottom: 100%;
 			transition: transform 0.2s;
+		}
+		
+		.label{
+			white-space: nowrap;
 		}
 		
 	}
