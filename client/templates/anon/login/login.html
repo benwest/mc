@@ -1,32 +1,37 @@
 <template name="login">
-  <div class="row">
-      <div class="small-12 medium-6 columns pad-top-4">
+  <div class="drip" style="background-image: url('/img/bg/drip_1.png');">
 
-        <h2>Log In</h2>
-        
-        <form>
-            {{#if errorMessages}}
-              {{#each errorMessages}}
-                {{this.type}}: {{this.msg}}
-              {{/each}}
-            {{/if}}
-        
-            <input type="email" name="email" placeholder="Your Email" />
-            {{#unless forgotPassword}}
-              <input type="password" name="password" placeholder="Password" />
-            {{/unless}}
-            <button type="submit">
-              {{#if forgotPassword}}
-                Reset Password
-              {{else}}
-                Log in
+
+    <div class="row">
+        <div class="small-12 medium-6 medium-centered columns pad-top-3 pad-bottom-4 text-center">
+            <h2 class="pad-bottom-4">Log In</h2>
+          
+            <form class="regular text-1-5 pad-top-4 pad-bottom-4">
+              {{#if errorMessages}}
+                {{#each errorMessages}}
+                  {{this.type}}: {{this.msg}}
+                {{/each}}
               {{/if}}
-            </button>
-        </form>
-        
-        <a class="forgotPassword">Forgot password?</a>
-        
-      </div>
-  </div>   
+          
+              <input type="email" name="email" placeholder="Your Email" />
+              {{#unless forgotPassword}}
+                <input type="password" name="password" placeholder="Password" />
+              {{/unless}}
+              <button type="submit" class="pad-top-3">
+                {{#if forgotPassword}}
+                  Reset Password
+                {{else}}
+                  Log in
+                {{/if}}
+              </button>
+          </form>
+          
+          <a class="forgotPassword">Forgot password?</a>
+          
+        </div>
+    </div>   
+
+
+  </div>
 </template>
 

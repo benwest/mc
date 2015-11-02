@@ -9,11 +9,13 @@
 
 @import 'globals/reset.scss';
 @import 'globals/_typography.scss';
+@import 'globals/_forms.scss';
 @import 'globals/_colors.scss';
 @import 'globals/_pads_gaps.scss';
 @import 'globals/_notifications.scss';
 @import 'globals/_swatch.scss';
 @import 'globals/_layout.scss';
+@import 'globals/_bg.scss';
 
 @import '../templates/global/master/_master.scss';
 @import '../templates/global/inlineInput/_inlineInput.scss';

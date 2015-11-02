@@ -1,43 +1,51 @@
 <template name="account">
-
-            <h2>Account</h2>
-            {{#if nameErrorMessages}}
-            	<ul>
-                {{#each nameErrorMessages}}
-                    <li>{{this}}</li>
-                {{/each}}
-            	</ul>
-            {{/if}}
-            {{> inlineInput id="accountFirstName" value=currentUser.profile.firstName }}
-            {{> inlineInput id="accountLastName" value=currentUser.profile.lastName }}
+    <div class="bg-orange">
+        <div class="row">
+            <div class="small-12 medium-6 medium-centered columns pad-top-3 pad-bottom-4 text-center">
+                <h2 class="pad-bottom-4">Account</h2>
             
-            {{#if nameTouched }}<a class="change-name">Change Name</a>{{/if}}
-            
-            <!--
-            <form id="changeName" class="pad-bottom-2">
-                <input type="text" name="firstName" value="{{ currentUser.profile.firstName }}">
-                <input type="text" name="lastName" value="{{ currentUser.profile.lastName }}">
-                <button type="submit">Change Name</button>
-            </form>
-            -->
-            <form id="changePassword" class="pad-bottom-2">
-                {{#if passwordErrorMessages}}
-                    {{#each passwordErrorMessages}}
-                        {{this.type}}: {{this.msg}}
+                {{#if nameErrorMessages}}
+                	<ul>
+                    {{#each nameErrorMessages}}
+                        <li>{{this}}</li>
                     {{/each}}
+                	</ul>
                 {{/if}}
+                <div class="pad-bottom-4">
+                    {{> inlineInput id="accountFirstName" value=currentUser.profile.firstName }} 
+                    {{> inlineInput id="accountLastName" value=currentUser.profile.lastName }}
+                    {{#if nameTouched }}
+                        <a class="change-name">Change Name</a>
+                    {{/if}}
+                </div>
                 
-                <input type="password" name="old" placeholder="Current Password">
-                <input type="password" name="new" placeholder="New Password">
-                <input type="password" name="confirm" placeholder="Confirm New Password">
+                <!--
+                <form id="changeName" class="pad-bottom-2">
+                    <input type="text" name="firstName" value="{{ currentUser.profile.firstName }}">
+                    <input type="text" name="lastName" value="{{ currentUser.profile.lastName }}">
+                    <button type="submit">Change Name</button>
+                </form>
+                -->
+                <form id="changePassword" class="regular pad-bottom-2">
+                    {{#if passwordErrorMessages}}
+                        {{#each passwordErrorMessages}}
+                            {{this.type}}: {{this.msg}}
+                        {{/each}}
+                    {{/if}}
+                    
+                    <input type="password" name="old" placeholder="Current Password">
+                    <input type="password" name="new" placeholder="New Password">
+                    <input type="password" name="confirm" placeholder="Confirm New Password">
+                    
+                    <button type="submit">Change Password</button>
+                    
+                </form>
                 
-                <button type="submit">Change Password</button>
-                
-            </form>
-            
-            <strong>Delivery Addresses</strong><br>
-            
-            {{> addressSelect id="accountAddressSelect" }}
+                <!--  <strong>Delivery Addresses</strong><br>
+               
+                {{> addressSelect id="accountAddressSelect" }} -->
 
-
+            </div>
+        </div>
+    </div>
 </template>

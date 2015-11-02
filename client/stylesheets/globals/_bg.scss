@@ -1,0 +1,13 @@
+.wave, .drip {
+	background-size:cover;
+}
+
+.wave { background-image: url('/img/bg/wave_1.png'); }
+.drip { background-image: url('/img/bg/drip_1.png'); }
+
+
+.bg-teal { background-color:$teal; }
+.bg-pink { background-color:$pink; }
+.bg-green { background-color:$green; }
+.bg-orange { background-color:$orange; }
+

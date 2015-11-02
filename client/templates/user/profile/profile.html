@@ -1,63 +1,64 @@
 <template name="profile">
+	<div class="wave" style="background-image: url('/img/bg/drip_1.png');height:100%">       
+	    <div class="profile-logo pos-rel">
+		    
+		    <div class="center">
+			    <img src="/img/logo.svg" alt="" class="pad-top-4">
+		    </div>
 	        
-    <div class="profile-logo pos-rel">
-	    
-	    <div class="center">
-		    <h1>Muddy Creatures</h1>
 	    </div>
-        
-    </div>
-    
-    <div class="profile-content text-center pos-rel">
 	    
-	    <div class="center">
-        
-	        <p class="text-1-5">
-		        
-				<b>Welcome back, {{profile.firstName}}!</b>
-								
-				{{# if children }}
-				
-					You've set up {{ plural children 'a profile' 'profiles' }} for {{{ list children }}}.
+	    <div class="profile-content text-center pos-rel">
+		    
+		    <div class="center">
+	        
+		        <p class="text-1-5">
+			        
+					<b>Welcome back, {{profile.firstName}}!</b>
+
 					
-					{{# if lastOrder }}
+					{{# if children }}
 					
-						{{# with lastOrder }}
+						You've set up {{ plural children 'a profile' 'profiles' }} for {{{ list children }}}.
 						
-							Your order <a href="order/{{_id}}">#{{ number }}</a>, for {{ forChild }}, was {{ status }} {{ actionTime }}.
+						{{# if lastOrder }}
 						
-						{{/ with }}
-					
-						{{# if moreOrders }}
-					
-							You have {{ moreOrders }} more {{ plural moreOrders 'order' }} orders in progress as well.
-					
-						{{/ if }}
-					
-					{{ else }}
-					
-						{{# if readyToOrder }}
+							{{# with lastOrder }}
 							
-							Why not <a href="/orderForm/">place your first order?</a>
+								Your order <a href="order/{{_id}}">#{{ number }}</a>, for {{ forChild }}, was {{ status }} {{ actionTime }}.
+							
+							{{/ with }}
+						
+							{{# if moreOrders }}
+						
+								You have {{ moreOrders }} more {{ plural moreOrders 'order' }} orders in progress as well.
+						
+							{{/ if }}
 						
 						{{ else }}
 						
-							Once you've <a href="/editor/{{ plural children firstChild._id '' }}">created a universe for {{plural children firstChild.name 'one of your children'}}</a>, you can place your first order.
+							{{# if readyToOrder }}
+								
+								Why not <a href="/orderForm/">place your first order?</a>
+							
+							{{ else }}
+							
+								Once you've <a href="/editor/{{ plural children firstChild._id '' }}">created a universe for {{plural children firstChild.name 'one of your children'}}</a>, you can place your first order.
+							
+							{{/ if }}
 						
 						{{/ if }}
+						
+					{{ else }}
 					
+						You haven't added any profiles for your children yet. <a href="/addChild">Add one now</a> or <a href="/about">learn how Muddy Creatures works.</a>
+						
 					{{/ if }}
-					
-				{{ else }}
-				
-					You haven't added any profiles for your children yet. <a href="/addChild">Add one now</a> or <a href="/about">learn how Muddy Creatures works.</a>
-					
-				{{/ if }}
-		        
-	        </p>
-        
+			        
+		        </p>
+	        
+		    </div>
+	        
 	    </div>
-        
-    </div>
-    
+    </div> 
 </template>
