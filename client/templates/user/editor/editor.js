@@ -31,122 +31,22 @@ var canvasContainer, canvas, ctx;
 
 var selectCanvas, selectCtx;
 
-function drawShape(points, canvas, ctx){
-	
-	ctx.moveTo( points[0] * canvas.width, points[1] * canvas.height );
-	
-	ctx.beginPath();
-	
-	for( var i = 2; i < points.length; i += 2 ){
-		
-		ctx.lineTo(
-			points[i] * canvas.width,
-			points[i+1] * canvas.height
-		);
-		
-	}
-	
-	ctx.closePath();
-	
-}
-
-function ants(shape, canvas, ctx){
-	
-	ctx.strokeStyle = '#000000';
-	ctx.lineWidth = 1.5 * dpr;
-	ctx.setLineDash( [] );
-	drawShape( shape, canvas, ctx );
-	ctx.stroke();
-	
-	ctx.strokeStyle = '#FFFFFF';
-	ctx.lineWidth = 2 * dpr;
-	ctx.setLineDash( [10 * dpr, 10 * dpr] );
-	drawShape( shape, canvas, ctx );
-	ctx.stroke();
-	
-}
-
-var imageCropCanvas = document.createElement('canvas');
-var imageCropCtx = imageCropCanvas.getContext('2d');
-
-function imageCache(id){
-	
-	if(!imageCache.cache[id]){
-	
-		var imageObj = LookImages.findOne(id);
-		var img = new Image();
-		img.src = imageObj.url;
-		
-		imageCache.cache[id] = {
-			ratio: imageObj.w / imageObj.h,
-			element: img
-		};
-		
-	}
-	
-	return imageCache.cache[id];
-	
-}
-
-imageCache.cache = {};
-
 function draw(shapes){
 			
 	ctx.clearRect( 0, 0, canvas.width, canvas.height );
-	
+		
 	var shape, i, j;
 	
 	for( i = shapes.length - 1; i >= 0; --i ){
 		
-		shape = shapes[i];
-		
-		if(shape.color){
-			
-			ctx.fillStyle = shape.color;
-			drawShape(shape.points, canvas, ctx);
-			ctx.fill('evenodd');
-			
-		} else if(shape.image){
-						
-			imageCropCanvas.width = shape.bounds.width * canvas.width;
-			imageCropCanvas.height = shape.bounds.height * canvas.height;
-			imageCropCtx.globalCompositeOperation = 'source-over';
-			imageCropCtx.fillStyle = 'white';
-			drawShape(
-				_.map(shape.points, function(point, i){
-					return point - (i % 2 ? shape.bounds.top : shape.bounds.left);
-				}),
-				canvas,
-				imageCropCtx
-			);
-			imageCropCtx.fill();
-			var img = imageCache(shape.image);
-			imageCropCtx.globalCompositeOperation = 'source-atop';
-			if(img.ratio > CANVAS_RATIO){
-				var imageW = canvas.width;
-				var imageH = canvas.width / img.ratio;
-			} else {
-				var imageW = canvas.height * img.ratio;
-				var imageH = canvas.height				
-			}
-			imageCropCtx.drawImage(
-				img.element,
-				-shape.offset.x * canvas.width,
-				-shape.offset.y * canvas.height,
-				imageW * shape.scale,
-				imageH * shape.scale
-			);
-			ctx.drawImage(imageCropCanvas, shape.bounds.left * canvas.width, shape.bounds.top * canvas.height);
-			
-		}
+		drawShape(shapes[i], canvas, ctx);
 
 	}
 	
 	var selectedShape = Session.get(SELECTED_SHAPE);
 	
 	if(selectedShape !== false){
-		
-		ants(shapes[selectedShape].points, canvas, ctx);
+		drawShape(shapes[selectedShape], canvas, ctx, {selected: true});
 		
 	}
 	
@@ -162,11 +62,9 @@ function drawSelection(){
 	selectCtx.fillStyle = 'rgba(226,226,226,0.5)';
 	selectCtx.fillRect(0,0, selectCanvas.width, selectCanvas.height);
 	selectCtx.globalCompositeOperation = 'destination-out';
-	selectCtx.fillStyle = 'black';
 	drawShape(selection, selectCanvas, selectCtx);
-	selectCtx.fill();
 	selectCtx.globalCompositeOperation = 'source-over';
-	ants(selection, selectCanvas, selectCtx);
+	drawShape(selection, selectCanvas, selectCtx, {selected: true});
 	
 }
 
@@ -203,6 +101,32 @@ function bigEnough(shape){
 		
 	return shape.bounds.width > MIN_DIMENSION || shape.bounds.height > MIN_DIMENSION;
 	
+}
+
+function simplify(shape){
+	var i = shape.points.length - 1;
+	
+	var thisX, thisY, nextX, nextY;
+	
+	function dist(fromX, fromY, toX, toY){
+		return Math.sqrt(Math.pow(fromX - toX, 2) + Math.pow(fromY - toY, 2));
+	}
+	
+	while(i > 2){
+		
+		thisX = shape.points[i - 1];
+		thisY = shape.points[i];
+		
+		nextX = shape.points[i - 3];
+		nextY = shape.points[i - 2];
+		
+		if(dist(thisX, thisY, nextX, nextY) < 0.01){
+			shape.points.splice(i-3, 2);
+		}
+		
+		i -= 2;
+		
+	}
 }
 
 function findShape(shapes, x, y, lazy){
@@ -324,7 +248,6 @@ function moveShape(shape, x, y){
 
 // Layout helpers
 
-var CANVAS_RATIO = 210/297;
 var TOP_BAR_HEIGHT = 50;
 var GUTTERS = 20;
 var HELP_TEXT_HEIGHT = 50;
@@ -1073,14 +996,13 @@ Template.editor.events({
 			
 			var selection = Session.get(IMAGE_SELECTION);
 			
-			var shape = getBounds({points: selection});
+			var shape = getBounds(selection);
 			
 			if(bigEnough(shape)){
-				
-				debugger;
-				
+								
 				var image = LookImages.findOne( Session.get(SELECTED_IMAGE) );
 				
+				delete shape.color;
 				shape.image = image._id;
 				shape.scale = 1;
 				var imgRatio = image.w / image.h;
@@ -1208,7 +1130,35 @@ Template.editor.events({
 	},
 	
 	'click #finished': function(){
+		
+		function precision3(number){
+			return Math.floor(number * 1000) / 1000;
+		}
+		
+		debugger;
+		
+		_.each( this.universe.shapes, function(shape){
+			
+			shape.points = _.map(shape.points, function(pt){ return precision3(pt) });
+			
+			_.each(['bounds', 'center', 'offset'], function(key){
+				
+				var obj = shape[key];
+				
+				if(obj){
+					
+					_.each(obj, function(value, key){
 						
+						obj[key] = precision3(value);
+						
+					});
+					
+				}
+				
+			});
+			
+		});
+				
 		Children.update(this._id, {$set: {universe: this.universe}});
 		
 		Router.go('/child/' + this._id);
@@ -1264,7 +1214,10 @@ Template.editor.events({
 			var y = event.offsetY / canvas.height();
 			
 			Session.set(DRAWING_IMAGE_SELECTION, true);
-			Session.set(IMAGE_SELECTION, [x, y]);
+			Session.set(IMAGE_SELECTION, {
+				color: '#000000',
+				points: [x, y]
+			});
 						
 		}
 	
@@ -1281,7 +1234,7 @@ Template.editor.events({
 			
 			var selection = Session.get(IMAGE_SELECTION);
 			
-			selection.push(x, y);
+			selection.points.push(x, y);
 			
 			Session.set(IMAGE_SELECTION, selection);
 						

@@ -5,6 +5,9 @@ Template.profile.onCreated(function(){
 });
 
 Template.profile.helpers({
+	'childrenObjs': function(){
+		return Children.find({owner: this._id});
+	},
     'children': function(){
 		return Children.find({owner: this._id}).map(function(child){
 			return '<a href="/child/' + child._id + '">' + child.name + '</a>';

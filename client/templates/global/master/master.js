@@ -39,7 +39,6 @@ Template.master.helpers({
 Template.master.events({
 	
 	'click #menuButton': function(){
-		
 		Session.set(MENU_OPEN, true);
 		
 	},
