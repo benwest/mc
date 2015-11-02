@@ -11,16 +11,20 @@
     
     <p class="text-2">You're ordering clothes based on these colours:</p>
     
-    {{#each universe.colors}}
-    	<div class="swatch text-2" style="background: {{this}}"></div>
+    {{#each colors}}
+    	<div class="swatch text-{{times}} {{#if bright}}outline{{/if}}" style="background: {{color}}"></div>
     {{/each}}
     
     <p class="text-2">And these looks:</p>
     
-    {{#each looks}}
-    	{{this}}
-    {{/each}}
-    
+    <p>
+	    
+	    {{#each looks}}
+	    	<span class="text-{{times}}">{{look}}</span>
+	    {{/each}}
+	    
+    </p>
+	
 	<p class="text-2">
 		
 		{{name}} needs

@@ -13,6 +13,35 @@ Template.orderForm.onCreated(function(){
 })
 
 Template.orderForm.helpers({
+	'colors': function(){
+		
+		return _.chain(this.universe.colors)
+			.map(function(value, key){
+				return {
+					color: key,
+					times: value,
+					bright: tinycolor(key).getBrightness() > 150
+				}
+			})
+			.sortBy(function(obj){return obj.times})
+			.reverse()
+			.value();
+		
+	},
+	'looks': function(){
+		
+		return _.chain(this.universe.looks)
+			.map(function(value, key){
+				return {
+					look: Looks.findOne(key).name,
+					times: value
+				}
+			})
+			.sortBy(function(obj){return obj.times})
+			.reverse()
+			.value();
+		
+	},
 	'garmentSelectors': function(){
 		var selected = Session.get(SELECTED_GARMENTS);
 		var range = selected.length;

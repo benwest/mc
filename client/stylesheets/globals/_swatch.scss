@@ -3,4 +3,9 @@
 	width: 1em;
 	height: 1em;
 	border-radius: 50%;
+	
+	&.outline{
+		border: 1px solid black;
+	}
+	
 }
