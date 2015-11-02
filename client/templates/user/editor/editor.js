@@ -248,9 +248,9 @@ function moveShape(shape, x, y){
 
 // Layout helpers
 
-var TOP_BAR_HEIGHT = 50;
-var GUTTERS = 20;
-var HELP_TEXT_HEIGHT = 50;
+var TOP_BAR_HEIGHT = Modernizr.touch ? 20 : 50;
+var GUTTERS = Modernizr.touch ? 10 : 20;
+var HELP_TEXT_HEIGHT = TOP_BAR_HEIGHT;
 var MAX_SIDE_COLUMN_SIZE = 200;
 
 function makeCSSTransform(x, y, scale){
@@ -289,40 +289,48 @@ function makeSizes(){
 		var secondaryHeight = secondaryWidth / CANVAS_RATIO;
 		var secondaryLeft = (primaryLeft / 2) - (secondaryWidth / 2);
 		var secondaryTop = primaryTop + (primaryHeight - secondaryHeight) / 2;
+		var secondaryScale = secondaryWidth / primaryWidth;
 			
 		var leftLeft = secondaryLeft;
 		var leftTop = secondaryTop;
 		var leftWidth = secondaryWidth;
 		var leftHeight = secondaryHeight;
+		var leftScale = secondaryScale;
 		
 		var rightTop = leftTop;
 		var rightLeft = window.innerWidth - secondaryLeft - secondaryWidth;
 		var rightWidth = leftWidth;
 		var rightHeight = leftHeight;
+		var rightScale = secondaryScale;
 		
 	} else {
 		
 		Session.set(ORIENTATION, 'portrait');
 		
-		var secondaryTop = (window.innerHeight * 0.7) + GUTTERS;
+		var secondaryTop = (window.innerHeight * 0.8) + GUTTERS;
 		var secondaryHeight = window.innerHeight - secondaryTop - HELP_TEXT_HEIGHT;
-		var secondaryWidth = window.innerWidth - GUTTERS * 2;
-		var secondaryLeft = GUTTERS;
+		var secondaryWidth = secondaryHeight * CANVAS_RATIO;
+		var secondaryLeft = (window.innerWidth - secondaryWidth) / 2;
 		
 		var primaryTop = TOP_BAR_HEIGHT;
 		var primaryHeight = secondaryTop - GUTTERS - TOP_BAR_HEIGHT;
 		var primaryWidth = primaryHeight * CANVAS_RATIO;
 		var primaryLeft = (window.innerWidth - primaryWidth) / 2;
 		
-		var leftLeft = secondaryLeft;
+		var secondaryScale = secondaryHeight / primaryHeight;
+		
+		var leftLeft = (((window.innerWidth - GUTTERS*2) / 2) - secondaryWidth) / 2;
 		var leftTop = secondaryTop;
 		var leftHeight = secondaryHeight;
 		var leftWidth = secondaryWidth/2 - GUTTERS/2;
 		
-		var rightLeft = leftLeft + leftWidth + GUTTERS;
+		var rightLeft = window.innerWidth - secondaryWidth - leftLeft;
 		var rightTop = leftTop;
 		var rightHeight = leftHeight;
 		var rightWidth = leftWidth;
+		
+		var leftScale = secondaryScale;
+		var rightScale = secondaryScale;
 		
 	}
 	
@@ -340,17 +348,17 @@ function makeSizes(){
 		secondary: {
 			x: secondaryLeft, 
 			y: secondaryTop, 
-			scale: secondaryWidth / primaryWidth
+			scale: secondaryScale
 		},
 		left: {
 			x: leftLeft,
 			y: leftTop,
-			scale: leftWidth / primaryWidth
+			scale: leftScale
 		},
 		right: {
 			x: rightLeft,
 			y: rightTop,
-			scale: rightWidth / primaryWidth
+			scale: rightScale
 		}
 	}
 	
@@ -872,7 +880,7 @@ Template.editor.events({
 		
 	},
 	
-	'click .color-wheel': function(){
+	'click .color-wheel': function(event){
 		
 		Session.set(DRAWING, false);
 				
@@ -916,13 +924,24 @@ Template.editor.events({
 		
 	},
 	
-	'mousedown #draw-canvas': function(event){
+	'mousedown #draw-canvas, touchstart #draw-canvas': function(event){
 		
-		if( event.button !== 0 ) return;
+		if(Modernizr.touch){
+			var canvas = $(event.target);
+			var offset = canvas.offset();
+			var x = event.originalEvent.touches[0].pageX - offset.left;
+			var y = event.originalEvent.touches[0].pageY - offset.top;
+		} else {
+			if( event.button !== undefined && event.button !== 0 ) return;
+			var canvas = $(event.target);
+			var x = event.offsetX;
+			var y = event.offsetY;
+		}
 		
-		var canvas = $(event.target);
-		var x = event.offsetX / canvas.width();
-		var y = event.offsetY / canvas.height();
+		x /= canvas.width();
+		y /= canvas.height();
+		
+		console.log(x, y);
 		
 		var mode = Session.get(MODE);
 				
@@ -973,7 +992,7 @@ Template.editor.events({
 
 	},
 	
-	'mouseup': function(){
+	'mouseup, touchend': function(){
 		
 		if(Session.get(DRAWING)){
 			
@@ -1022,11 +1041,25 @@ Template.editor.events({
 		
 	},
 	
-	'mousemove #draw-canvas': function(event){
+	'mousemove #draw-canvas, touchmove #draw-canvas': function(event){
+		
+		if(Modernizr.touch){
+			var canvas = $(event.target);
+			var offset = canvas.offset();
+			var x = event.originalEvent.touches[0].pageX - offset.left;
+			var y = event.originalEvent.touches[0].pageY - offset.top;
+		} else {
+			if( event.button !== undefined && event.button !== 0 ) return;
+			var canvas = $(event.target);
+			var x = event.offsetX;
+			var y = event.offsetY;
+		}
 		
 		var canvas = $(event.target);
-		var x = event.offsetX / canvas.width();
-		var y = event.offsetY / canvas.height();
+		x /= canvas.width();
+		y /= canvas.height();
+		
+		console.log(x, y);
 		
 		if( Session.get(DRAWING) ){
 			
@@ -1134,9 +1167,7 @@ Template.editor.events({
 		function precision3(number){
 			return Math.floor(number * 1000) / 1000;
 		}
-		
-		debugger;
-		
+				
 		_.each( this.universe.shapes, function(shape){
 			
 			shape.points = _.map(shape.points, function(pt){ return precision3(pt) });
@@ -1204,7 +1235,7 @@ Template.editor.events({
 		
 	},
 	
-	'mousedown #select-canvas': function(event){
+	'mousedown #select-canvas, touchstart #select-canvas': function(event){
 				
 		if(!Session.get(IMAGE_SELECTION)){
 			
@@ -1223,7 +1254,7 @@ Template.editor.events({
 	
 	},
 	
-	'mousemove #select-canvas': function(event){
+	'mousemove #select-canvas, touchmove #select.canvas': function(event){
 				
 		if(Session.get(DRAWING_IMAGE_SELECTION)){
 			
