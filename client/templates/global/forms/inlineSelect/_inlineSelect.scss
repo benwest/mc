@@ -5,12 +5,13 @@
 	width: auto;
 	border-bottom-width: $underlineWidth;
 	border-bottom-style: dashed;
-	border-bottom-color: rgba(0, 0, 0, 0.5);
+	border-bottom-color: rgba(255, 255, 255, 0.5);
 	position: relative;
 	cursor: pointer;
 	padding-right: 1em * ($lineHeight * 0.61);
 	vertical-align: top;
 	transition: border-bottom-color 0.2s, width 0.2s;
+	font-weight: bold;
 	
 	&:after{
 		content: '';
@@ -27,15 +28,19 @@
 	}
 	
 	&.open{
-		border-bottom-color: rgba(0, 0, 0, 1);
+		border-bottom-color: rgba(255, 255, 255, 1);
 		padding-right: 0;
+		animation: select-placeholder-flash 0.75s infinite alternate;
 	}
 	
 	&:hover{
-		border-bottom-color: rgba(0, 0, 0, 1);
+		border-bottom-color: rgba(255, 255, 255, 1);
 	}
-	
-	&.open:after,
+
+	&.open:after{
+		animation: select-placeholder-arrow-flash 0.75s infinite alternate;
+	}	
+
 	&:hover:after{
 		opacity: 1;
 	}
@@ -51,6 +56,7 @@
 		transition: max-height 1s, padding-right 0.2s;
 		display: none;
 		background: none;
+		z-index: 50;
 	
 		&.scroll{
 			overflow-y: scroll;
@@ -77,4 +83,38 @@
 	
 }
 
+@each $color in $colors{
+	
+	$className: nth($color, 1);
+	$property: nth($color, 2);
+	
+	.bg-#{$className} .inline-select{
+		
+		.scroll-fadeout{
+			background: linear-gradient(transparentize($property, 1), $property);
+		}
+		
+		.inline-select-options{
+			background: $property;
+		}
+		
+	}
+	
+}
 
+@keyframes select-placeholder-flash{
+	from {
+		border-bottom-color: rgba(255, 255, 255, 0.4);
+	}
+	to{
+		border-bottom-color: rgba(255, 255, 255, 0.9);
+	}
+}
+@keyframes select-placeholder-arrow-flash{
+	from {
+		opacity: 0.4;
+	}
+	to{
+		opacity: 0.9;
+	}
+}

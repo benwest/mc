@@ -161,35 +161,43 @@ Meteor.startup(function(){
     if(!LookImages.find({}).count()){
 	    
 	    var shells = Looks.insert({
-		    name: 'Sea shells on the sea shore'
+		    name: 'Sea shells on the sea shore',
+		    icon: '/img/looks/1/icon.svg'
 	    })
 	    
 	    var prints = Looks.insert({
-		    name: 'Pint-sized prints'
+		    name: 'Pint-sized prints',
+		    icon: '/img/looks/2/icon.svg'
 	    })
 	    
 	    var happy = Looks.insert({
-		    name: 'Happy-go-lucky'
+		    name: 'Happy-go-lucky',
+		    icon: '/img/looks/3/icon.svg'
 	    })
 	    
 	    var basics = Looks.insert({
-		    name: 'Back to basics'
+		    name: 'Back to basics',
+		    icon: '/img/looks/4/icon.svg'
 	    })
 	    
 	    var roar = Looks.insert({
-		    name: 'Hear them roar'
+		    name: 'Hear them roar',
+		    icon: '/img/looks/5/icon.svg'
 	    })
 	    
 	    var fjords = Looks.insert({
-		    name: 'Over the Fjords and Far Away'
+		    name: 'Over the Fjords and Far Away',
+		    icon: '/img/looks/6/icon.svg'
 	    })
 	    
 	    var home = Looks.insert({
-		    name: 'Make Yourself at Home'
+		    name: 'Make Yourself at Home',
+		    icon: '/img/looks/7/icon.svg'
 	    })
 	    
 	    var glad = Looks.insert({
-		    name: 'Glad Rags'
+		    name: 'Glad Rags',
+		    icon: '/img/looks/8/icon.svg'
 	    })
 	    
 	    LookImages.insert({
@@ -285,7 +293,7 @@ Meteor.startup(function(){
 	    
 	    LookImages.insert({
 		    url: '/img/looks/3/img3.jpg',
-		    w: 455,
+		    w: 1024,
 		    h: 683,
 		    owner: happy
 	    })
@@ -402,7 +410,13 @@ Meteor.startup(function(){
 		    owner: glad
 	    })
 	    
+    }
+    
+    if(!Colors.find().count()){
 	    
+	    var colors = [{color:"#000000",name:"Licorice"},{color:"#ffffff",name:"Snow"},{color:"#941100",name:"Cayenne"},{color:"#945200",name:"Mocha"},{color:"#929000",name:"Asparagus"},{color:"#4f8f00",name:"Fern"},{color:"#008f00",name:"Clover"},{color:"#009051",name:"Moss"},{color:"#009193",name:"Teal"},{color:"#005493",name:"Ocean"},{color:"#011993",name:"Midnight"},{color:"#531b93",name:"Aubergine"},{color:"#942193",name:"Plum"},{color:"#941751",name:"Maroon"},{color:"#ff2600",name:"Fire Engine"},{color:"#ff9300",name:"Tangerine"},{color:"#fffb00",name:"Lemon"},{color:"#8efa00",name:"Lime"},{color:"#00f900",name:"Spring"},{color:"#00fa92",name:"Sea Foam"},{color:"#00fdff",name:"Turquoise"},{color:"#0096ff",name:"Aqua"},{color:"#0433ff",name:"Blueberry"},{color:"#9437ff",name:"Grape"},{color:"#ff40ff",name:"Magenta"},{color:"#ff2f92",name:"Strawberry"},{color:"#ff7e79",name:"Salmon"},{color:"#ffd479",name:"Cantaloupe"},{color:"#fffc79",name:"Banana"},{color:"#d4fb79",name:"Honeydew"},{color:"#73fa79",name:"Flora"},{color:"#73fcd6",name:"Spindrift"},{color:"#73fdff",name:"Ice"},{color:"#76d6ff",name:"Sky"},{color:"#7a81ff",name:"Orchid"},{color:"#d783ff",name:"Lavender"},{color:"#ff85ff",name:"Bubblegum"},{color:"#ff8ad8",name:"Carnation"}];
+	    
+	    _.each(colors, function(color) { Colors.insert(color) })
 	    
     }
     

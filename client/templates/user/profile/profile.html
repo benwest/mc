@@ -14,18 +14,17 @@
 	        
 		        <p class="text-1-5">
 			        
-					<b>Welcome back, {{profile.firstName}}!</b>
+					<b>{{greeting}}, {{profile.firstName}}!</b>
 
-					
 					{{# if children }}
 					
-						You've set up {{ plural children 'a profile' 'profiles' }} for {{{ list children }}}.
+						How {{ plural children 'is' 'are' }} {{{ list children }}}?
 						
 						{{# if lastOrder }}
 						
 							{{# with lastOrder }}
 							
-								Your order <a href="order/{{_id}}">#{{ number }}</a>, for {{ forChild }}, was {{ status }} {{ actionTime }}.
+								Your order <a href="order/{{number}}">#{{ number }}</a>, for {{ forChild }}, was {{ status }} {{ actionTime }}.
 							
 							{{/ with }}
 						

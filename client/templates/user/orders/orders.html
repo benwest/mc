@@ -1,20 +1,39 @@
 <template name="orders">
 
-	{{#each orders}}
-	
-		<a href="order/{{number}}">
-	
-			<div class="row">
-				
-				<div class="small-4 columns">
-					<strong>#{{number}}</strong>, for <strong>{{forChild}}</strong><br>
-					{{capitalise status}} {{ago lastActionDate}}
-				</div>
-				
-			</div>
-		
-		</a>
-	
-	{{/each}}
+    <div class="row">
+	    
+        <div class="small-12 medium-8 medium-centered columns">
+            
+			<h2 class="page-title">Your Orders</h2>
+			
+			<ul class="large-block-grid-3">
+			
+				{{#each orders}}
+								
+					<li class="text-center ">
+												
+						<a class="no-line" href="order/{{number}}"><h3 class="no-gap">#{{number}}, for {{forChild}}</h3></a>
+						<div class="gap-bottom-0-5">
+							{{#each colors}}
+								{{>swatch color=color bg='TEAL' }}
+							{{/each}}
+						</div>
+						<div class="gap-bottom-0-5">
+							{{#each looks}}
+								{{> lookIcon }}
+							{{/each}}
+						</div>
+						<p>{{capitalise status}} {{ago lastActionDate}}</p>
+							
+					</li>
+									
+				{{/each}}
+			
+			</ul>
+			
+        </div>
+        
+    </div>
+    
 
 </template>

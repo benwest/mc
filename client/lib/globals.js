@@ -20,6 +20,38 @@ MONTHS = [];
 		
 })();
 
+INPUTS = {
+	sessionSet: function(key, data){
+		key = key.split('.');
+		if(key[1]){
+			var obj = Session.get(key[0]);
+			obj[key[1]] = data;
+			Session.set(key[0], obj);
+		} else {
+			Session.set(key[0], data);
+		}
+	},
+	sessionGet: function(key){
+		key = key.split('.');
+		if(key[1]){
+			var obj = Session.get(key[0]);
+			return obj[key[1]];
+		} else {
+			return Session.get(key[0]);
+		}
+	}
+}
+
+COLORS = {
+	PINK: '#e7bbb4',
+	GREEN: '#9ba084',
+	DARK_GREY: '#9c9c93',
+	LIGHT_GREY: '#e2e2e2',
+	ORANGE: '#EDA989',
+	TEAL: '#ACD9D5',
+	BLUE: '#9c9cd2'
+}
+
 drawShape = (function(){
 	
 	imageCropCanvas = document.createElement('canvas');

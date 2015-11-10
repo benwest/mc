@@ -1,4 +1,24 @@
+clamp = function(x, min, max){
+	return Math.max( min, Math.min( x, max ) );
+}
+
+normalize = function(x, min, max){
+	return (x-min) / (max-min);
+}
+
+scale = function(x, oldMin, oldMax, newMin, newMax){
+    if(oldMin !== 0 && oldMax !== 1){
+        x = normalize(x, oldMin, oldMax);
+    }
+    return newMin + x * (newMax - newMin);
+}
+
+nearest = function(x, to){
+	return Math.round(x/to) * to;
+}
+
 sessionDelete = function(key){
+	if(_.isArray(key)) return _.each(key, sessionDelete);
 	Session.set(key, false);
 	delete Session.keys[key];
 }
@@ -175,6 +195,12 @@ Template.registerHelper('selectedIfRoute', function(route){
     return Router.current().route.getName().indexOf(route) !== -1 && 'selected';
 });
 
+plural = function(x, singular, plural){
+	if(_.isArray(x)) x = x.length;
+	if(!plural) plural = singular + 's';
+	return x === 1 ? singular : plural;
+}
+
 Template.registerHelper('plural', plural);
 
 Template.registerHelper('globalSetting', function(field){
@@ -210,8 +236,15 @@ Template.registerHelper('listSeparator', function(length, i){
 	return ',';
 })
 
-Template.registerHelper('getOrderStatus', function(order){
+Template.registerHelper('count', function(thing){
+	if(_.isArray(thing)) return thing.length;
+	if(_.isObject(thing)) return _.keys(thing).length;
+});
 
+Template.registerHelper('getOrderStatus', function(order){
+	
+	return capitalise(this.status) + ' at ' + moment(this[this.status + 'At']).format('H[:]MM [on] MMMM Do YYYY');
+	
     switch(order.status){
         
         case 'placed':
@@ -229,3 +262,35 @@ Template.registerHelper('getOrderStatus', function(order){
     }
         
 })
+
+Template.registerHelper('coloredName', function(){
+	
+	function coloredSpan(color, content){
+		
+		return '<span style="color:' + color + ';">' + content + '</span>';
+		
+	}
+			
+	var colors = _.chain(this.universe.colors)
+		.keys()
+		.map(function(key){return Colors.findOne(key).color})
+		.filter(function(color){ return tinycolor(color).getBrightness() < 185 })
+		.value();
+	
+	var numColors = colors.length;
+	
+	if( numColors === 0 ) return this.name;
+	
+	if( numColors === 1 ) return coloredSpan( colors[0], this.name );
+	
+	var ret = '';
+	
+	for( var i = 0; i < this.name.length; ++i ){
+		
+		ret += coloredSpan( colors[ i % numColors ], this.name.charAt(i) );
+		
+	}
+	
+	return ret;
+	
+});

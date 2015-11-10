@@ -22,7 +22,7 @@ _.each([
 	'DRAWING_COLOR',
 	'PICKING_LOOK',
 	'PICKING_IMAGE'
-], function(mode, i){ modes[mode] = i });
+], function(mode, i){ modes[mode] = mode });
 
 var dpr = window.devicePixelRatio || 1;
 
@@ -75,10 +75,11 @@ function getColorsAndLooks(universe){
 	
 	_.each(universe.shapes, function(shape){
 		if(shape.color){
-			if(!colors[shape.color]){
-				colors[shape.color] = 1;
+			var color = Colors.findOne({color: shape.color})._id;
+			if(!colors[color]){
+				colors[color] = 1;
 			} else {
-				colors[shape.color]++;
+				colors[color]++;
 			}
 		} else if(shape.image) {
 			var look = LookImages.findOne(shape.image).owner;
@@ -248,7 +249,7 @@ function moveShape(shape, x, y){
 
 // Layout helpers
 
-var TOP_BAR_HEIGHT = Modernizr.touch ? 20 : 50;
+var TOP_BAR_HEIGHT = Modernizr.touch ? 20 : 58;
 var GUTTERS = Modernizr.touch ? 10 : 20;
 var HELP_TEXT_HEIGHT = TOP_BAR_HEIGHT;
 var MAX_SIDE_COLUMN_SIZE = 200;
@@ -471,7 +472,7 @@ Template.editor.onCreated(function(){
 	Session.set(SELECTED_IMAGE, false);
 	Session.set(DRAWING_IMAGE_SELECTION, false);
 	Session.set(IMAGE_SELECTION, false);
-	
+		
 });
 
 Template.editor.onRendered(function(){
@@ -511,6 +512,14 @@ Template.editor.onDestroyed(function(){
 
 Template.editor.helpers({
 	
+	'mode': function(is){
+		return Session.get(MODE) === is;
+	},
+	
+	'colors': function(){
+		return Colors.find();
+	},
+	
 	'helpText': function(){
 		
 		switch( Session.get(MODE) ){
@@ -538,7 +547,7 @@ Template.editor.helpers({
 						
 					} else {
 						
-						
+						return "";
 						
 					}
 					
@@ -547,7 +556,12 @@ Template.editor.helpers({
 				}
 							
 			case modes.PICKING_COLOR:
-				return 'Pick your favourite colour,';
+				
+				if(!_.keys(this.universe.colors).length){
+					return 'Pick your favourite colour.';
+				} else {
+					return 'Pick another color.';
+				}
 				
 			case modes.DRAWING_COLOR:
 				return 'Draw with ' + (Modernizr.touch ? 'your finger.' : 'the mouse.');
@@ -745,7 +759,10 @@ Template.editor.helpers({
 	'imageList': function(){
 		var lookId = Session.get(SELECTED_LOOK);
 		if(!lookId) return false;
-		return LookImages.find({owner: lookId});
+		return _.filter(LookImages.find({owner: lookId}).fetch(), function(img){
+				console.log(img.w/img.h < CANVAS_RATIO);
+				return img.w/img.h < CANVAS_RATIO;
+			});
 	},
 	
 	'scaledScreenHeight': function(){
@@ -846,6 +863,8 @@ Template.editor.events({
 		
 	},
 	
+	/*
+	
 	'mouseenter .color-wheel': function(){
 		
 		if( Session.get(MODE) === modes.PICKING_COLOR ) showPen();
@@ -893,6 +912,32 @@ Template.editor.events({
 			case modes.DRAWING_COLOR:
 				Session.set(MODE, modes.PICKING_COLOR);
 				break;
+			
+		}
+		
+	},
+	*/
+	
+	'click .swatches': function(){
+		
+		if( Session.equals(MODE, modes.DRAWING_COLOR) ){
+			Session.set(MODE, modes.PICKING_COLOR);
+		}
+		
+	},
+	
+	'click .swatches div': function(event){
+		
+		if( Session.equals(MODE, modes.PICKING_COLOR) ){
+			
+			event.stopPropagation();
+			
+			pen.css({
+				background: this.color
+			});
+			
+			Session.set(CURRENT_COLOR, this.color);
+			Session.set(MODE, modes.DRAWING_COLOR);
 			
 		}
 		
@@ -1025,7 +1070,7 @@ Template.editor.events({
 				shape.image = image._id;
 				shape.scale = 1;
 				var imgRatio = image.w / image.h;
-				shape.offset = imgRatio > CANVAS_RATIO ? {x: 0,  y: 1-(imgRatio/CANVAS_RATIO) } : {x: (CANVAS_RATIO - imgRatio) / 2, y: 0 };
+				shape.offset = imgRatio > CANVAS_RATIO ? {x: 0,  y: (1-(imgRatio/CANVAS_RATIO))/2 } : {x: (CANVAS_RATIO - imgRatio) / 2, y: 0 };
 				shape.offset.x = shape.bounds.left - shape.offset.x;
 				shape.offset.y = shape.bounds.top - shape.offset.y;
 				this.universe.shapes.unshift(shape);
@@ -1058,9 +1103,7 @@ Template.editor.events({
 		var canvas = $(event.target);
 		x /= canvas.width();
 		y /= canvas.height();
-		
-		console.log(x, y);
-		
+				
 		if( Session.get(DRAWING) ){
 			
 			var points = this.universe.shapes[0].points;

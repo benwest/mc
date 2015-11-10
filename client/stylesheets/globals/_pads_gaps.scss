@@ -11,4 +11,12 @@ $pad-gap-class-names: (pad-top padding-top),
 $pad-gap-count: 6;
 $pad-gap-step: 0.25;
 
+.no-pad{
+	padding: 0;
+}
+
+.no-gap{
+	margin: 0;
+}
+
 @include class-creator($pad-gap-class-names, $pad-gap-count, $pad-gap-step, rem);

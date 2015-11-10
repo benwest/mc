@@ -3,21 +3,37 @@ Template.admin_customerDetailOrderRow.helpers({
         return Children.findOne(this.forChild);
     },
     'garments':function(){
-        return _.map(this.garments, function(value, key){
-            return {
-                name: GarmentTypes.findOne(key).name,
-                size: value
-            };
+        return _.map(this.garments, function(garment){
+	        return '<b>' + garment + '</b>';
         });
     },
-    'brands': function(){
-        return _.map(this.brands, function(brandId){
-            return Brands.findOne(brandId).name;
-        });
+    'colors': function(){
+	    
+	    var i = 0;
+	    
+	    return _.map( this.universe.colors, function(value, key){
+		    
+		    var look = Colors.findOne(key);
+		    look.times = value;
+		    look.i = i++;
+		    return look;
+		    
+	    })
+	    
     },
-    'universes': function(){
-        return _.map(this.universes, function(value, key){
-            return Universes.findOne(key).name + ' (' + value + '%)';
-        });
+    
+    'looks': function(){
+	    
+	    var i = 0;
+	    
+	    return _.map( this.universe.looks, function(value, key){
+		    
+		    var look = Looks.findOne(key);
+		    look.times = value;
+		    look.i = i++;
+		    return look;
+		    
+	    })
+	    
     }
 })

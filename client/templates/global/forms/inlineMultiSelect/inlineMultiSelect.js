@@ -32,6 +32,13 @@ Template.inlineMultiSelect.helpers({
 		return selected;
 		
 	},
+	'listValues': function(){
+		
+		return _.map(Session.get(this.id), function(option){
+			return '<b>' + option.name + '</b>';
+		});
+		
+	},
 	'listSeparator': function(context){
 				
 		var options = context.options.split(', ').length;

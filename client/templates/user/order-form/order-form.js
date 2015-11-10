@@ -1,26 +1,42 @@
-var DEFAULT_ADDRESS = 'orderFormDefaultAddress';
-var ORDER_ADDRESS = 'orderFormAddress';
-var SELECTING_GARMENTS = 'orderFormSelectingGarments';
-var SELECTED_GARMENTS = 'orderFormSelectedGarments';
+var GARMENTS_LIST = 'orderFormGarmentsList';
+var SIZES_LIST = 'orderFormSizesList';
+var SIZES_ENTERED = 'orderFormSizesEntered';
+var SIZING_CONFIRMED = 'orderFormSizingConfirmed';
 
 
 Template.orderForm.onCreated(function(){
-    var profileAddress = Meteor.users.findOne(this.data.owner).profile.address || '';
-    Session.set(DEFAULT_ADDRESS, profileAddress);
-    Session.set(ORDER_ADDRESS, profileAddress);
-    Session.set(SELECTING_GARMENTS, true);
-    Session.set(SELECTED_GARMENTS, []);
-})
+    
+    //Get which garments are valid for this child, and determine sizings needed, and their defaults
+    var child = this.data;
+	var age = getAge(child.dob);
+	var sizes = {};
+	var garments = _.filter( GarmentTypes.find().fetch(), function(garment){
+		if( garment.gender !== 'Both' && garment.gender.toLowerCase !== child.gender ) return false;
+		if( garment.minAge && garment.minAge >= age ) return false;
+		if( garment.maxAge && garment.maxAge <= age ) return false;
+		sizes[garment.sizing] = child.sizing[garment.sizing] || false;
+		return true;
+	});
+	
+	Session.set(GARMENTS_LIST, garments);
+	Session.set(SIZES_LIST, sizes);
+	Session.set(SIZES_ENTERED, {});
+	Session.set(SIZING_CONFIRMED, false);
+
+});
 
 Template.orderForm.helpers({
 	'colors': function(){
 		
 		return _.chain(this.universe.colors)
 			.map(function(value, key){
+				
+				var color = Colors.findOne(key);
+				
 				return {
-					color: key,
-					times: value,
-					bright: tinycolor(key).getBrightness() > 150
+					color: color.color,
+					name: color.name,
+					times: value
 				}
 			})
 			.sortBy(function(obj){return obj.times})
@@ -30,44 +46,57 @@ Template.orderForm.helpers({
 	},
 	'looks': function(){
 		
+		var minTimes = _.min(this.universe.looks);
+		var maxTimes = _.max(this.universe.looks);
+		
+		var maxSize = 2.5;
+		var minSize = Math.max(maxSize - (maxTimes - minTimes), 1)
+				
 		return _.chain(this.universe.looks)
 			.map(function(value, key){
-				return {
-					look: Looks.findOne(key).name,
-					times: value
-				}
+				
+				var scaledTimes = scale(value, minTimes, maxTimes, minSize, maxSize);
+				scaledTimes = nearest(scaledTimes, 0.5);
+				scaledTimes = String(scaledTimes).replace('.', '-');
+				
+				var look = Looks.findOne(key);
+				look.times = value;
+				look.textClass = 'text-xbold';
+				
+				return look;
+				
 			})
 			.sortBy(function(obj){return obj.times})
 			.reverse()
+			.map(function(obj, i){obj.i = i; return obj;})
 			.value();
 		
 	},
-	'garmentSelectors': function(){
-		var selected = Session.get(SELECTED_GARMENTS);
-		var range = selected.length;
-		if(range < GarmentTypes.find({}).count() ) range++;
-		return _.range(range);
-	},
-	'garmentSelectorId': function(){
-		return 'orderFormGarment' + this.valueOf();
-	},
+	
 	'garmentNames': function(){
-		var child = this;
-		var age = getAge(child.dob);
-		var garments = GarmentTypes.find({}).fetch();
-		var selected = Session.get(SELECTED_GARMENTS);
-		var ret = _.filter( garments, function(garment){
-			if( garment.gender !== 'Both' && garment.gender.toLowerCase !== child.gender ) return false;
-			if( garment.minAge && garment.minAge >= age ) return false;
-			if( garment.maxAge && garment.maxAge <= age ) return false;
-			if( _.some( selected, function(selectedGarment){
-				return garment.name === selectedGarment.name;
-			}) ) return false;
-			return true;
-		});
-		return _.pluck(ret, 'name').join(', ');
+		return _.pluck( Session.get(GARMENTS_LIST), 'name' ).join(', ');
 	},
+	
 	'sizingInstructions': function(){
+		
+		var sizes = Session.get(SIZES_LIST);
+		var i = 0;
+		var length = _.keys(sizes).length;
+		
+		return _.map( sizes, function(value, size, list){
+			
+			return {
+				name: size,
+				inputId: SIZES_ENTERED + '.' + size,
+				value: value,
+				i: i++,
+				length: length
+			}
+			
+		});
+				
+		/*
+		
 		var child = this;
 		var list = _.chain(Session.get('orderFormGarments'))
 			.pluck('name')
@@ -84,51 +113,82 @@ Template.orderForm.helpers({
 			})
 			.value();
 		
-		Session.set('orderFormSizing', list);
-		
 		return _.map(list, function(item){ item.length = list.length; return item })
+		
+		*/
 	},
+	
+	'enteredSizes': function(){
+		
+		var sizes = Session.get(SIZES_ENTERED);
+		var i = 0;
+		var length = _.keys(sizes).length;
+		
+		return _.map( sizes, function(value, key){
+			
+			return {
+				name: key,
+				value: value,
+				i: i++,
+				length: length
+			}
+			
+		})
+		
+	},
+	
 	'sizingValid': function(){
 		
-		var sizings = Session.get('orderFormSizing');
+		return Session.get('orderFormHeight') && Session.get('orderFormWeight') && Session.get('orderFormShoes');
 		
-		return _.every(sizings, function(s){return Session.get(s.name)});
+		/*
 		
+		var list = Session.get(SIZES_LIST);
+		var entered = Session.get(SIZES_ENTERED);
+		return _.keys(entered).length === _.keys(list).length;
+		
+		*/
+		
+	},
+	
+	'sizingConfirmed': function(){
+		return Session.get(SIZING_CONFIRMED);
 	}
 })
 
 Template.orderForm.events({
+	
+	'click .confirm-sizing': function(){
+		Session.set(SIZING_CONFIRMED, true);
+	},
+	
+	'click .change-sizing': function(){
+		Session.set('sizingConfirmed', false);
+	},
 
     'click .place-order': function(event, template){
 		
-		debugger;
-		
         var orderNumber = Orders.find({}).count() + 1;
         
-        var sizing = {};
-        
-        _.forEach(Session.get('orderFormSizing'), function(category){
-	        sizing[category.name] = Session.get(category.name);
-        })
-        
-        var garments = _.map( Session.get('orderFormGarments'), function(garm){
-	        return GarmentTypes.findOne({name: garm.name})._id;
-        });
-        
+        var sizing = {
+	        height: Session.get('orderFormHeight'),
+	        weight: Session.get('orderFormWeight'),
+	        shoes: Session.get('orderFormShoes')
+        }
+                
         Orders.insert({
             owner: Meteor.user()._id,
             number: orderNumber,
             forChild: this._id,
-            address: Session.get('orderFormAddress')._id,
-            garments: garments,
+            address: EJSON.clone( Addresses.findOne( Session.get('orderFormAddress') ) ),
+            garments: _.pluck( Session.get('orderFormGarments'), 'name'),
             sizing: sizing,
-            colors: this.universe.colors,
-            looks: this.universe.looks,
+            universe: EJSON.clone(this.universe),
             placedAt: new Date(),
             status: 'placed',
             items: {}
         });
-		
+        		
 		Children.update(this._id, {
 			$set: {sizing: sizing}
 		})

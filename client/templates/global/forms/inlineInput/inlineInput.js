@@ -4,8 +4,7 @@ Template.inlineInput.onCreated(function(){
 	this.data.max = this.data.max ? Number(this.data.max) : Infinity;
 	this.data.maxLength = this.data.maxLength ? Number(this.data.maxLength) : Infinity;
 	this.data.placeholder = this.data.placeholder || '';
-	Session.set( this.data.id, this.data.value || false );
-	Session.set( this.data.id + 'Touched', false );
+	INPUTS.sessionSet( this.data.id, this.data.value || false );
 });
 
 Template.inlineInput.onRendered(function(){
@@ -14,11 +13,6 @@ Template.inlineInput.onRendered(function(){
 	this.input.text(this.data.value || this.data.placeholder || '');
 });
 
-Template.inlineInput.onDestroyed(function(){
-	sessionDelete(this.data.id);
-	sessionDelete(this.data.id + "Touched");
-})
-
 Template.inlineInput.helpers({
 	
 	'isNumber': function(){
@@ -26,15 +20,16 @@ Template.inlineInput.helpers({
 	},
 	
 	'value': function(){
-		var value = Session.get( this.id );
+		var value = INPUTS.sessionGet( this.id );
 		var input = Template.instance().input;
 		if(value === false && input) input.text(this.placeholder || '');
 		return value;
 	},
 	
 	'valid': function(){
-		var value = Session.get( this.id );
-		return value !== false && value !== '' && value !== this.placeholder && 'valid';
+		var value = INPUTS.sessionGet(this.id);
+		if(!value) return false;
+		return value !== this.placeholder && 'valid';
 	}
 	
 })
@@ -42,7 +37,7 @@ Template.inlineInput.helpers({
 Template.inlineInput.events({
 	
 	'focus span': function(event){
-			
+		
 		setTimeout(function() {
 	        var sel, range;
 	        if (window.getSelection && document.createRange) {
@@ -57,6 +52,15 @@ Template.inlineInput.events({
 	            range.select();
 	        }
 	    }, 1);		
+		
+	},
+	
+	'blur span': function(event){
+		
+		var span = $(event.target);
+		var text = span.text();
+
+		if( this.placeholder && text === '' ) span.text(this.placeholder);
 		
 	},
 		
@@ -108,11 +112,8 @@ Template.inlineInput.events({
 		
 		var span = $(event.target);
 		var text = span.text();
-
-		if( this.placeholder && text === '' ) span.text(this.placeholder);
 		
-		Session.set( template.data.id, text );
-		Session.set( template.data.id + 'Touched', true );
+		INPUTS.sessionSet(this.id, text)
 				
 	}
 		

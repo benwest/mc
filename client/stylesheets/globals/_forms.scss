@@ -1,15 +1,81 @@
-.regular {
-
-	input, input:focus, button {
-		background:none;
-		border:0;
-		border-bottom:1px dashed black;
-		box-shadow:none;
-		text-align:center;
+@keyframes input-placeholder-flash{
+	from {
+		color: rgba(255,255,255,0.4);
+		border-bottom-color: rgba(255, 255, 255, 0.4);
 	}
-
-
-
-
+	to{
+		color: rgba(255,255,255,0.9);
+		border-bottom-color: rgba(255, 255, 255, 0.9);
+	}
 }
 
+form{
+	
+	input{
+		font-size: 1em;
+		padding: 0;
+		margin: 0;
+		border: none;
+		color: white;
+		height: 1.42em;
+		background: transparent;
+		border-bottom-width: $underlineWidth;
+		border-bottom-style: dashed;
+		border-bottom-color: rgba(255, 255, 255, 0.5);
+		transition: border-bottom-color 0.2s;
+		display: block;
+		max-width: none;
+		width: 100%;
+		
+		&:hover,
+		&:focus{
+			border-bottom-color: white;
+		}
+		
+	}
+	
+	button{
+		font-size: 1em;
+		background: none;
+		padding: 0;
+		@include underline;
+		padding: 0;
+		margin: 0;
+		
+		&:hover{
+			background: none;
+		}
+		
+	}
+	
+}
+
+@mixin placeholder{
+	animation: input-placeholder-flash 0.75s infinite alternate;
+	color: white;
+}
+
+::-webkit-input-placeholder { @include placeholder; }
+::-moz-placeholder { @include placeholder; } /* firefox 19+ */
+:-ms-input-placeholder { @include placeholder; } /* ie */
+input:-moz-placeholder { @include placeholder; }
+
+input[type="color"]{
+	width: 2.5em;
+	padding: 0;
+	border: none;
+	position: relative;
+	display: inline-block;
+	
+	&:after{
+		content: '+';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		color: white;
+		transform: translate3d(-50%, -50%, 0);
+		font-size: 2em;
+		margin: 0;
+	}
+	
+}

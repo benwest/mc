@@ -1,13 +1,19 @@
 .wave, .drip {
 	background-size:cover;
+	min-height: 100%;
 }
 
 .wave { background-image: url('/img/bg/wave_1.png'); }
 .drip { background-image: url('/img/bg/drip_1.png'); }
 
+[class^='bg-']{
+	min-height: 100%;
+}
 
 .bg-teal { background-color:$teal; }
 .bg-pink { background-color:$pink; }
 .bg-green { background-color:$green; }
 .bg-orange { background-color:$orange; }
-
+.bg-blue { background-color:$blue; }
+.bg-dark-grey { background-color:$darkGrey; }
+.bg-light-grey { background-color:$lightGrey; }

@@ -4,15 +4,15 @@
 
 	<div class="editor-title row">
 		
-		<div class="small-3 columns">
+		<div class="undo small-3 columns">
 			{{#if canUndo}}<a id="undo">Undo</a>{{/if}}&nbsp;
 		</div>
 		
-		<div class="small-6 columns text-center">
+		<div class="title small-6 columns text-center">
 			{{name}}'s Universe
 		</div>
 		
-		<div class="small-3 columns text-right">
+		<div class="finished small-3 columns text-right">
 			<a id="finished">Finished!</a>
 		</div>		
 		
@@ -46,14 +46,24 @@
 		
 		<div class="editor-region" style="{{ colorWheelStyle }}">
 			
-			<div class="editor-ui color-wheel"></div>
+			<!-- <div class="editor-ui color-wheel"></div> -->
+			
+			<div class='editor-ui swatches {{#if mode "PICKING_COLOR"}}active{{/if}}'>
+				{{# each colors}}
+					<div style="position: absolute; top: {{y}}%; left:{{x}}%; width: {{radius}}%; height: {{radius}}%; border-radius: 50% 50%; background:{{color}}"></div>
+				{{/ each }}
+			</div> 
 			
 		</div>
 		
 		<div class="editor-region" style="{{ colorButtonStyle }}">
 
 			<div class="editor-ui editor-button colors-button">
-				<div class="icon"></div>
+				<div class="icon">
+					{{# each colors}}
+						<div style="position: absolute; top: {{y}}%; left:{{x}}%; width: {{radius}}%; height: {{radius}}%; border-radius: 50% 50%; background:{{color}}"></div>
+					{{/ each }}
+				</div>
 				<div class="label">
 					<a>Pick a colour</a>
 				</div>

@@ -18,37 +18,11 @@ function lastOrder(childId){
     })
 }
 
-Template.child.helpers({
+Template.child.onDestroyed(function(){
+	sessionDelete('childJustAdded');
+})
 
-	'coloredName': function(){
-		
-		function coloredSpan(color, content){
-			
-			return '<span style="color:' + color + ';">' + content + '</span>';
-			
-		}
-		
-		var colors = _.filter( _.keys(this.universe.colors), function(color){
-			return tinycolor(color).getBrightness() < 185;
-		});
-		
-		var numColors = colors.length;
-		
-		if( numColors === 0 ) return this.name;
-		
-		if( numColors === 1 ) coloredSpan( colors[0], this.name );
-		
-		var ret = '';
-		
-		for( var i = 0; i < this.name.length; ++i ){
-			
-			ret += coloredSpan( colors[ i % numColors ], this.name.charAt(i) );
-			
-		}
-		
-		return ret;
-		
-	},
+Template.child.helpers({
 	
 	'readyToOrder': function(){
 		
@@ -77,6 +51,10 @@ Template.child.helpers({
 		var colors = Math.max( settings.minColors - _.keys(this.universe.colors).length, 0 );
 		var looks = Math.max( settings.minLooks - _.keys(this.universe.looks).length, 0 );
 		return colors + looks;
+	},
+	
+	'justAdded': function(){
+		return Session.equals('childJustAdded', this._id);
 	}
 
 });

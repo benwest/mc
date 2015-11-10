@@ -1,0 +1,43 @@
+<template name="children">
+
+	<h2 class="page-title">Children</h2>
+	
+	<div class="row">
+		
+		<div class="large-8 large-centered columns">
+			
+			{{# each children }}
+				
+				<div class="row">
+					
+					<div class="small-6 large-3 columns">
+						
+						<a href="/editor/{{_id}}">
+						
+							<div class="full-width canvas-ratio pos-rel">
+								
+								{{> universePreview universe }}
+								
+							</div>
+						
+						</a>
+						
+					</div>
+					
+					<div class="small-6 large-9 columns">
+					
+						<h1 class="child-name text-caps text-xbold gap-bottom-2-5">{{{ coloredName }}}</h1>
+					
+					</div>
+					
+				</div>
+				
+				
+			{{/ each }}
+			
+		</div>
+		
+	</div>
+	
+
+</template>

@@ -1,30 +1,31 @@
 <template name="master">
-			
+	
 	<div id="menuButton">
-		<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-			 width="40.001px" height="32.667px" viewBox="0 0 40.001 32.667" enable-background="new 0 0 40.001 32.667" xml:space="preserve">
-		<rect x="3" y="4" width="35" height="6"/>
-		<rect x="3" y="23" width="17" height="6"/>
-		<rect x="3" y="13" width="27" height="6"/>
-		</svg> 
+		<img src="/img/menu.svg">
 	</div>
 	
-	<div id="menu" class="{{ menuClass }}">
+	<div id="menu" class="text-black {{ menuClass }}">
+		
+		<img id="cloud1" src="/img/cloud.svg">
+		<img id="cloud2" src="/img/cloud.svg">
+		<img id="cloud3" src="/img/cloud.svg">
+		<img id="ufo" src="/img/ufo.svg">
+		<img id="balloon" src="/img/balloon.svg">
 		
 		<div id="menu-top">
 			
-			<ul>
+			{{# if currentUser }}
 			
-				{{# if currentUser }}
+				<ul>
 				
-					<li>
-						<a class='no-line' href="/profile"><b>{{ currentUser.profile.firstName }} {{ currentUser.profile.lastName }}</b></a>
+					<li class="list-title">
+						<a class="no-line" href="/profile"><b>{{ currentUser.profile.firstName }} {{ currentUser.profile.lastName }}</b></a>
 					</li>
-					
+											
 					<li>
 						<a href="/orders">Order history</a>
 					</li>
-				
+									
 					<li>
 						<a href="/account">Manage account</a>
 					</li>
@@ -32,26 +33,40 @@
 					<li>
 						<a class="logout">Log out</a>
 					</li>
+				
+				</ul>
+				
+				<ul>
 					
-					<li></li>
+					<li class="list-title">
+						<a class="no-line" href="/children">Children</a>
+					</li>
 					
-					<li><b>Children</b></li>
+					{{#if children.count}}
 					
-					{{# each children }}
+						{{# each children }}
+						
+							<li>
+								<a href="/child/{{ _id }}">{{ name }}</a>
+							</li>
+						
+						{{/ each }}
+						
+					{{else}}
 					
-						<li>
-							<a href="/child/{{ _id }}">{{ name }}</a>
-						</li>
+						<li><i>None</i></li>
 					
-					{{/ each }}
+					{{/if}}
 					
 					<li> + <a href="/addChild">Add</a></li>
 					
-					{{#if isAdmin}}
+				</ul>
 					
-						<li></li>
+				{{#if isAdmin}}
+				
+					<ul>
 						
-						<li><b>Admin</b></li>
+						<li class="list-title">Admin</li>
 						
 						<li>
 							<a href="/admin/customers">Customers</a>
@@ -66,6 +81,10 @@
 						</li>
 						
 						<li>
+							<a href="/admin/colours">Colours</a>
+						</li>
+						
+						<li>
 							<a href="/admin/customers">Brands</a>
 						</li>
 						
@@ -77,21 +96,25 @@
 							<a href="/admin/settings">Settings</a>
 						</li>
 						
-					{{/if}}
-				
-				{{ else }}
-				
-					<li>
-						<a href="/signup">Create account</a>
-					</li>
-				
-					<li>
-						<a href="/login">Log in</a>
-					</li>
-				
-				{{/ if }}
+					</ul>
+					
+				{{/if}}
 			
-			</ul>
+			{{ else }}
+			
+				<ul>
+				
+					<li class="list-title">
+						<a class="no-line" href="/signup">Create account</a>
+					</li>
+				
+					<li class="list-title">
+						<a class="no-line" href="/login">Log in</a>
+					</li>
+					
+				</ul>
+				
+			{{/ if }}
 			
 		</div>
 		
@@ -129,7 +152,7 @@
     
     <div id="transition-container">
 	    {{#each thisArray}}
-	    	<div class="container">
+	    	<div class="container {{bgClass}} {{menuClass}}">
 				{{> yield}}
 	    	</div>
 		{{/each}}

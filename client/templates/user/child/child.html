@@ -1,7 +1,5 @@
 <template name="child">
 
-	{{#with this}}
-
 	<div class="child pos-abs">
 		
 		<div class="universe-preview pos-abs full-height">
@@ -13,13 +11,13 @@
 			
 		</div>
 		
-		<div class="child-info pos-abs full-height text-center">
+		<div class="child-info pos-abs full-height">
 			
 			<div class="center">
 			
-				<h1>{{{ coloredName }}}</h1>
+				<h1 class="child-name text-caps text-xbold gap-bottom-2-5">{{{ coloredName }}}</h1>
 				
-				<p class="text-1-5">
+				<p class="text-1-5 gap-bottom-1-5">
 					
 					{{#if noUniverse }}
 						
@@ -38,7 +36,8 @@
 						{{/if}}
 						
 					{{/ if }}
-
+					
+					<br>
 					
 					{{# if lastOrder }}
 						
@@ -71,7 +70,13 @@
 					
 				</p>
 				
-				<p>
+				{{#if justAdded }}
+				
+					<p><a href="/addChild">Add another little one</a></p>
+				
+				{{/if}}
+				
+				<p class="text-light">
 					{{#unless sessionGet 'deleteChildConfirm'}}
 						<a class="remove">Delete {{name}}'s profile</a>
 					{{else}}
@@ -84,9 +89,7 @@
 		</div>
 		
 	</div>
-	
-	{{/with}}
-	
+		
     <!-- 
     <div class="row pad-bottom-4">
         <div class="small-12 columns">

@@ -21,6 +21,33 @@ Template.master.onRendered(function(){
 
 Template.master.helpers({
 	
+	'bgClass': function(){
+		
+		console.log(Router.current().route.getName());
+		
+		switch(Router.current().route.getName()){
+			
+			case 'children':
+			case 'child':
+			case 'addChild':
+				return 'bg-teal';
+				
+			case 'orderForm':
+			case 'orders':
+			case 'order':
+				return 'bg-blue';
+				
+			case 'editor':
+				return 'bg-dark-grey';
+				
+			case 'account':
+				return 'bg-orange';
+				
+			
+		}
+		
+	},
+	
 	'menuClass': function(){
 		return Session.get(MENU_OPEN) && 'open';
 	},
@@ -31,6 +58,10 @@ Template.master.helpers({
 	
 	'thisArray': function(){
 		return [this];
+	},
+	
+	'orders': function(){
+		return Orders.find({owner: Meteor.userId()}).count() > 0;
 	}
 	
 });

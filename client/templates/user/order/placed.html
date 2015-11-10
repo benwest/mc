@@ -1,16 +1,24 @@
 <template name="placedOrder">
+
+	<div class="row">
+		
+		<div class="small-12 columns text-2 pad-top-2 pad-bottom-2">
+	    
+		    {{#if cancellingOrder }}
+		        
+		        Are you sure?
+		        
+		        <a class="cancel-confirm">Yes!</a>
+		        <a class="cancel-cancel">No!</a>
+		        
+		    {{else}}
+		    
+		        <a class="cancel-button">Cancel Order</a>
+		    
+		    {{/if}}
+	    
+		</div>
     
-    {{#if cancellingOrder }}
-        
-        Are you sure?
-        
-        <button class="cancel-confirm">Cancel Order</button>
-        <button class="cancel-cancel">Don't Cancel</button>
-        
-    {{else}}
-    
-        <button class="cancel-button">Cancel Order</button>
-    
-    {{/if}}
+	</div>
     
 </template>

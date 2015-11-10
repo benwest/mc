@@ -7,6 +7,16 @@ $orange: #EDA989;
 $teal: #ACD9D5;
 $blue: #9C9CD2;
 
+$colors: (pink $pink),
+	(green $green),
+	(dark-grey $darkGrey),
+	(light-grey $lightGrey),
+	(orange $orange),
+	(teal $teal),
+	(blue $blue),
+	(white white),
+	(black black);
+
 $background: white;
 $text: black;
 $notification: orange;

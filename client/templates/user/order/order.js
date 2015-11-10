@@ -6,21 +6,21 @@ Template.order.helpers({
         
     },
     
-    'address': function(){
-	    return Addresses.findOne(this.address).address;
-    },
-    
-    'garments': function(){
-	    return _.map(this.garments, function(garment){
-		    return garment = GarmentTypes.findOne(garment).name;
-	    });
+    'lastActionTime': function(){
+	    	    
+	    return moment(this[this.status + 'At']).format('H[:]MM [on] MMMM Do YYYY');
 	    
     },
     
     'sizes': function(){
+	    
 	    return _.map(this.sizing, function(value, key){
-		    return value + ' for ' + key;
+		    return {
+			    name: key,
+			    value: value
+		    }
 	    })
+	    
     },
 	
     'templateName': function(){
@@ -28,6 +28,36 @@ Template.order.helpers({
         return this.status + 'Order';
         
     },
+    
+    'colors': function(){
+	    
+	    var i = 0;
+	    
+	    return _.map( this.universe.colors, function(value, key){
+		    
+		    var look = Colors.findOne(key);
+		    look.times = value;
+		    look.i = i++;
+		    return look;
+		    
+	    })
+	    
+    },
+    
+    'looks': function(){
+	    
+	    var i = 0;
+	    
+	    return _.map( this.universe.looks, function(value, key){
+		    
+		    var look = Looks.findOne(key);
+		    look.times = value;
+		    look.i = i++;
+		    return look;
+		    
+	    })
+	    
+    }
 
     
 });

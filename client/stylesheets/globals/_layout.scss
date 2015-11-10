@@ -20,3 +20,7 @@
 .pos-rel{
 	position: relative;
 }
+
+.canvas-ratio{
+	padding-bottom: (297/210) * 100%;
+}

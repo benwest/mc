@@ -1,0 +1,6 @@
+<template name="inlineInput">
+	
+	<span contenteditable class="inline-input {{#unless valid}}placeholder{{/unless}} {{#unless value}}empty{{/unless}} {{#if isNumber}}text-right{{/if}} {{#if unrequired}}unrequired{{/if}}"></span>
+	<input type="hidden" name="{{ id }}" class="{{ valid }}" value={{ value }}>
+
+</template>

@@ -47,7 +47,7 @@ Template.universePreview.onRendered(function(){
 	function draw(step){
 		
 		if(step === false && !template.finished) return;
-		if(step !== false) template.steps++;
+		if(step !== false) template.steps += 4;
 				
 		var drawnPoints = 0;
 				

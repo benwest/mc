@@ -8,24 +8,28 @@
 @import 'utils/_classCreator.scss';
 
 @import 'globals/reset.scss';
+@import 'globals/_colors.scss';
 @import 'globals/_typography.scss';
 @import 'globals/_forms.scss';
-@import 'globals/_colors.scss';
 @import 'globals/_pads_gaps.scss';
 @import 'globals/_notifications.scss';
-@import 'globals/_swatch.scss';
 @import 'globals/_layout.scss';
 @import 'globals/_bg.scss';
 
+@import 'partials/_title.scss';
+
 @import '../templates/global/master/_master.scss';
-@import '../templates/global/inlineInput/_inlineInput.scss';
-@import '../templates/global/inlineSelect/_inlineSelect.scss';
+@import '../templates/global/forms/inlineInput/_inlineInput.scss';
+@import '../templates/global/forms/inlineSelect/_inlineSelect.scss';
+@import '../templates/global/forms/addressSelect/_addressSelect.scss';
 @import '../templates/global/universePreview/_universePreview.scss';
-@import '../templates/global/addressSelect/_addressSelect.scss';
+@import '../templates/global/swatch/_swatch.scss';
 
 @import '../templates/anon/header/_header.scss';
 
+@import '../templates/user/account/_account.scss';
 @import '../templates/user/profile/_profile.scss';
+@import '../templates/user/addChild/_addChild.scss';
 @import '../templates/user/child/_child.scss';
 @import '../templates/user/editor/_editor.scss';
 
@@ -33,5 +37,3 @@
 @import '../templates/admin/customers/_customers.scss';
 @import '../templates/admin/customers/_customerList.scss';
 @import '../templates/admin/customers/_customerDetail.scss';
-
-/* TEST */

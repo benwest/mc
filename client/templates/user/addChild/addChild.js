@@ -25,13 +25,19 @@ Template.addChild.events({
 			name: name,
 			dob: moment().year(year).month(month).date(date).toDate(),
 			gender: gender,
-			sizing: {},
+			sizing: {
+				height: false,
+				weight: false,
+				shoes: false
+			},
 			universe: {
 				shapes: [],
 				colors: [],
 				looks: []
 			}
 		})
+		
+		Session.set('childJustAdded', id);
 		
 		Router.go('/child/' + id);
 		

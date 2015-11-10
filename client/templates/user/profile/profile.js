@@ -5,6 +5,19 @@ Template.profile.onCreated(function(){
 });
 
 Template.profile.helpers({
+	'greeting': function(){
+		
+		var hr = moment().hour();
+		
+		if(hr < 12){
+			return 'Good morning';
+		} else if(hr < 19){
+			return 'Good afternoon';
+		} else {
+			return 'Good evening';
+		}
+				
+	},
 	'childrenObjs': function(){
 		return Children.find({owner: this._id});
 	},
@@ -14,6 +27,7 @@ Template.profile.helpers({
 		});
     },
     'firstChild': function(){
+	    debugger;
 	    return Children.findOne({owner: this._id});
     },
 	'lastOrder': function(){
@@ -23,6 +37,12 @@ Template.profile.helpers({
 				$in: ['placed', 'dispatched']
 			}
 		});
+	},
+	'forChild':function(){
+		return Children.findOne(this.forChild).name;
+	},
+	'actionTime': function(){
+		return moment(this[this.status + 'At']).fromNow();
 	},
 	'readyToOrder': function(){
 		

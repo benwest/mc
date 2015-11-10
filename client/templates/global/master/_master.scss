@@ -1,13 +1,19 @@
 body{
-	background-color: $lightGrey;
+	background-color: $darkGrey;
 }
 
 #menuButton{
 	
 	position: fixed;
-	top: 1rem;
-	left: 1rem;
+	top: 1.5rem;
+	left: 1.5rem;
 	z-index: 50;
+	width: 2rem;
+	cursor: pointer;
+	
+	img {
+		width: 100%;
+	}
 	
 }
 
@@ -24,11 +30,10 @@ body{
 	transform: translate3d(-100%, 0, 0);
 	transition: transform 0.2s;
 	z-index: 100;
+	overflow: hidden;
 	
 	&.open{
-		
 		transform: none;
-		
 	}
 	
 	ul{
@@ -36,7 +41,7 @@ body{
 	}
 	
 	li{
-		min-height: $lineHeight + em;
+		//min-height: $lineHeight + em;
 		margin-left: $menuMargin;
 	}
 	
@@ -58,12 +63,17 @@ body{
 		bottom: $menuMargin + 0.8rem * $lineHeight * 6;
 		overflow-y: scroll;
 		
-		li:first-child{
+		ul{
 			margin-top: $menuMargin;
+			margin-bottom: 1.2rem;
 		}
-		
-		li:last-child{
-			margin-bottom: 1rem;
+				
+		.list-title{
+			font-weight: 900;
+			text-transform: uppercase;
+			font-size: 1.5rem;
+			line-height: 1;
+			margin-bottom: 0.3rem;
 		}
 				
 	}
@@ -107,4 +117,66 @@ body{
 	height: 100%;
 	position: fixed;
 	overflow-y: scroll;
+	transition: background 0.5s;
+	
+	&.open{
+
+	}
+	
+}
+
+#ufo,
+#balloon,
+#cloud1,
+#cloud2,
+#cloud3{
+	position: absolute;
+	z-index: 20;
+	transform: translateX(-15rem);
+	pointer-events: none;
+}
+
+#ufo{
+	top: 10%;
+	height: 6%;
+	animation: cross-menu 30s 10s linear infinite;
+}
+
+#balloon{
+	top: 45%;
+	height: 9%;
+	animation: cross-menu 340s linear infinite alternate;
+}
+
+#cloud1{
+	height: 9%;
+	top: 5%;
+	animation: cross-menu 140s linear infinite alternate;
+}
+
+#cloud2{
+	height: 4%;
+	top: 65%;
+	animation: cross-menu 180s 14s linear infinite alternate;
+}
+
+#cloud3{
+	height: 6%;
+	top: 27%;
+	animation: cross-menu 200s 7s linear infinite reverse;
+}
+
+@keyframes cross-menu{
+	0%{
+		transform: translateX(-15rem);
+	}
+	28% {
+		transform: translateX(-15rem);
+	}
+	72%{
+		transform: translateX(15rem);
+	}
+	100%{
+		transform: translateX(15rem);
+	}
 }

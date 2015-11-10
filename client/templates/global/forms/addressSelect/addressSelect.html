@@ -1,0 +1,50 @@
+<template name="addressSelect">
+
+	<ul class="address-select medium-block-grid-2 {{canSelect}}">
+		
+		{{#each addresses}}
+		
+			<li class="saved-address {{selected ..}}">
+				{{line1}}<br>
+				{{#if line2}}{{line2}}<br>{{/if}}
+				{{city}}<br>
+				{{county}}<br>
+				{{country}}<br>
+				{{postcode}}<br>
+				{{#if default}}
+					<b>Default</b>
+				{{else}}
+					<a class="make-default-address">Make Default</a>
+				{{/if}}
+				<a class='delete-address'>Delete</a>
+			</li>
+		
+		{{/each}}
+		
+		<li>
+			
+			{{#if addingAddress}}
+			
+				<strong>Add an address</strong><br>
+				
+				{{#each newAddressLines}}
+					{{> inlineInput id=inputId placeholder=name unrequired=unrequired }}<br>
+				{{/each}}
+								
+				{{#if newAddressValid }}
+					<a class="save-address">Save</a>
+				{{/if}}
+				
+				 <a class="add-address">Cancel</a>
+				 
+			{{ else }}
+			
+				<a class="add-address">Add a new address</a>
+			
+			{{/if}}
+		
+		</li>
+		
+	</ul>
+
+</template>

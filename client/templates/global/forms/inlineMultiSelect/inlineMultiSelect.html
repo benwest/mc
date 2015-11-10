@@ -8,11 +8,11 @@
 					
 		{{#unless allOptionsSelected}}{{> inlineSelect id=selectId options=filteredOptions }}{{/unless}}
 		.
-		{{#if values }}<a class='select-modify'>That's all</a>{{/if}}
+		{{#if values }}<a class='select-modify no-wrap'>That's all</a>{{/if}}
 	
 	{{else}}
 	
-		{{ list values 'name' }}. <a class="select-modify">Change</a>
+		{{{ list listValues }}}. <a class="select-modify">Change</a>
 	
 	{{/if}}
 

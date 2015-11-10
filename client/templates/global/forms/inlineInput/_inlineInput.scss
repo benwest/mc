@@ -1,0 +1,35 @@
+.inline-input{
+	
+	height: 1.42em;
+	border-bottom-width: $underlineWidth;
+	border-bottom-style: dashed;
+	border-bottom-color: rgba(255, 255, 255, 0.5);
+	display: inline-block;
+	transition: min-width 0.2s, border-bottom-color 0.2s;
+	font-weight: bold;
+	
+	&.empty{
+		min-width: 2em;
+	}
+	
+	&.placeholder{
+		font-style: italic;
+		font-weight: normal;
+		animation: input-placeholder-flash 0.75s infinite alternate;
+	}
+	
+	&.placeholder.unrequired{
+		animation: none;
+		color: rgba(255,255,255,0.2)
+	}
+	
+	&:hover{
+		border-bottom-color: rgba(255, 255, 255, 1);
+	}
+	
+	&:focus{
+		outline: 0;
+		border-bottom-color: rgba(255, 255, 255, 1);
+	}
+	
+}

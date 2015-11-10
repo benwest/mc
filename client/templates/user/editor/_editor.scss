@@ -6,6 +6,7 @@ $helpTextHeight: 50px;
 	left: 0;
 	width: 100%;
 	z-index: 100;
+	margin: 0.5rem 0 0.5rem 0;
 	
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -13,6 +14,12 @@ $helpTextHeight: 50px;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    
+    .title{
+	    font-size: 1.1rem;
+	    text-transform: uppercase;
+	    font-weight: 900;
+    }
 
 }
 
@@ -28,7 +35,7 @@ $helpTextHeight: 50px;
 	width: 100%;
 	height: 100%;
 	position: fixed;
-	background: #f0f0f0;
+	background: $darkGrey;
 	overflow: hidden;
 	
 	&.no-cursor{
@@ -45,7 +52,7 @@ $helpTextHeight: 50px;
 	
 	.editor-region{
 		
-		border: 1px solid red;
+		//border: 1px solid red;
 		position: absolute;
 		transition: transform 0.5s, opacity 0.5s;
 		transform-origin: 0 0;
@@ -227,14 +234,27 @@ $helpTextHeight: 50px;
 		
 		
 	}
-	
-	.color-wheel,
-	.colors-button .icon {
+		
+	.swatches,
+	.color-wheel-button{
+		
 		width: 100%;
 		padding-bottom: 100%;
-		border-radius: 50% 50%;
-		background-image: url(img/colorWheel.jpg);
-		background-size: 100% 100%;	
+		
+	}
+	
+	.swatches.active{
+		
+		div{
+			cursor: pointer;
+			transition: transform 1s;
+			&:hover{
+				transform: scale(1.5);
+				transition: transform 0.2s;
+				z-index: 100;
+			}
+		}
+		
 	}
 	
 	.editor-button{
@@ -243,11 +263,13 @@ $helpTextHeight: 50px;
 		width: 100%;
 		text-align: center;
 		
+		
 		&:hover .icon{
 			transform: scale(1.05);
 		}
 		
 		.icon{
+			transform: scale(1);
 			margin-bottom: 0.5em;
 			padding-bottom: 100%;
 			transition: transform 0.2s;
