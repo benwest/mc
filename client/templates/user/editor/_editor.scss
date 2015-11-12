@@ -422,7 +422,7 @@ $helpTextHeight: 50px;
 		
 		margin-bottom: 5%;
 		
-		&.look-image:first-child{
+		&:nth-child(2) {
 			margin-top: -50%;
 		}
 		

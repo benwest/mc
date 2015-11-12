@@ -1097,6 +1097,7 @@ Template.editor.events({
 				shape.scale = 1;
 				var imgRatio = image.w / image.h;
 				shape.offset = imgRatio > CANVAS_RATIO ? {x: 0,  y: (1-(CANVAS_RATIO/imgRatio))/2 } : {x: (CANVAS_RATIO - imgRatio) / 2, y: 0 };
+				console.log(shape.offset)
 				shape.offset.x = shape.bounds.left - shape.offset.x;
 				shape.offset.y = shape.bounds.top - shape.offset.y;
 				this.universe.shapes.unshift(shape);
