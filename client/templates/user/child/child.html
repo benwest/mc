@@ -1,21 +1,26 @@
 <template name="child">
 
-	<div class="child pos-abs">
+	<div class="child-title title-bar hide-for-large-up">
+		<h3>{{{coloredName}}}</h3>
+	</div>
+
+	<div class="child">
 		
-		<div class="universe-preview pos-abs full-height">
+		<div class="universe-preview">
 			
 			<a href="/editor/{{ _id }}">
 			
 				{{> universePreview universe }}
+				
 			</a>
 			
 		</div>
 		
-		<div class="child-info pos-abs full-height">
+		<div class="child-info">
 			
-			<div class="center">
+			<div class="large-center">
 			
-				<h1 class="child-name text-caps text-xbold gap-bottom-2-5">{{{ coloredName }}}</h1>
+				<h1 class="child-name text-caps text-xbold gap-bottom-2-5 show-for-large-up">{{{ coloredName }}}</h1>
 				
 				<p class="text-1-5 gap-bottom-1-5">
 					
@@ -43,13 +48,13 @@
 						
 						{{# with lastOrder }}
 						
-							Your order <a href="order/{{_id}}">#{{ number }}</a> was {{ status }} {{ actionTime }}.
+							Your order <a href="order/{{_id}}">#{{ number }}</a> was {{ status }} {{ ago actionTime }}.
 						
 						{{/ with }}
 					
 						{{# if moreOrders }}
 					
-							You have {{ moreOrders }} more {{ plural moreOrders 'order' }} orders in progress as well.
+							You have <a href="/orders">{{ moreOrders }} more {{ plural moreOrders 'order' }}</a> in progress as well.
 					
 						{{/ if }}
 						
@@ -58,9 +63,9 @@
 					
 					{{#if readyToOrder }}
 					
-						<a href="/orderForm/{{_id}}">
-							{{# if orderInProgress }}
-								Place another order?
+						<a href="/order-form/{{_id}}">
+							{{# if lastOrder }}
+								Place another?
 							{{ else }}
 								Place an order!
 							{{/if}}

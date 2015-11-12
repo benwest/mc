@@ -26,9 +26,36 @@
     $property: nth($name, 2);
 
     @for $i from 0 through $max*$steps {
-      .#{$className}-#{dashDecimal($i/$steps)} {
+	    
+      .#{$className}-#{dashDecimal($i/$steps)},
+      .small-#{$className}-#{dashDecimal($i/$steps)} {
         #{$property}: ($i/$steps) + $unit;
       }
+      
+	  @media #{$medium-up} {
+	      .medium-#{$className}-#{dashDecimal($i/$steps)} {
+	        #{$property}: ($i/$steps) + $unit;
+	      }
+	  }
+      
+	  @media #{$large-up} {
+	      .large-#{$className}-#{dashDecimal($i/$steps)} {
+	        #{$property}: ($i/$steps) + $unit;
+	      }
+	  }
+      
+	  @media #{$xlarge-up} {
+	      .xlarge-#{$className}-#{dashDecimal($i/$steps)} {
+	        #{$property}: ($i/$steps) + $unit;
+	      }
+	  }
+      
+	  @media #{$xxlarge-up} {
+	      .xxlarge-#{$className}-#{dashDecimal($i/$steps)} {
+	        #{$property}: ($i/$steps) + $unit;
+	      }
+	  }
+      
     }
   }
 }

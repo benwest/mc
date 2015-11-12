@@ -43,6 +43,8 @@ Template.master.helpers({
 			case 'account':
 				return 'bg-orange';
 				
+			case 'profile':
+				return 'drip';
 			
 		}
 		

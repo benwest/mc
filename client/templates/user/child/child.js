@@ -32,6 +32,36 @@ Template.child.helpers({
 		
 	},
 	
+	'lastOrder': function(){
+				
+		var orders = Orders.find({
+			forChild: this._id,
+			status: {
+				$in: ['placed', 'dispatched']
+			}
+		}).fetch();
+		
+		return _.chain(orders)
+			.sortBy(function(order){
+				return order[order.status + 'At'];
+			})
+			.last()
+			.value();
+	},
+	
+	'actionTime': function(){
+		return this[this.status + 'At'];
+	},
+	
+	'moreOrders': function(){
+		return Orders.find({
+			forChild: this._id,
+			status: {
+				$in: ['placed', 'dispatched']
+			}
+		}).count() - 1;
+	},
+	
 	'noUniverse': function(){
 		return this.universe.shapes.length === 0;
 	},

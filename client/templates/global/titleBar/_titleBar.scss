@@ -1,0 +1,60 @@
+.title-bar{
+	
+	position: fixed;
+	width: 100%;
+	height: 5rem;
+	z-index: 50;
+	text-align: center;
+		
+	h3{
+		margin-top: 1.5rem;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		margin-right: 1rem;
+		margin-left: 1rem;
+	}
+	
+}
+
+@each $color in $colors{
+	
+	$className: nth($color, 1);
+	$property: nth($color, 2);
+	
+	.bg-#{$className} .title-bar{
+		background: linear-gradient(#{$property} 0%, #{$property} 65%, #{transparentize($property, 1)} 100%);
+	}
+	
+}
+
+@media #{$small-only} {
+	.title-bar.right h3{
+		text-align: left;
+		margin-left: 5rem;
+	}
+}
+
+@media #{$small-up} {
+	.title-bar h3{
+		font-size: 1.5rem;
+		margin-top: 1.35rem;
+		margin-bottom: 3rem;
+	}
+}
+
+@media #{$medium-up} {
+	.title-bar h3{
+		font-size: 2.2rem;
+		margin-top: 1rem;
+		margin-bottom: 3rem;
+	}
+}
+
+@media #{$large-up} {
+	.title-bar h3{
+		font-size: 2.2rem;
+		margin-top: 1rem;
+		margin-bottom: 3rem;
+	}
+}

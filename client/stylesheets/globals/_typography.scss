@@ -176,12 +176,29 @@ $baseFontSize: 22px;
 $lineHeight: 1.6;
 $underlineWidth: 0.08em;
 
+@media #{$small-up} {
+	html{
+		font-size: 16px;
+	}
+}
+
+@media #{$medium-up} {
+	html{
+		font-size: 18px;
+	}
+}
+
+@media #{$large-up} {
+	html{
+		font-size: 22px;
+	}
+}
+
 @function lines($number){
 	@return $baseFontSize * $lineHeight * $number;
 }
 
 html{
-	font-size: $baseFontSize;
 	line-height: $lineHeight;
 	font-family: Soleil;
 }
@@ -196,7 +213,7 @@ a.no-line{
 	border-bottom-style: solid;
 	border-bottom-color: rgba(255,255,255,0);
 	transition: border-bottom-color 0.2s;
-	&:hover{
+	&:not(.no-hover):hover{
 		border-bottom-color: white;
 	}
 }

@@ -45,11 +45,11 @@ function makeNice(){
 		
 	colors.map(function(color, i){
 			
-			color.x = center + xs[i] * size;
-			color.y = center + ys[i] * size;
-			color.radius = radius;
-			
-			Colors.update(color._id, color);
+		color.x = center + xs[i] * size;
+		color.y = center + ys[i] * size;
+		color.radius = radius;
+		
+		Colors.update(color._id, color);
 			
 	});
 

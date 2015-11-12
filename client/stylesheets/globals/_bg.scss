@@ -1,6 +1,9 @@
 .wave, .drip {
 	background-size:cover;
 	min-height: 100%;
+	background-attachment: fixed;
+	background-position: center top;
+	background-repeat: no-repeat;
 }
 
 .wave { background-image: url('/img/bg/wave_1.png'); }

@@ -1,39 +1,49 @@
 <template name="orders">
 
-    <div class="row">
-	    
-        <div class="small-12 medium-8 medium-centered columns">
-            
-			<h2 class="page-title">Your Orders</h2>
-			
-			<ul class="large-block-grid-3">
-			
-				{{#each orders}}
-								
-					<li class="text-center ">
-												
-						<a class="no-line" href="order/{{number}}"><h3 class="no-gap">#{{number}}, for {{forChild}}</h3></a>
-						<div class="gap-bottom-0-5">
-							{{#each colors}}
-								{{>swatch color=color bg='TEAL' }}
-							{{/each}}
-						</div>
-						<div class="gap-bottom-0-5">
-							{{#each looks}}
-								{{> lookIcon }}
-							{{/each}}
-						</div>
-						<p>{{capitalise status}} {{ago lastActionDate}}</p>
+    {{> titleBar text='Your Orders' }}
+    
+    {{# columnContainer }}
+            			
+		<div class="order-grid">
+		
+			{{#each orders}}
+				<a class="no-line no-hover" href="order/{{number}}">
+					<div class="text-center ">
+						
+						<div class="row pad-bottom-1">
 							
-					</li>
-									
-				{{/each}}
+							<div class="small-8 columns small-offset-2">
+								
+								<div class="full-width canvas-ratio">
+								
+									{{> universePreview universe }}
+								
+								</div>
+								
+							</div>
+							
+						</div>
+																
+							<h3 class="no-gap">#{{number}}, for {{forChild}}</h3>
+							<div class="gap-bottom-0-5">
+								{{#each colors}}
+									{{>swatch color=color bg='TEAL' }}
+								{{/each}}
+							</div>
+							<div class="gap-bottom-0-5">
+								{{#each looks}}
+									{{> lookIcon }}
+								{{/each}}
+							</div>
+							<p>{{capitalise status}} {{ago lastActionDate}}</p>
+						
+					</div>
+				</a>
+			{{/each}}
+		
+		</div>
 			
-			</ul>
-			
-        </div>
-        
-    </div>
+    {{/ columnContainer }}
     
 
 </template>

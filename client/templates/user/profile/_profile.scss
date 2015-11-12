@@ -1,15 +1,45 @@
 .profile-logo{
-	height: 50%;
+	
+	height: 60%;
+	
+	.center{
+		width: 80%;
+		
+		img{
+			//transform: rotate(-90deg);
+			transform-origin: 50% 50%;
+		}
+		
+	}
+	
 }
 
 .profile-content{
-	height: 50%;
+	margin: 0 1rem;
+}
+
+@media #{$large-up} {
 	
-	.center{
-		width: 60%;
+	.profile-logo{
+		height: 50%;
+		
+		.center{
+			width: 60%;
+		}
+		
 	}
 	
-	a{
-		white-space: nowrap;
+	.profile-content{
+		height: 50%;
+		
+		.center{
+			width: 60%;
+		}
+		
+		a{
+			white-space: nowrap;
+		}
 	}
+	
+	
 }

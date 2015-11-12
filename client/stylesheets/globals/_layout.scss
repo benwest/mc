@@ -1,9 +1,27 @@
-.center{
+@mixin center{
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate3d(-50%, -50%, 0);
 }
+
+.center,
+.small-center{
+	@include center;
+}
+
+@media #{$medium-up} {
+	.medium-center{
+		@include center;
+	}
+}
+
+@media #{$large-up} {
+	.large-center{
+		@include center;
+	}
+}
+
 
 .full-width{
 	width: 100%;
@@ -23,4 +41,8 @@
 
 .canvas-ratio{
 	padding-bottom: (297/210) * 100%;
+}
+
+.no-pointer{
+	pointer-events: none !important;
 }

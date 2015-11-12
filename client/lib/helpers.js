@@ -197,7 +197,7 @@ Template.registerHelper('selectedIfRoute', function(route){
 
 plural = function(x, singular, plural){
 	if(_.isArray(x)) x = x.length;
-	if(!plural) plural = singular + 's';
+	if(!_.isString(plural)) plural = singular + 's';
 	return x === 1 ? singular : plural;
 }
 

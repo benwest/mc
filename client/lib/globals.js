@@ -58,12 +58,14 @@ drawShape = (function(){
 	imageCropCtx = imageCropCanvas.getContext('2d');
 	imageCropCtx.fillStyle = 'green';
 	
-	imageCache = function(id){
+	imageCache = function(id, callback){
 		
 		if(!imageCache.cache[id]){
-		
+				
 			var imageObj = LookImages.findOne(id);
+			
 			var img = new Image();
+			if(callback) img.onload = callback;
 			img.src = imageObj.url;
 			
 			imageCache.cache[id] = {
@@ -141,7 +143,7 @@ drawShape = (function(){
 			);
 			imageCropCtx.fill();
 			imageCropCtx.globalCompositeOperation = 'source-atop';
-			var image = imageCache(shape.image);
+			var image = imageCache(shape.image, options.callback);
 			if(image.ratio > CANVAS_RATIO){
 				var imageW = canvas.width;
 				var imageH = canvas.width / image.ratio;

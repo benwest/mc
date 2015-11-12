@@ -1,119 +1,115 @@
 <template name="orderForm">
 
-    <div class="row">
-	    
-        <div class="small-12 large-8 large-centered columns pad-bottom-4">
+	{{> titleBar text=title }}
 
-		    <h2 class="page-title">A New Order for {{name}}</h2>
+	{{# columnContainer }}
+	    
+	    <div class="pad-top-3 pad-bottom-3 text-2">
+	    
+		    <p>You're ordering clothes based on these colours:</p>
 		    
-		    <div class="pad-top-3 text-2">
+		    <p>
+			    {{#each colors}}
+			    	{{>swatch color=color size=times}} <span class="text-xbold text-caps">{{name}}</span>
+			    {{/each}}
+		    </p>
 		    
-			    <p>You're ordering clothes based on these colours:</p>
+		    <p>And these looks:</p>
+		    
+		    <p>
 			    
-			    <p>
-				    {{#each colors}}
-				    	{{>swatch color=color size=times}} <span class="text-xbold text-caps">{{name}}</span>
-				    {{/each}}
-			    </p>
+			    {{#each looks}}
+			    		<span class="{{textClass}} text-caps">{{> lookIcon }} {{name}}</span>
+			    		(&times;{{times}}){{listSeparator (count ../universe/looks) i}}
+			    {{/each}}
 			    
-			    <p>And these looks:</p>
-			    
-			    <p>
-				    
-				    {{#each looks}}
-				    	<span class="no-wrap">
-				    		<span class="{{textClass}} text-caps">{{> lookIcon }} {{name}}</span>
-				    		(&times;{{times}}){{listSeparator (count ../universe/looks) i}}
-				    	</span>
-				    {{/each}}
-				    
-			    </p>
+		    </p>
+			
+			<p>
 				
+				{{name}} needs
+				
+				{{> inlineMultiSelect id="orderFormGarments" options=garmentNames }}
+				
+			</p>
+			
+			{{#if sessionGet 'orderFormGarmentsValid' }}
+			
 				<p>
 					
-					{{name}} needs
-					
-					{{> inlineMultiSelect id="orderFormGarments" options=garmentNames }}
-				</p>
+					{{# unless sizingConfirmed }}
 				
-				{{#if sessionGet 'orderFormGarmentsValid' }}
-				
-					<p>
-						
-						{{# unless sizingConfirmed }}
-					
-							{{ heShe ../gender }}'s {{> inlineInput id='orderFormHeight' value=sizing.height type="number" }}cm tall
+						{{ heShe ../gender }}'s {{> inlineInput id='orderFormHeight' value=sizing.height type="number" }}cm tall
 
-								{{# if sessionGet 'orderFormHeight' }}
+							{{# if sessionGet 'orderFormHeight' }}
+							
+								, weighs {{> inlineInput id='orderFormWeight' value=sizing.weight type="number" }}kg
 								
-									, weighs {{> inlineInput id='orderFormWeight' value=sizing.weight type="number" }}kg
+								{{# if sessionGet 'orderFormWeight' }}
+								
+									and wears size {{> inlineInput id='orderFormShoes' value=sizing.shoes type="number" }} shoes.
 									
-									{{# if sessionGet 'orderFormWeight' }}
+									{{#if sizingValid }}
 									
-										and wears size {{> inlineInput id='orderFormShoes' value=sizing.shoes type="number" }} shoes.
-										
-										{{#if sizingValid }}
-										
-											<a class="confirm-sizing">That's right</a>
-										
-										{{/if}}
-										
-										 <a class="text-1" href="/shoe_chart.pdf" target="_blank">Print a shoe size chart</a>
+										<a class="confirm-sizing">That's right</a>
 									
-									{{/ if }}
+									{{/if}}
+									
+									 <a class="text-1" href="/shoe_chart.pdf" target="_blank">Print a shoe size chart</a>
 								
 								{{/ if }}
 							
-							<!-- {{#each sizingInstructions}}{{> inlineInput id=inputId value=value placeholder="size?" }} {{name}} {{ listSeparator length i }} {{/each}}.
-							
-							{{#if sizingValid }}
-							
-								<a class="confirm-sizing">That's right</a>
-							
-							{{/if}}
-							
-							-->
-							
-						{{ else }}
+							{{/ if }}
 						
-							{{ heShe ../gender }}'s <b>{{ sessionGet 'orderFormHeight' }}</b>cm tall, weighs <b>{{ sessionGet 'orderFormWeight' }}</b>kg and wears size <b>{{sessionGet 'orderFormShoes'}}</b> shoes.
-							<a class="change-sizing">Change</a>
+						<!-- {{#each sizingInstructions}}{{> inlineInput id=inputId value=value placeholder="size?" }} {{name}} {{ listSeparator length i }} {{/each}}.
 						
-							<!--
+						{{#if sizingValid }}
 						
-							{{ heShe ../gender }} wears
-							
-							{{#each enteredSizes}}
-							
-								<b>{{value}}</b> {{name}} {{ listSeparator length i }}
-							
-							{{/each}}. <a class="change-sizing">Change</a>
-							
-							-->
-							
-						{{/ unless }}
-					</p>
-					
-					{{#if sizingConfirmed }}
-					
-						<p class='text-2'><b>Deliver this order to:</b></p>
-						
-						{{> addressSelect id="orderFormAddress" select=true }}
-						
-						{{#if sessionGet 'orderFormAddress' }}
-						
-							<a class="place-order">Place your order!</a>
+							<a class="confirm-sizing">That's right</a>
 						
 						{{/if}}
 						
+						-->
+						
+					{{ else }}
+					
+						{{ heShe ../gender }}'s <b>{{ sessionGet 'orderFormHeight' }}</b>cm tall, weighs <b>{{ sessionGet 'orderFormWeight' }}</b>kg and wears size <b>{{sessionGet 'orderFormShoes'}}</b> shoes.
+						<a class="change-sizing">Change</a>
+					
+						<!--
+					
+						{{ heShe ../gender }} wears
+						
+						{{#each enteredSizes}}
+						
+							<b>{{value}}</b> {{name}} {{ listSeparator length i }}
+						
+						{{/each}}. <a class="change-sizing">Change</a>
+						
+						-->
+						
+					{{/ unless }}
+				</p>
+				
+				{{#if sizingConfirmed }}
+				
+					<p class='text-2'><b>Deliver this order to:</b></p>
+					
+					{{> addressSelect id="orderFormAddress" select=true }}
+					
+					{{#if sessionGet 'orderFormAddress' }}
+					
+						<a class="place-order">Place your order!</a>
+					
 					{{/if}}
 					
-				{{/ if }}
-			
-			</div>
-			
+				{{/if}}
+				
+			{{/ if }}
+		
 		</div>
-        
-    </div>
+		
+	{{/ columnContainer }}
+		
         	    
 </template>

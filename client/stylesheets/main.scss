@@ -16,9 +16,9 @@
 @import 'globals/_layout.scss';
 @import 'globals/_bg.scss';
 
-@import 'partials/_title.scss';
-
 @import '../templates/global/master/_master.scss';
+@import '../templates/global/titleBar/_titleBar.scss';
+@import '../templates/global/columnContainer/_columnContainer.scss';
 @import '../templates/global/forms/inlineInput/_inlineInput.scss';
 @import '../templates/global/forms/inlineSelect/_inlineSelect.scss';
 @import '../templates/global/forms/addressSelect/_addressSelect.scss';
@@ -32,6 +32,7 @@
 @import '../templates/user/addChild/_addChild.scss';
 @import '../templates/user/child/_child.scss';
 @import '../templates/user/editor/_editor.scss';
+@import '../templates/user/orders/_orders.scss';
 
 @import '../templates/admin/_main.scss';
 @import '../templates/admin/customers/_customers.scss';

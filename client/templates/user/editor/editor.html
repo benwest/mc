@@ -1,18 +1,16 @@
 <template name="editor">
 
-<!--<canvas id="cropCanvas"></canvas>-->
-
 	<div class="editor-title row">
 		
-		<div class="undo small-3 columns">
+		<div class="undo large-3 columns show-for-large-up">
 			{{#if canUndo}}<a id="undo">Undo</a>{{/if}}&nbsp;
 		</div>
 		
-		<div class="title small-6 columns text-center">
+		<div class="title small-8 large-6 columns large-text-center">
 			{{name}}'s Universe
 		</div>
 		
-		<div class="finished small-3 columns text-right">
+		<div class="finished small-4 large-3 columns text-right">
 			<a id="finished">Finished!</a>
 		</div>		
 		
@@ -50,7 +48,13 @@
 			
 			<div class='editor-ui swatches {{#if mode "PICKING_COLOR"}}active{{/if}}'>
 				{{# each colors}}
-					<div style="position: absolute; top: {{y}}%; left:{{x}}%; width: {{radius}}%; height: {{radius}}%; border-radius: 50% 50%; background:{{color}}"></div>
+					<div style="position: absolute; top: {{y}}%; left:{{x}}%; width: {{radius}}%; height: {{radius}}%; border-radius: 50% 50%; background:{{color}}">
+						{{#if colorUsed ..}}
+							<span class="{{#if bright}}bright{{/if}}">
+								{{{colorUsed ..}}}
+							</span>
+						{{/if}}
+					</div>
 				{{/ each }}
 			</div> 
 			
@@ -64,7 +68,10 @@
 						<div style="position: absolute; top: {{y}}%; left:{{x}}%; width: {{radius}}%; height: {{radius}}%; border-radius: 50% 50%; background:{{color}}"></div>
 					{{/ each }}
 				</div>
-				<div class="label">
+				<div class="label hide-for-large-up">
+					<a>Colours</a>
+				</div>
+				<div class="label show-for-large-up">
 					<a>Pick a colour</a>
 				</div>
 			</div>
@@ -74,8 +81,13 @@
 		<div class="editor-region" style="{{ lookButtonStyle }}">
 
 			<div class="editor-ui editor-button looks-button">
-				<div class="icon"></div>
-				<div class="label">
+				<div class="icon">
+					<img src="/img/looks.svg">
+				</div>
+				<div class="label hide-for-large-up">
+					<a>Looks</a>
+				</div>
+				<div class="label show-for-large-up">
 					<a>Pick a look</a>
 				</div>
 			</div>
@@ -84,7 +96,7 @@
 				
 		<div class="editor-region" style="{{ doneButtonStyle }}">
 			
-			<div class="editor-ui editor-button done-button">
+			<div class="editor-ui done-button">
 				
 				<a>Done</a>
 				
@@ -97,8 +109,15 @@
 			<div class="editor-ui look-picker">
 				
 				{{#each looks }}
-				
-					<div class="look-thumb" style="background-image: url({{lookPreview}})"></div>
+					
+					
+					<div class="look-thumb" style="background-image: url({{lookPreview}})">
+						{{#if lookUsed ..}}
+							<div class="look-used-count">
+								<span>{{{lookUsed ..}}}</span>
+							</div>
+						{{/if}}
+					</div>
 				
 				{{/each}}
 				
@@ -106,12 +125,16 @@
 			
 		</div>
 		
-		<div class="editor-region" style="{{lookNameStyle}}">
+		<div class="editor-region no-pointer" style="{{lookNameStyle}}">
 			
-			<div class="editor-ui look-name">
-				{{ lookName }}
-			</div>
-			
+			{{#if hoveredLook }}
+				{{#with hoveredLook}}
+					<div class="editor-ui look-name">
+						<img src="{{ icon }}"><br>
+						<h3>{{ name }}</h3>
+					</div>
+				{{/with}}
+			{{/if}}			
 		</div>
 		
 		<div class="editor-region" style="{{selectedImageStyle}}">
@@ -126,10 +149,9 @@
 			
 			<div class="editor-ui image-list">
 				
-				<div class="image-list-container" style="transform: translateY({{selectedImageTranslate}}%)">
-					{{#each imageList}}
-						<div class="image-container {{selectedImageClass}}" style="background-image: url('{{url}}')"></div>					
-					{{/each}}
+				<div class="image-list-container" style="{{selectedImageTranslate}}">
+					<div class="image-container back-button"></div>
+					{{#each imageList}}<div class="image-container look-image {{selectedImageClass}}" style="background-image: url('{{url}}')"></div>{{/each}}
 				</div>
 				
 			</div>

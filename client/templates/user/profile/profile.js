@@ -27,16 +27,31 @@ Template.profile.helpers({
 		});
     },
     'firstChild': function(){
-	    debugger;
 	    return Children.findOne({owner: this._id});
     },
 	'lastOrder': function(){
-		return Orders.findOne({
+		var orders = Orders.find({
 			owner: this._id,
 			status: {
-				$in: ['placed', 'dispatched']
+				$ne: 'cancelled'
 			}
-		});
+		}).fetch();
+		
+		return _.chain(orders)
+			.sortBy(function(order){
+				return order[order.status + 'At'];
+			})
+			.last()
+			.value();
+		
+	},
+	'moreOrders': function(){
+		return Orders.find({
+			owner: this._id,
+			status: {
+				$ne: 'cancelled'
+			}
+		}).count() - 1;
 	},
 	'forChild':function(){
 		return Children.findOne(this.forChild).name;

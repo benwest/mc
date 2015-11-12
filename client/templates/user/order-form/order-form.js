@@ -26,6 +26,11 @@ Template.orderForm.onCreated(function(){
 });
 
 Template.orderForm.helpers({
+	
+	'title': function(){
+		return this.name + "'s new order";
+	},
+	
 	'colors': function(){
 		
 		return _.chain(this.universe.colors)

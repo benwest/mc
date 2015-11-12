@@ -1,132 +1,128 @@
 <template name="order">
 
-	<div class="row">
-		
-		<div class="large-8 large-centered columns">
+    {{> titleBar text=title }}
     
-		    <h2 class="page-title">{{childName}}'s Order</h2>
+    {{# columnContainer classes="text-2" }}
 		    
-		    <div class="row">
-			    
-			    <div class="medium-4 columns pad-bottom-2">
-			    
-			    	<h3>Order Number</h3>
-			    	<p class='text-2 text-xbold'>#{{number}}</p>
-			    
-			    </div>
-		    		    
-			    <div class="medium-4 columns pad-bottom-2">
-			    
-			    	<h3>Status</h3>
-			    	<p>
-				    	<span class="text-2 text-xbold">{{ capitalise status }}</span><br>
-				    	<span class="text-1">at {{ lastActionTime }}</span>
-				    </p>
-			    
-			    </div>
-		    		    
-			    <div class="medium-4 columns pad-bottom-2">
-			    
-			    	<h3>Estimated Delivery</h3>
-			    	<p class="text-2 text-xbold">
-				        {{# if estimatedDelivery }}
-				            {{estimatedDelivery}}
-				        {{else}}
-				            Pending
-				        {{/if}}
-				    </p>
-			    
-			    </div>
-		    		    
+	    <div class="row">
+		    
+		    <div class="medium-4 columns medium-pad-bottom-2">
+		    
+		    	<h3>Order Number</h3>
+		    	<p class='text-2 text-xbold'>#{{number}}</p>
+		    
 		    </div>
+	    		    
+		    <div class="medium-4 columns medium-pad-bottom-2">
 		    
-		    <div class="row pad-bottom-2">
+		    	<h3>Status</h3>
+		    	<p>
+			    	<span class="text-2 text-xbold">{{ capitalise status }}</span><br>
+			    	<span class="text-1">at {{ lastActionTime }}</span>
+			    </p>
+		    
+		    </div>
+	    		    
+		    <div class="medium-4 columns medium-pad-bottom-2">
+		    
+		    	<h3>Estimated Delivery</h3>
+		    	<p class="text-2 text-xbold">
+			        {{# if estimatedDelivery }}
+			            {{estimatedDelivery}}
+			        {{else}}
+			            Pending
+			        {{/if}}
+			    </p>
+		    
+		    </div>
+	    		    
+	    </div>
+	    
+	    <div class="row medium-pad-bottom-2">
+		    
+		    <div class="large-4 columns medium-pad-bottom-2">
 			    
-			    <div class="large-4 columns pad-bottom-2">
-				    
-				    <h3>Garments requested</h3>
-				    <p class="text-2 text-xbold">{{#each garments}}{{this}}<br>{{/each}}</p>
-				   
-			    </div>
-				<div class="large-4 columns pad-bottom-2">
-					
-				    <h3>Sizing</h3>
-				    <p>				    	
-				    	<span class="text-xbold text-2">{{sizing.height}}</span>cm tall<br>
-				    	<span class="text-xbold text-2">{{sizing.weight}}</span>kg weight<br>
-				    	Size <span class="text-xbold text-2">{{sizing.shoes}}</span> shoes<br>
-				    </p>  
-				    
-				</div>
+			    <h3>Garments requested</h3>
+			    <p class="text-2 text-xbold">{{#each garments}}{{this}}<br>{{/each}}</p>
+			   
+		    </div>
+			<div class="large-4 columns medium-pad-bottom-2">
 				
-				<div class="large-4 columns pad-bottom-2">
-					
-					<h3>Deliver to</h3>
-					
-					<p>
-						
-				    	<span class="text-2 text-xbold">{{ address.line1 }}</span><br>
-				    	{{#if address.line2 }}{{ address.line2 }}<br>{{/if}}
-				    	{{ address.city }}<br>
-				    	{{ address.county }}<br>
-				    	{{ address.country }}<br>
-				    	{{ address.postcode }}
-						
-					</p>
-					
-				</div>
-				
-		    </div>
-		    
-		    <div class="row">
+			    <h3>Sizing</h3>
+			    <p>				    	
+			    	<span class="text-xbold text-2">{{sizing.height}}</span>cm tall<br>
+			    	<span class="text-xbold text-2">{{sizing.weight}}</span>kg weight<br>
+			    	Size <span class="text-xbold text-2">{{sizing.shoes}}</span> shoes<br>
+			    </p>  
 			    
-			    <div class="large-6 columns">
-				    
-				    <h3>Universe</h3>
-				    
-				    <div class="full-width canvas-ratio pos-rel">
-					    {{> universePreview universe}}
-				    </div>
-				    
+			</div>
+			
+			<div class="large-4 columns medium-pad-bottom-2">
+				
+				<h3>Deliver to</h3>
+				
+				<p>
+					
+			    	<span class="text-2 text-xbold">{{ address.line1 }}</span><br>
+			    	{{#if address.line2 }}{{ address.line2 }}<br>{{/if}}
+			    	{{ address.city }}<br>
+			    	{{ address.county }}<br>
+			    	{{ address.country }}<br>
+			    	{{ address.postcode }}
+					
+				</p>
+				
+			</div>
+			
+	    </div>
+	    
+	    <div class="row">
+		    
+		    <div class="large-6 columns medium-pad-bottom-2">
+			    
+			    <h3>Universe</h3>
+			    
+			    <div class="full-width canvas-ratio pos-rel">
+				    {{> universePreview universe}}
 			    </div>
 			    
-			    <div class="large-6 columns">
-				    
-				    <h3>Colors</h3>
-				    <p class="text-2">
-					    {{#each colors}}
-					    	{{>swatch color=color size=times}} <span class="text-xbold text-caps">{{name}}</span><br>
-					    {{/each}}
-				    </p>
-				    <h3>Looks</h3>
-				    
-					<p class="text-2">
-					    
-						{{#each looks}}
-		
-					    	<span class="text-2">
-					    		<span class="text-xbold text-caps">{{> lookIcon }} {{name}}</span>
-					    		<span class="text-1">(&times;{{times}})</span><br>
-					    	</span>
-					    	
-					    {{/each}}
-					</p>
-					
-				</div>
-			    
 		    </div>
 		    
+		    <div class="large-6 columns">
+			    
+			    <h3>Colors</h3>
+			    <p class="text-2">
+				    {{#each colors}}
+				    	{{>swatch color=color size=times}} <span class="text-xbold text-caps">{{name}}</span><br>
+				    {{/each}}
+			    </p>
+			    <h3>Looks</h3>
+			    
+				<p class="text-2 medium-pad-bottom-2">
+				    
+					{{#each looks}}
+	
+				    	<span class="text-2">
+				    		<span class="text-xbold text-caps">{{> lookIcon }} {{name}}</span>
+				    		<span class="text-1">(&times;{{times}})</span><br>
+				    	</span>
+				    	
+				    {{/each}}
+				</p>
+				
+			</div>
 		    
-		    
-		
-		    {{#if returnBy}}
-		    	Returns due by <strong>{{returnBy}}</strong>
-		    {{/if}}
-		    
-		    {{> Template.dynamic template=templateName }}
-		        
-		</div>
-		
-	</div>
-    
+	    </div>
+	    
+	    
+	    
+	
+	    {{#if returnBy}}
+	    	Returns due by <strong>{{returnBy}}</strong>
+	    {{/if}}
+	    
+	    {{> Template.dynamic template=templateName }}
+	
+	{{/ columnContainer }}
+	    
 </template>

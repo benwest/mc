@@ -1,43 +1,76 @@
 <template name="children">
 
-	<h2 class="page-title">Children</h2>
-	
-	<div class="row">
-		
-		<div class="large-8 large-centered columns">
-			
-			{{# each children }}
+	{{>titleBar text="Children"}}
+
+	{{# columnContainer }}
 				
-				<div class="row">
+		{{# each children }}
+			
+			<div class="row pad-bottom-2 text-center medium-text-left">
+				
+				<div class="small-8 small-offset-2 medium-3 medium-offset-0 columns pad-bottom-1">
 					
-					<div class="small-6 large-3 columns">
-						
-						<a href="/editor/{{_id}}">
-						
-							<div class="full-width canvas-ratio pos-rel">
-								
-								{{> universePreview universe }}
-								
-							</div>
-						
-						</a>
-						
-					</div>
+					<a href="/editor/{{_id}}">
 					
-					<div class="small-6 large-9 columns">
+						<div class="full-width canvas-ratio pos-rel">
+							
+							{{> universePreview universe }}
+							
+						</div>
 					
-						<h1 class="child-name text-caps text-xbold gap-bottom-2-5">{{{ coloredName }}}</h1>
-					
-					</div>
+					</a>
 					
 				</div>
 				
+				<div class="medium-9 columns">
 				
-			{{/ each }}
+					<p class="child-name text-2 text-xbold gap-bottom-1">{{{ coloredName }}}</p>
+										
+					<div class="row">
+						
+						<div class="large-4 columns pad-bottom-1">
+							
+							<h3>{{getAge dob}}-year-old {{gender}}</h3>
+							
+							<a href="/editor/{{_id}}">Edit Universe</a><br>
+							{{#if canPlaceOrder}}
+								<a href="/order-form/{{_id}}">Place an Order</a>
+							{{ else }}
+								Add {{#if moreColors}}{{numberAsWords moreColors}} more {{plural moreColors 'colours'}} {{/if}}{{#if moreColors}}{{#if moreLooks}}and {{/if}}{{/if}}{{#if moreLooks}}{{numberAsWords moreLooks}} more {{plural moreLooks 'look'}}{{/if}} to place an order.
+							{{/if}}
+						</div>
+						
+						<div class="medium-6 large-4 columns pad-bottom-1">
+							<h3>Colours</h3>
+							{{# if colors }}
+							    {{#each colors}}
+							    	{{>swatch color=color size=times}} <span><span class="show-for-medium-up text-xbold text-caps">{{name}}<br></span></span>
+							    {{/each}}
+						    {{ else }}
+						    	<i>None</i>
+						    {{/ if }}
+						</div>
+						
+						<div class="medium-6 large-4 columns pad-bottom-1">
+							<h3>Looks</h3>
+							{{#if looks}}
+							    {{#each looks}}
+							    	<span class="text-xbold text-caps">{{> lookIcon }}<span class="show-for-medium-up"> {{name}}</span></span> (&times;{{times}})<br class="show-for-medium-up">
+							    {{/each}}
+						    {{else}}
+						    	<i>None</i>
+						    {{/if}}
+						</div>
+						
+					</div>
+				
+				</div>
+				
+			</div>
 			
-		</div>
-		
-	</div>
+			
+		{{/ each }}
+			
+	{{/columnContainer}}
 	
-
 </template>

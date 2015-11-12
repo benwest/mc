@@ -10,7 +10,6 @@ iron:router
 accounts-password
 fourseven:scss
 momentjs:moment
-standard-minifiers
 meteor-base
 mobile-experience
 mongo
@@ -24,7 +23,7 @@ random
 ejson
 spacebars
 check
-mrt:modernizr-meteor
 aramk:tinycolor
-velocityjs:velocityjs
 fastclick
+seba:minifiers-autoprefixer
+cwaring:modernizr

@@ -1,8 +1,8 @@
 Template.order.helpers({
     
-    'childName': function(){
+    'title': function(){
         
-        return Children.findOne(this.forChild).name;
+        return Children.findOne(this.forChild).name + "'s Order";
         
     },
     
