@@ -151,6 +151,29 @@ Meteor.startup(function(){
         
     }
     
+    if(!Colors.find().count()){
+	    
+	    var colors = [{color:"#000000",name:"Licorice"},{color:"#ffffff",name:"Snow"},{color:"#941100",name:"Cayenne"},{color:"#945200",name:"Mocha"},{color:"#929000",name:"Asparagus"},{color:"#4f8f00",name:"Fern"},{color:"#008f00",name:"Clover"},{color:"#009051",name:"Moss"},{color:"#009193",name:"Teal"},{color:"#005493",name:"Ocean"},{color:"#011993",name:"Midnight"},{color:"#531b93",name:"Aubergine"},{color:"#942193",name:"Plum"},{color:"#941751",name:"Maroon"},{color:"#ff2600",name:"Fire Engine"},{color:"#ff9300",name:"Tangerine"},{color:"#fffb00",name:"Lemon"},{color:"#8efa00",name:"Lime"},{color:"#00f900",name:"Spring"},{color:"#00fa92",name:"Sea Foam"},{color:"#00fdff",name:"Turquoise"},{color:"#0096ff",name:"Aqua"},{color:"#0433ff",name:"Blueberry"},{color:"#9437ff",name:"Grape"},{color:"#ff40ff",name:"Magenta"},{color:"#ff2f92",name:"Strawberry"},{color:"#ff7e79",name:"Salmon"},{color:"#ffd479",name:"Cantaloupe"},{color:"#fffc79",name:"Banana"},{color:"#d4fb79",name:"Honeydew"},{color:"#73fa79",name:"Flora"},{color:"#73fcd6",name:"Spindrift"},{color:"#73fdff",name:"Ice"},{color:"#76d6ff",name:"Sky"},{color:"#7a81ff",name:"Orchid"},{color:"#d783ff",name:"Lavender"},{color:"#ff85ff",name:"Bubblegum"},{color:"#ff8ad8",name:"Carnation"}];
+	    
+	    _.each(colors, function(color) { Colors.insert(color) })
+	    
+	    
+    }
+    
+    var adminUser = Meteor.users.findOne({username: 'admin'});
+    
+    if(!Settings.findOne({owner: adminUser._id})){
+        
+        Settings.insert({
+            owner: adminUser._id,
+            daysToReturn: 10,
+            minBrands: 1,
+            minLooks: 1,
+            minColors: 1
+        });
+        
+    }
+    
     if(!LookImages.find({}).count()){
 	    
 	    var shells = Looks.insert({
@@ -195,305 +218,284 @@ Meteor.startup(function(){
 	    
 	    LookImages.insert({
 		    url: '/img/looks/1/img0.jpg',
-		    w: 683,
-		    h: 1024,
+		    w: 800,
+		    h: 1200,
 		    owner: shells
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/1/img1.jpg',
-		    w: 683,
-		    h: 1024,
+		    w: 800,
+		    h: 1200,
 		    owner: shells
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/1/img2.jpg',
-		    w: 693,
-		    h: 1024,
+		    w: 800,
+		    h: 1200,
 		    owner: shells
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/1/img3.jpg',
-		    w: 1024,
-		    h: 683,
+		    w: 800,
+		    h: 1200,
 		    owner: shells
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/2/img0.jpg',
-		    w: 447,
-		    h: 670,
+		    w: 1200,
+		    h: 800,
 		    owner: prints
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/2/img1.jpg',
-		    w: 447,
-		    h: 670,
+		    w: 1200,
+		    h: 800,
 		    owner: prints
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/2/img2.jpg',
-		    w: 740,
-		    h: 629,
+		    w: 1200,
+		    h: 1021,
 		    owner: prints
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/2/img3.jpg',
-		    w: 447,
-		    h: 670,
+		    w: 1200,
+		    h: 800,
 		    owner: prints
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/2/img4.jpg',
-		    w: 492,
-		    h: 535,
+		    w: 1102,
+		    h: 1200,
 		    owner: prints
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/2/img5.jpg',
-		    w: 670,
-		    h: 1005,
+		    w: 800,
+		    h: 1200,
 		    owner: prints
 	    })
-	    
+
+	    LookImages.insert({
+		    url: '/img/looks/2/img6.jpg',
+		    w: 800,
+		    h: 1200,
+		    owner: prints
+	    })	
+
 	    LookImages.insert({
 		    url: '/img/looks/3/img0.jpg',
-		    w: 455,
-		    h: 683,
+		    w: 1200,
+		    h: 919,
 		    owner: happy
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/3/img1.jpg',
-		    w: 447,
-		    h: 670,
+		    w: 1200,
+		    h: 800,
 		    owner: happy
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/3/img2.jpg',
-		    w: 1024,
-		    h: 683,
+		    w: 1200,
+		    h: 800,
 		    owner: happy
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/3/img3.jpg',
-		    w: 1024,
-		    h: 683,
+		    w: 1200,
+		    h: 800,
 		    owner: happy
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/4/img0.jpg',
-		    w: 670,
-		    h: 1005,
+		    w: 800,
+		    h: 1200,
 		    owner: basics
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/4/img1.jpg',
-		    w: 670,
-		    h: 1005,
+		    w: 800,
+		    h: 1200,
 		    owner: basics
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/4/img2.jpg',
-		    w: 683,
-		    h: 683,
+		    w: 1200,
+		    h: 800,
 		    owner: basics
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/4/img3.jpg',
-		    w: 1024,
-		    h: 683,
+		    w: 1200,
+		    h: 800,
 		    owner: basics
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/4/img4.jpg',
-		    w: 456,
-		    h: 683,
+		    w: 1200,
+		    h: 800,
 		    owner: basics
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/5/img0.jpg',
-		    w: 447,
-		    h: 670,
+		    w: 1200,
+		    h: 800,
 		    owner: roar
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/5/img1.jpg',
-		    w: 446,
-		    h: 669,
+		    w: 1200,
+		    h: 800,
 		    owner: roar
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/5/img2.jpg',
-		    w: 683,
-		    h: 683,
+		    w: 1200,
+		    h: 800,
 		    owner: roar
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/5/img3.jpg',
-		    w: 456,
-		    h: 683,
+		    w: 1200,
+		    h: 829,
 		    owner: roar
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/5/img4.jpg',
-		    w: 683,
-		    h: 1024,
+		    w: 800,
+		    h: 1200,
 		    owner: roar
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/5/img5.jpg',
-		    w: 455,
-		    h: 683,
+		    w: 1200,
+		    h: 800,
 		    owner: roar
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/6/img0.jpg',
-		    w: 447,
-		    h: 670,
+		    w: 1200,
+		    h: 800,
 		    owner: fjords
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/6/img1.jpg',
-		    w: 365,
-		    h: 548,
+		    w: 1200,
+		    h: 849,
 		    owner: fjords
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/6/img2.jpg',
-		    w: 670,
-		    h: 1005,
+		    w: 800,
+		    h: 1200,
 		    owner: fjords
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/7/img0.jpg',
-		    w: 447,
-		    h: 670,
+		    w: 1200,
+		    h: 800,
 		    owner: home
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/7/img1.jpg',
-		    w: 1024,
-		    h: 683,
+		    w: 1200,
+		    h: 800,
 		    owner: home
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/7/img2.jpg',
-		    w: 382,
-		    h: 572,
+		    w: 800,
+		    h: 1200,
 		    owner: home
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/7/img3.jpg',
-		    w: 455,
-		    h: 683,
+		    w: 1200,
+		    h: 800,
 		    owner: home
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/7/img4.jpg',
-		    w: 683,
-		    h: 1024,
+		    w: 800,
+		    h: 1200,
 		    owner: home
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/7/img5.jpg',
-		    w: 670,
-		    h: 1005,
+		    w: 800,
+		    h: 1200,
 		    owner: home
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/8/img0.jpg',
-		    w: 670,
-		    h: 1005,
+		    w: 800,
+		    h: 1200,
 		    owner: glad
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/8/img1.jpg',
-		    w: 1024,
-		    h: 683,
+		    w: 1200,
+		    h: 800,
 		    owner: glad
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/8/img2.jpg',
-		    w: 1005,
-		    h: 670,
+		    w: 1200,
+		    h: 800,
 		    owner: glad
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/8/img3.jpg',
-		    w: 683,
-		    h: 1024,
+		    w: 800,
+		    h: 1200,
 		    owner: glad
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/8/img4.jpg',
-		    w: 670,
-		    h: 1005,
+		    w: 800,
+		    h: 1200,
 		    owner: glad
 	    })
 	    
-    }
-    
-    if(!Colors.find().count()){
-	    
-	    var colors = [{color:"#000000",name:"Licorice"},{color:"#ffffff",name:"Snow"},{color:"#941100",name:"Cayenne"},{color:"#945200",name:"Mocha"},{color:"#929000",name:"Asparagus"},{color:"#4f8f00",name:"Fern"},{color:"#008f00",name:"Clover"},{color:"#009051",name:"Moss"},{color:"#009193",name:"Teal"},{color:"#005493",name:"Ocean"},{color:"#011993",name:"Midnight"},{color:"#531b93",name:"Aubergine"},{color:"#942193",name:"Plum"},{color:"#941751",name:"Maroon"},{color:"#ff2600",name:"Fire Engine"},{color:"#ff9300",name:"Tangerine"},{color:"#fffb00",name:"Lemon"},{color:"#8efa00",name:"Lime"},{color:"#00f900",name:"Spring"},{color:"#00fa92",name:"Sea Foam"},{color:"#00fdff",name:"Turquoise"},{color:"#0096ff",name:"Aqua"},{color:"#0433ff",name:"Blueberry"},{color:"#9437ff",name:"Grape"},{color:"#ff40ff",name:"Magenta"},{color:"#ff2f92",name:"Strawberry"},{color:"#ff7e79",name:"Salmon"},{color:"#ffd479",name:"Cantaloupe"},{color:"#fffc79",name:"Banana"},{color:"#d4fb79",name:"Honeydew"},{color:"#73fa79",name:"Flora"},{color:"#73fcd6",name:"Spindrift"},{color:"#73fdff",name:"Ice"},{color:"#76d6ff",name:"Sky"},{color:"#7a81ff",name:"Orchid"},{color:"#d783ff",name:"Lavender"},{color:"#ff85ff",name:"Bubblegum"},{color:"#ff8ad8",name:"Carnation"}];
-	    
-	    _.each(colors, function(color) { Colors.insert(color) })
-	    
-	    
-    }
-    
-    var adminUser = Meteor.users.findOne({username: 'admin'});
-    
-    if(!Settings.findOne({owner: adminUser._id})){
-        
-        Settings.insert({
-            owner: adminUser._id,
-            daysToReturn: 10,
-            minBrands: 1,
-            minLooks: 1,
-            minColors: 1
-        });
-        
-    }
-
-
-
-
 // Image 01 01 
 
 
@@ -973,7 +975,7 @@ LookImages.update(LookImages.findOne({url:"/img/looks/8/img4.jpg"})._id,{$push:{
 
 
 
-
+    } // If no look images
 
 
 
