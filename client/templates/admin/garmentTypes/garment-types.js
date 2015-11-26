@@ -12,9 +12,6 @@ Template.admin_garment_types.helpers({
 				    type: 'text',
 				    required: 'true'
 			    },{
-				    name: 'sizing',
-				    type: 'text'
-			    },{
 				    name: 'minAge',
 				    niceName: 'Min age',
 				    type: 'number'

@@ -1,5 +1,8 @@
+var OPEN = 'inlineSelectOpen';
+
 Template.inlineSelect.onCreated(function(){
 	Session.set(this.data.id, this.data.value || false);
+	if(!this.data.value) Session.set( OPEN, this.data.id );
 });
 
 Template.inlineSelect.onDestroyed(function(){
@@ -19,6 +22,10 @@ Template.inlineSelect.helpers({
 	
 	'value': function(){
 		return Session.get(this.id);
+	},
+	
+	'open': function(){
+		return Session.equals(OPEN, this.id)
 	}
 
 })
@@ -26,9 +33,16 @@ Template.inlineSelect.helpers({
 
 Template.inlineSelect.events({
 	
+	'click': function(e){
+		
+		console.log(e.target);
+		
+	},
+	
 	'click .inline-select': function(event, template){
 		
-		Session.set( template.data.id, false );
+		Session.set( OPEN, template.data.id );
+		//Session.set( template.data.id, false );
 		
 	},
 	
@@ -36,6 +50,7 @@ Template.inlineSelect.events({
 		
 		event.stopPropagation();
 		Session.set(template.data.id, this.valueOf());
+		Session.set(OPEN, false);
 		
 	},
 	

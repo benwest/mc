@@ -264,7 +264,7 @@ Template.registerHelper('getOrderStatus', function(order){
 })
 
 Template.registerHelper('coloredName', function(){
-	
+		
 	function coloredSpan(color, content){
 		
 		return '<span style="color:' + color + ';">' + content + '</span>';

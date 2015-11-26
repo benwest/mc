@@ -46,12 +46,7 @@ Template.account.events({
         
         if(_.keys(errors).length) return;
         
-        Meteor.users.update(Meteor.userId(), {
-            $set: {
-                'profile.firstName': first,
-                'profile.lastName': last
-            }
-        });
+        Meteor.call('changeName', first, last);
         
         Session.set('accountFirstNameTouched', false);
         Session.set('accountLastNameTouched', false);

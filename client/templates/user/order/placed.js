@@ -30,12 +30,7 @@ Template.placedOrder.events({
     
     'click .cancel-confirm': function(){
         
-        Orders.update(this._id, {
-            $set: {
-                status: 'cancelled',
-                cancelledAt: new Date()
-            }
-        });
+        Meteor.call('cancelOrder', this._id);
         
     }
     

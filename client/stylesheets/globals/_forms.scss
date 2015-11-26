@@ -16,20 +16,23 @@ form{
 		padding: 0;
 		margin: 0;
 		border: none;
-		color: white;
+		color: rgba(255, 255, 255, 0.7);
 		height: 1.42em;
 		background: transparent;
 		border-bottom-width: $underlineWidth;
 		border-bottom-style: dashed;
 		border-bottom-color: rgba(255, 255, 255, 0.5);
-		transition: border-bottom-color 0.2s;
+		transition: border-bottom-color 0.2s, color 0.2s;
 		display: block;
 		max-width: none;
 		width: 100%;
 		
 		&:hover,
 		&:focus{
+			color: white;
 			border-bottom-color: white;
+			outline: 0;
+			background: none;
 		}
 		
 	}
@@ -50,14 +53,15 @@ form{
 	
 }
 
+
 @mixin placeholder{
 	animation: input-placeholder-flash 0.75s infinite alternate;
 	color: white;
 }
 
 ::-webkit-input-placeholder { @include placeholder; }
-::-moz-placeholder { @include placeholder; } /* firefox 19+ */
-:-ms-input-placeholder { @include placeholder; } /* ie */
+::-moz-placeholder { @include placeholder; }
+:-ms-input-placeholder { @include placeholder; }
 input:-moz-placeholder { @include placeholder; }
 
 input[type="color"]{

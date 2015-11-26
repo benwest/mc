@@ -13,7 +13,7 @@
         
 	        <p class="text-1-5">
 		        
-				<b>{{greeting}}, {{profile.firstName}}!</b>
+				<b>{{greeting}}, {{currentUser.profile.firstName}}!</b>
 
 				{{# if children }}
 				
@@ -36,12 +36,28 @@
 					{{ else }}
 					
 						{{# if readyToOrder }}
+						
+							{{# if oneChild }}
 							
-							Why not <a href="/orderForm/">place your first order?</a>
+								Why not <a href="/order-form/{{ firstChild._id }}">order your first box?</a>
+								
+							{{ else }}
+							
+								Why not <a href="/order-form/{{ firstChild._id }}">order your first box for {{ firstChild.name }}?</a>
+							
+							{{/if}}
 						
 						{{ else }}
-						
-							Once you've <a href="/children">created a universe for {{plural children firstChild.name 'one of your children'}}</a>, you can place your first order.
+							
+							{{# if oneChild }}
+							
+								Once you've <a href="/editor/{{ firstChild._id }}">created a universe for {{ firstChild.name }}</a>, you can order your first box.
+							
+							{{ else }}
+							
+								Once you've <a href="/children">created a universe for one of your children</a>, you can order your first box.
+							
+							{{/if}}
 						
 						{{/ if }}
 					

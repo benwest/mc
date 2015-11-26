@@ -14,32 +14,28 @@ Template.addChild.events({
 		var gender = Session.get('newChildGender');
 		var name = Session.get('newChildName');
 		var dob = Session.get('newChildDob').split(' ');
+		
+		if(!gender || !name || !dob) return;
+		
 		var date = dob[0];
 		var month = dob[1];
 		var year = dob[2];
-				
-		if(!gender || !name || !dob) return;
 		
-		var id = Children.insert({
-			owner: Meteor.userId(),
+		Meteor.call('addChild', {
 			name: name,
-			dob: moment().year(year).month(month).date(date).toDate(),
 			gender: gender,
-			sizing: {
-				height: false,
-				weight: false,
-				shoes: false
-			},
-			universe: {
-				shapes: [],
-				colors: [],
-				looks: []
+			dob: moment().year(year).month(month).date(date).toDate()
+		}, function(error, result){
+			
+			if(error){
+				alert(error.reason);
+				return;
 			}
-		})
-		
-		Session.set('childJustAdded', id);
-		
-		Router.go('/child/' + id);
+			
+			Session.set('childJustAdded', result);
+			Router.go('/child/' + result);
+			
+		});
 		
 	}
 	

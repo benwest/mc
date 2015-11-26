@@ -172,15 +172,41 @@ Template.orderForm.events({
 	},
 
     'click .place-order': function(event, template){
-		
-        var orderNumber = Orders.find({}).count() + 1;
-        
+		        
         var sizing = {
-	        height: Session.get('orderFormHeight'),
-	        weight: Session.get('orderFormWeight'),
-	        shoes: Session.get('orderFormShoes')
+	        height: Number(Session.get('orderFormHeight')),
+	        weight: Number(Session.get('orderFormWeight')),
+	        shoes: Number(Session.get('orderFormShoes'))
         }
-                
+        
+        var order = {
+	        forChild: this._id,
+            address: Session.get('orderFormAddress'),
+            garments: _.pluck( Session.get('orderFormGarments'), 'name'),
+        }
+        
+        Meteor.call('updateSizes', this._id, sizing, function(error, result){
+	        
+	        if(error){
+		        alert(error.reason);
+		        return;
+	        }
+	        
+	        Meteor.call('placeOrder', order, function(error, result){
+		        
+		        if(error){
+			        alert(error.reason);
+			        return;
+		        }
+		        
+		        Router.go('/order/' + result);
+		        
+	        });
+	        
+	        
+        });
+        
+        /*
         Orders.insert({
             owner: Meteor.user()._id,
             number: orderNumber,
@@ -193,12 +219,17 @@ Template.orderForm.events({
             status: 'placed',
             items: {}
         });
-        		
+        */
+        
+        /*
+        	
 		Children.update(this._id, {
 			$set: {sizing: sizing}
 		})
 		
-        Router.go('/order/' + orderNumber);
+		*/
+		
+        //Router.go('/order/' + orderNumber);
         
         /*
         

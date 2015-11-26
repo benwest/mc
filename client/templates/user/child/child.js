@@ -25,10 +25,10 @@ Template.child.onDestroyed(function(){
 Template.child.helpers({
 	
 	'readyToOrder': function(){
-		
+				
 		var settings = globalSettings();
 		
-		return _.keys(this.universe.colors).length > settings.minColors && _.keys(this.universe.looks).length >= settings.minLooks;
+		return _.keys(this.universe.colors).length >= settings.minColors && _.keys(this.universe.looks).length >= settings.minLooks;
 		
 	},
 	
@@ -98,9 +98,14 @@ Template.child.events({
         Session.set(DELETE_CHILD_CONFIRM, false);
     },
     'click .confirm-remove': function(event, template){
-        Session.set(DELETE_CHILD_CONFIRM, false);
-        Children.remove(this._id);
-        Router.go('/profile');
+        Meteor.call('removeChild', this._id, function(error, result){
+	        if(error){
+		        alert(error.reason);
+		        return;
+	        }
+	        Session.set(DELETE_CHILD_CONFIRM, false);
+	        Router.go('/profile');
+        });
     }
     
 })

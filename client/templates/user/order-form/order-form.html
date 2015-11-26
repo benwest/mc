@@ -6,7 +6,7 @@
 	    
 	    <div class="pad-top-3 pad-bottom-3 text-2">
 	    
-		    <p>You're ordering clothes based on these colours:</p>
+		    <p>You're ordering a box based on these colours:</p>
 		    
 		    <p>
 			    {{#each colors}}
@@ -93,13 +93,13 @@
 				
 				{{#if sizingConfirmed }}
 				
-					<p class='text-2'><b>Deliver this order to:</b></p>
+					<p class='text-2'><b>Deliver this box to:</b></p>
 					
 					{{> addressSelect id="orderFormAddress" select=true }}
 					
 					{{#if sessionGet 'orderFormAddress' }}
 					
-						<a class="place-order">Place your order!</a>
+						<a class="place-order">Order your box!</a>
 					
 					{{/if}}
 					

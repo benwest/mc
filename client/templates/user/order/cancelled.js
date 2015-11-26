@@ -6,9 +6,7 @@ Template.cancelledOrder.events({
         
         if(!feedback) return;
         
-        Orders.update(this._id, {
-            $set: {feedback: feedback}
-        });
+        Meteor.call('addOrderFeedback', feedback);
         
     }
     

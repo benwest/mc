@@ -1,7 +1,7 @@
 <template name="inlineSelect">
 
-	<div class="inline-select {{#unless value}}open{{/unless}}">
-		{{value}}
+	<div class="inline-select {{#if open}}open{{/if}} {{#if shadow}}shadow{{/if}}">
+		{{#unless open}}{{value}}{{/unless}}
 		<div class="inline-select-options {{#if scrolling}}scroll{{/if}}">
 			{{#each options}}
 				<div class="inline-select-option">{{this}}</div>

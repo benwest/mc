@@ -13,11 +13,11 @@
                 {{/each}}
               {{/if}}
           
-              <input type="email" name="email" placeholder="Your Email" />
+              <input class="text-center gap-bottom-0-5" type="email" name="email" placeholder="Your Email" />
               {{#unless forgotPassword}}
-                <input type="password" name="password" placeholder="Password" />
+                <input class="text-center" type="password" name="password" placeholder="Password" />
               {{/unless}}
-              <button type="submit" class="pad-top-3">
+              <button type="submit" class="gap-top-3">
                 {{#if forgotPassword}}
                   Reset Password
                 {{else}}
@@ -26,7 +26,8 @@
               </button>
           </form>
           
-          <a class="forgotPassword">Forgot password?</a>
+          <a href="/signup">Sign Up</a><br>
+          <a class="forgotPassword">Forgot your password?</a>
           
         </div>
     </div>   

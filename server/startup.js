@@ -116,43 +116,36 @@ Meteor.startup(function(){
         
         GarmentTypes.insert({
             name: 'T-Shirts',
-            sizing: 'tops',
             gender: 'Both'
         });
         
         GarmentTypes.insert({
             name: 'Jumpers',
-            sizing: 'tops',
             gender: 'Both'
         });
         
         GarmentTypes.insert({
             name: 'Trousers',
-            sizing: 'bottoms',
             gender: 'Both'
         });
         
         GarmentTypes.insert({
             name: 'Socks',
-            sizing: 'shoes & socks',
             gender: 'Both'
         });
         
         GarmentTypes.insert({
             name: 'Skirts',
-            sizing: 'bottoms',
             gender: 'Both'
         });
         
         GarmentTypes.insert({
             name: 'Dresses',
-            sizing: 'dresses',
             gender: 'Both'
         });
                 
         GarmentTypes.insert({
             name: 'Shoes',
-            sizing: 'shoes & socks',
             gender: 'Both'
         });
         
@@ -480,6 +473,7 @@ Meteor.startup(function(){
 	    var colors = [{color:"#000000",name:"Licorice"},{color:"#ffffff",name:"Snow"},{color:"#941100",name:"Cayenne"},{color:"#945200",name:"Mocha"},{color:"#929000",name:"Asparagus"},{color:"#4f8f00",name:"Fern"},{color:"#008f00",name:"Clover"},{color:"#009051",name:"Moss"},{color:"#009193",name:"Teal"},{color:"#005493",name:"Ocean"},{color:"#011993",name:"Midnight"},{color:"#531b93",name:"Aubergine"},{color:"#942193",name:"Plum"},{color:"#941751",name:"Maroon"},{color:"#ff2600",name:"Fire Engine"},{color:"#ff9300",name:"Tangerine"},{color:"#fffb00",name:"Lemon"},{color:"#8efa00",name:"Lime"},{color:"#00f900",name:"Spring"},{color:"#00fa92",name:"Sea Foam"},{color:"#00fdff",name:"Turquoise"},{color:"#0096ff",name:"Aqua"},{color:"#0433ff",name:"Blueberry"},{color:"#9437ff",name:"Grape"},{color:"#ff40ff",name:"Magenta"},{color:"#ff2f92",name:"Strawberry"},{color:"#ff7e79",name:"Salmon"},{color:"#ffd479",name:"Cantaloupe"},{color:"#fffc79",name:"Banana"},{color:"#d4fb79",name:"Honeydew"},{color:"#73fa79",name:"Flora"},{color:"#73fcd6",name:"Spindrift"},{color:"#73fdff",name:"Ice"},{color:"#76d6ff",name:"Sky"},{color:"#7a81ff",name:"Orchid"},{color:"#d783ff",name:"Lavender"},{color:"#ff85ff",name:"Bubblegum"},{color:"#ff8ad8",name:"Carnation"}];
 	    
 	    _.each(colors, function(color) { Colors.insert(color) })
+	    
 	    
     }
     

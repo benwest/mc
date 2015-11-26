@@ -19,19 +19,22 @@ Template.profile.helpers({
 				
 	},
 	'childrenObjs': function(){
-		return Children.find({owner: this._id});
+		return Children.find();
 	},
     'children': function(){
-		return Children.find({owner: this._id}).map(function(child){
+		return Children.find().map(function(child){
 			return '<a href="/child/' + child._id + '">' + child.name + '</a>';
 		});
     },
+    'oneChild': function(){
+	    return Children.find({owner: Meteor.userId()}).count() === 1;
+    },
     'firstChild': function(){
-	    return Children.findOne({owner: this._id});
+	    return Children.findOne({owner: Meteor.userId()});
     },
 	'lastOrder': function(){
 		var orders = Orders.find({
-			owner: this._id,
+			owner: Meteor.userId(),
 			status: {
 				$ne: 'cancelled'
 			}
@@ -47,7 +50,7 @@ Template.profile.helpers({
 	},
 	'moreOrders': function(){
 		return Orders.find({
-			owner: this._id,
+			owner: Meteor.userId(),
 			status: {
 				$ne: 'cancelled'
 			}
@@ -60,12 +63,12 @@ Template.profile.helpers({
 		return moment(this[this.status + 'At']).fromNow();
 	},
 	'readyToOrder': function(){
-		
+				
 		var settings = globalSettings();
 		
-		return _.some( Children.find({owner: this._id}).fetch(), function(child){
+		return _.some( Children.find({owner: Meteor.userId()}).fetch(), function(child){
 			
-			return child.universe.colors.length >= settings.minColors && child.universe.looks.length >= settings.minLooks;
+			return _.keys(child.universe.colors).length >= settings.minColors && _.keys(child.universe.looks).length >= settings.minLooks;
 			
 		})
 	}

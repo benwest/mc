@@ -79,6 +79,10 @@
 		max-height: 6.5em * $lineHeight;
 	}
 	
+	&.shadow .inline-select-options{
+		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3)
+	}
+	
 	
 	
 }

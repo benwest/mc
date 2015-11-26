@@ -100,19 +100,7 @@ Template.addressSelect.events({
 		
 		event.stopPropagation();
 		
-		var oldDefault = Addresses.findOne({owner: Meteor.userId(), default: true});
-		
-		if(oldDefault){
-		
-			Addresses.update(oldDefault._id, {
-				$set: {default: false}
-			});
-		
-		}
-		
-		Addresses.update(this._id, {
-			$set: {default: true}
-		});
+		Meteor.call('makeAddressDefault', this._id);
 		
 	},
 	
@@ -120,30 +108,33 @@ Template.addressSelect.events({
 		
 		e.stopPropagation();
 		
-		Addresses.remove(this._id);
+		Meteor.call('removeAddress', this._id);
 		
 	},
 		
 	'click .save-address': function(event, template){
-		
-		debugger;
-		
+				
 		var lines = Session.get(template.data.id + 'New');
 		
 		if(!addressValid(lines)) return false;
 		
-		var isFirst = Addresses.find({owner: Meteor.userId()}).count() === 0;
+		Meteor.call('addAddress', lines, function(error, result){
+			
+			if(error){
+				alert(error.reason);
+				return;
+			}
+			
+			if(result && template.data.select) Session.set(template.data.id, result);
+			
+			var blankLines = {};
+			_.each(ADDRESS_LINES, function(val, key){ blankLines[key] = false; });
+			Session.set(template.data.id + 'New', lines);
+			Session.set(ADDING_ADDRESS, false);
+			
+		})
+				
 		
-		lines.owner = Meteor.userId();
-		lines.default = isFirst;
-		var newId = Addresses.insert(lines);
-		
-		if(isFirst && template.data.select) Session.set(template.data.id, newId);
-		
-		var blankLines = {};
-		_.each(ADDRESS_LINES, function(val, key){ blankLines[key] = false; });
-		Session.set(template.data.id + 'New', lines);
-		Session.set(ADDING_ADDRESS, false);
 		
 	}
 	

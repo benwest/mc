@@ -22,7 +22,7 @@ Template.master.onRendered(function(){
 Template.master.helpers({
 	
 	'bgClass': function(){
-		
+				
 		console.log(Router.current().route.getName());
 		
 		switch(Router.current().route.getName()){
@@ -45,6 +45,9 @@ Template.master.helpers({
 				
 			case 'profile':
 				return 'drip';
+				
+			default:
+				return 'bg-dark-grey';
 			
 		}
 		

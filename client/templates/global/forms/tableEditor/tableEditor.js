@@ -47,7 +47,7 @@ Template.tableEditor.events({
 		
 		if(form.hasClass('table-update')){
 			
-			Collections[template.data.collection].update(this._id, document);
+			Collections[template.data.collection].update(this._id, {$set: document});
 			
 		} else if (form.hasClass('table-add')){
 						

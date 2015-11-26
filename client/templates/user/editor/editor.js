@@ -572,19 +572,19 @@ Template.editor.helpers({
 					}
 					
 				} else {
-					return 'Add a colour or a style to get started.';
+					return 'Add a colour or a look to get started.';
 				}
 							
 			case modes.PICKING_COLOR:
 				
 				if(!_.keys(this.universe.colors).length){
-					return 'Pick your favourite colour.';
+					return "What's your favourite colour?";
 				} else {
-					return 'Pick another color.';
+					return 'Pick another colour.';
 				}
 				
 			case modes.DRAWING_COLOR:
-				return 'Draw with ' + (Modernizr.touch ? 'your finger.' : 'the mouse.');
+				return 'Paint with your colour.';
 			
 		}
 		
@@ -999,7 +999,7 @@ Template.editor.events({
 		
 		var canvas = $(event.target);
 		
-		if(Modernizr.touch){
+		if(event.type === 'touchstart'){
 			var offset = canvas.offset();
 			var x = event.originalEvent.touches[0].pageX - offset.left;
 			var y = event.originalEvent.touches[0].pageY - offset.top;
@@ -1097,7 +1097,6 @@ Template.editor.events({
 				shape.scale = 1;
 				var imgRatio = image.w / image.h;
 				shape.offset = imgRatio > CANVAS_RATIO ? {x: 0,  y: (1-(CANVAS_RATIO/imgRatio))/2 } : {x: (CANVAS_RATIO - imgRatio) / 2, y: 0 };
-				console.log(shape.offset)
 				shape.offset.x = shape.bounds.left - shape.offset.x;
 				shape.offset.y = shape.bounds.top - shape.offset.y;
 				this.universe.shapes.unshift(shape);
@@ -1121,7 +1120,7 @@ Template.editor.events({
 		
 		var canvas = $(event.target);
 		
-		if(Modernizr.touch){
+		if(event.type === 'touchmove'){
 			event.preventDefault();
 			var offset = canvas.offset();
 			var x = event.originalEvent.touches[0].pageX - offset.left;
@@ -1158,7 +1157,7 @@ Template.editor.events({
 					y: draggingShape.y + deltaY
 				});
 				
-			} else if(!Modernizr.touch) {
+			} else if(event.type !== 'touchmove') {
 								
 				Session.set( SELECTED_SHAPE, findShape(this.universe.shapes, x, y, Session.get(SELECTED_SHAPE) !== false) );
 				
@@ -1259,10 +1258,19 @@ Template.editor.events({
 			});
 			
 		});
-				
-		Children.update(this._id, {$set: {universe: this.universe}});
 		
-		Router.go('/child/' + this._id);
+		Meteor.call('saveUniverse', this._id, this.universe, function(error, result){
+			
+			if(error){
+				alert(error.reason);
+				return;
+			}
+			
+			Router.go('/child/' + result);
+			
+		})
+				
+		//Children.update(this._id, {$set: {universe: this.universe}});
 		
 	},
 	
@@ -1310,7 +1318,7 @@ Template.editor.events({
 	},
 	
 	'mousedown #select-canvas, touchstart #select-canvas': function(event){
-		
+				
 		Session.set(IMAGE_SELECTION_MOUSEDOWN, true)
 		
 		/*
@@ -1345,9 +1353,11 @@ Template.editor.events({
 	
 	},
 	
-	'mousemove #select-canvas, touchmove #select.canvas': function(event){
+	'mousemove #select-canvas, touchmove #select-canvas': function(event){
+				
+		var canvas = $(event.target);
 		
-		if(Modernizr.touch){
+		if(event.type === 'touchmove'){
 			event.preventDefault();
 			var offset = canvas.offset();
 			var x = event.originalEvent.touches[0].pageX - offset.left;
@@ -1357,8 +1367,6 @@ Template.editor.events({
 			var x = event.offsetX;
 			var y = event.offsetY;
 		}
-		
-		var canvas = $(event.target);
 		
 		x /= canvas.width();
 		y /= canvas.height();

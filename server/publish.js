@@ -1,3 +1,9 @@
+Meteor.publish('children', ownerOrAdmin(Children))
+
+Meteor.publish('orders', ownerOrAdmin(Orders))
+
+Meteor.publish('addresses', ownerOrAdmin(Addresses))
+
 Meteor.publish('lookImages', function(){
 	return LookImages.find();
 })
@@ -6,6 +12,13 @@ Meteor.publish('colors', function(){
 })
 Meteor.publish('looks', function(){
 	return Looks.find();
+})
+Meteor.publish('settings', function(){
+	return Settings.find();
+})
+
+Meteor.publish('garmentTypes', function(){
+	return GarmentTypes.find();
 })
 
 
@@ -17,3 +30,13 @@ Meteor.users.allow({
         );
     }
 });
+
+function ownerOrAdmin(collection){
+	return function(){
+		if( this.userId === Meteor.users.findOne({username: 'admin'})._id ){
+			return collection.find()
+		} else {
+			return collection.find({ owner: this.userId })
+		}
+	}
+}
