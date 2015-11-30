@@ -33,12 +33,6 @@ Template.inlineSelect.helpers({
 
 Template.inlineSelect.events({
 	
-	'click': function(e){
-		
-		console.log(e.target);
-		
-	},
-	
 	'click .inline-select': function(event, template){
 		
 		Session.set( OPEN, template.data.id );

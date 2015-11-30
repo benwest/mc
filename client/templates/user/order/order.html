@@ -86,6 +86,12 @@
 				    {{> universePreview universe}}
 			    </div>
 			    
+			    {{#if isAdmin}}
+			    
+			    	<a href="/print/{{_id}}" target="_blank">Print</a>
+			    
+			    {{/if}}
+			    
 		    </div>
 		    
 		    <div class="large-6 columns">

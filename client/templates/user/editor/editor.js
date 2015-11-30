@@ -585,6 +585,17 @@ Template.editor.helpers({
 				
 			case modes.DRAWING_COLOR:
 				return 'Paint with your colour.';
+				
+			case modes.PICKING_LOOK:
+			
+				if(!_.keys(this.universe.looks).length){
+					return "What's your favourite look?";
+				} else {
+					return 'Pick another look.';
+				}
+				
+			case modes.PICKING_IMAGE:
+				return "Pick something you like, or draw around an area.";
 			
 		}
 		

@@ -21,7 +21,6 @@ Meteor.publish('garmentTypes', function(){
 	return GarmentTypes.find();
 })
 
-
 Meteor.users.allow({
     remove: function(userId, doc){
         return (
@@ -40,3 +39,4 @@ function ownerOrAdmin(collection){
 		}
 	}
 }
+

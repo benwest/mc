@@ -1,0 +1,9 @@
+{
+	"database": {
+		"server" : "i2i-sql02.cloudapp.net",
+		"port" : "60101",
+		"database" : "MuddyCreatures-Live",
+		"user" : "MuddyCreaturesUser",
+		"password" : "yEr43uUyi"
+	}
+}

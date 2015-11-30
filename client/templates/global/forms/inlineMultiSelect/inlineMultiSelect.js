@@ -27,6 +27,7 @@ Template.inlineMultiSelect.helpers({
 			selected.push(newValue);
 			Session.set(this.id + 'Select', false);
 			Session.set(this.id, selected);
+			Session.set('inlineSelectOpen', this.id + 'Select')
 		}
 		
 		return selected;
