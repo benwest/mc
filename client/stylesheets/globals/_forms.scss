@@ -98,13 +98,13 @@ input[type="color"]{
 
 .button.white:hover { background:none; }
 
-.button.white.textOrange {color: $orange }
-.button.white.textGreen {color: $green }
-.button.white.textTeal {color: $teal }
-.button.white.textBlue {color: $blue }
+.button.white.text-orange {color: $orange }
+.button.white.text-green {color: $green }
+.button.white.text-teal {color: $teal }
+.button.white.text-blue {color: $blue }
 
 
-.button.white.textOrange:hover, .button.white.textGreen:hover, .button.white.textTeal:hover, .button.white.textBlue:hover {
+.button.white.text-orange:hover, .button.white.text-green:hover, .button.white.text-teal:hover, .button.white.text-blue:hover {
 	color:white;
 } 
 
