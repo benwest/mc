@@ -83,3 +83,28 @@ input[type="color"]{
 	}
 	
 }
+
+
+.button.expand, .button {
+	font-weight:600;
+	padding:0.65rem 0.65rem 0.5rem 0.65rem;
+	letter-spacing:1px; 
+}
+
+.button.white {
+	background:white;
+	border:6px solid white;
+}
+
+.button.white:hover { background:none; }
+
+.button.white.textOrange {color: $orange }
+.button.white.textGreen {color: $green }
+.button.white.textTeal {color: $teal }
+.button.white.textBlue {color: $blue }
+
+
+.button.white.textOrange:hover, .button.white.textGreen:hover, .button.white.textTeal:hover, .button.white.textBlue:hover {
+	color:white;
+} 
+
