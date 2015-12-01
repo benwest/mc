@@ -1,23 +1,29 @@
 Template.universePreview.onRendered(function(){
 	
-	this.id = _.uniqueId();
-	this.outer = this.$('.universe-preview-outer');
-	this.inner = this.$('.universe-preview-inner');
-	this.canvas = this.$('canvas')[0];
-	this.ctx = this.canvas.getContext('2d');
-	
-	this.totalPoints = _.reduce(this.data.shapes, function(memo, shape){ return memo + shape.points.length / 2; }, 0);
-	
-	this.steps = 0;
-	this.finished = false;
-	
 	var template = this;
+	
+	template.id = _.uniqueId();
+	template.outer = template.$('.universe-preview-outer');
+	template.inner = template.$('.universe-preview-inner');
+	template.canvas = template.$('canvas')[0];
+	template.ctx = template.canvas.getContext('2d');
+	
+	template.autorun(function(){
+		
+		var data = Template.currentData();
+		
+		template.totalPoints = _.reduce(data.shapes, function(memo, shape){ return memo + shape.points.length / 2; }, 0);
+		template.steps = 0;
+		template.finished = false;
+		template.data = data;
+		
+	});
 	
 	function size(){
 				
 		var w = template.outer.width();
 		var h = template.outer.height();
-		
+				
 		var containerWidth, containerHeight;
 		
 		if(w/h > CANVAS_RATIO){

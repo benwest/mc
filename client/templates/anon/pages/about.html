@@ -25,7 +25,10 @@
 
 
 	    <div class="row">
-	    	<div class="medium-3 medium-offset-3 hide-for-small-only columns">
+	    	<div class="medium-6 hide-for-small-only columns">
+		    	<div class="demo-universe">
+			    	{{> universePreview demoUniverse }}
+		    	</div>
 	    		<img src="/img/dotted-arc-left.svg" alt="" class="pad-top-5">
 	    	</div>
 	    	<div class="medium-5 small-12 columns end">
@@ -42,6 +45,13 @@
 	    	</div>
 	    	<div class="medium-4 hide-for-small-only columns end">
 				<img src="/img/dotted-arc-loop-right.svg" alt="" class="pad-top-5">
+				<div class="demo-clothes {{#if sessionGet 'aboutAnimationStart' }}animate{{/if}}">
+					<img class="body" src="/img/about/body.png">
+					<img class="jumper" src="/img/about/jumper.png">
+					<img class="tshirt" src="/img/about/tshirt.png">
+					<img class="skirt" src="/img/about/skirt.png">
+					<img class="tights" src="/img/about/tights.png">
+				</div>
 	    	</div>
 	    </div>
 
@@ -86,9 +96,7 @@
 				PHYSICS !
 			</div>
 		</div>
-			
-		</div>
-
+		
 	    <div class="row">
 	        <div class="medium-8 medium-centered small-12 columns pad-top-4 pad-bottom-4">  
 				

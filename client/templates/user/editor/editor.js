@@ -1095,7 +1095,7 @@ Template.editor.events({
 			
 			simplify(selection);
 			
-			console.log('LookImages.update(LookImages.findOne({url:"' + Session.get(SELECTED_IMAGE).url + '"})._id,{$push:{regions:' + JSON.stringify(selection) + '}});');
+			//console.log('LookImages.update(LookImages.findOne({url:"' + Session.get(SELECTED_IMAGE).url + '"})._id,{$push:{regions:' + JSON.stringify(selection) + '}});');
 			
 			var shape = getBounds(selection);
 			
@@ -1110,6 +1110,7 @@ Template.editor.events({
 				shape.offset = imgRatio > CANVAS_RATIO ? {x: 0,  y: (1-(CANVAS_RATIO/imgRatio))/2 } : {x: (CANVAS_RATIO - imgRatio) / 2, y: 0 };
 				shape.offset.x = shape.bounds.left - shape.offset.x;
 				shape.offset.y = shape.bounds.top - shape.offset.y;
+				debugger;
 				this.universe.shapes.unshift(shape);
 				getColorsAndLooks(this.universe);
 				Session.set(MODE, modes.PICKING_TOOL);
@@ -1269,6 +1270,8 @@ Template.editor.events({
 			});
 			
 		});
+		
+		console.log(JSON.stringify(this.universe));
 		
 		Meteor.call('saveUniverse', this._id, this.universe, function(error, result){
 			
