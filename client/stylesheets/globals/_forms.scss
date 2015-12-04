@@ -93,7 +93,7 @@ input[type="color"]{
 
 .button.white {
 	background:white;
-	border:6px solid white;
+	border:6px solid white !important;
 }
 
 .button.white:hover { background:none; }

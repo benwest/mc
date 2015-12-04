@@ -1,3 +1,10 @@
+.bg-about{
+	background-image: url(/img/about_bg.svg);
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	background-color: $blue;
+}
+
 .demo-universe{
 	position: absolute;
 	min-height: 20rem;
