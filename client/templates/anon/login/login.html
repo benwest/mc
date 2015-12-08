@@ -1,38 +1,38 @@
 <template name="login">
-  <div class="drip" style="background-image: url('/img/bg/drip_1.png');">
+    <div class="drip" style="background-image: url('/img/bg/drip_1.png');">
+	    
+		{{> titleBar text="Log In"}}        
+	
+	    <div class="row pad-top-5">
+	        <div class="small-12 medium-6 medium-centered columns pad-top-3 pad-bottom-4 text-center">
+	          
+	            <form class="regular text-1-5 pad-top-4 pad-bottom-4">
+	              {{#if errorMessages}}
+	                {{#each errorMessages}}
+	                  {{this}}<br>
+	                {{/each}}
+	              {{/if}}
+	          
+	              <input class="text-center gap-bottom-0-5" type="email" name="email" placeholder="Your Email" />
+	              {{#unless forgotPassword}}
+	                <input class="text-center" type="password" name="password" placeholder="Password" />
+	              {{/unless}}
+	              <button type="submit" class="gap-top-3">
+	                {{#if forgotPassword}}
+	                  Reset Password
+	                {{else}}
+	                  Log in
+	                {{/if}}
+	              </button>
+	          </form>
+	          
+	          <a href="/signup">Sign Up</a><br>
+	          <a class="forgotPassword">Forgot your password?</a>
+	          
+	        </div>
+	    </div>  
+    
+    </div> 
 
-
-    <div class="row">
-        <div class="small-12 medium-6 medium-centered columns pad-top-3 pad-bottom-4 text-center">
-            <h2 class="pad-bottom-4">Log In</h2>
-          
-            <form class="regular text-1-5 pad-top-4 pad-bottom-4">
-              {{#if errorMessages}}
-                {{#each errorMessages}}
-                  {{this.type}}: {{this.msg}}
-                {{/each}}
-              {{/if}}
-          
-              <input class="text-center gap-bottom-0-5" type="email" name="email" placeholder="Your Email" />
-              {{#unless forgotPassword}}
-                <input class="text-center" type="password" name="password" placeholder="Password" />
-              {{/unless}}
-              <button type="submit" class="gap-top-3">
-                {{#if forgotPassword}}
-                  Reset Password
-                {{else}}
-                  Log in
-                {{/if}}
-              </button>
-          </form>
-          
-          <a href="/signup">Sign Up</a><br>
-          <a class="forgotPassword">Forgot your password?</a>
-          
-        </div>
-    </div>   
-
-
-  </div>
 </template>
 

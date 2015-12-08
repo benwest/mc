@@ -7,8 +7,11 @@ Template.about.onCreated(function(){
 Template.about.onRendered(function(){
 	var doc = $(document);
 	var $demoUniverse = this.$('.demo-universe');
-	$('.container').on('scroll.about', function(e){
-		if( $demoUniverse.offset().top < window.innerHeight / 2 ) Session.set(ANIMATION_START, true);
+	doc.on('scroll.about', function(e){
+		if( doc.scrollTop() > $demoUniverse.offset().top - window.innerHeight / 2 ) {
+			Session.set(ANIMATION_START, true);
+			doc.off('scroll.about');
+		}
 	});
 	
 	Physics(function( world ) {
@@ -24,14 +27,21 @@ Template.about.onRendered(function(){
 		    height: viewHeight
 		});
 		
-		renderer.container.style.width = renderer.el.style.width = viewWidth + 'px';
+		renderer.container.style.width = renderer.el.clientWidth;
 		renderer.container.style.height = renderer.el.style.height = viewHeight + 'px';
 						
 		world.add( renderer );
+		
+		var prefix = '/img/brands/';
+		var extension = '.svg';
+		var brands = 'angulus, joha, lol, mads, marmar, minirodini, mp, petitecrabe, poppyrose, popupshop, softgallery, wheat';
+		var logos = _.map(brands.split(', '), function(brand){
+			return prefix + brand + extension;
+		});
+		logos = _.shuffle(logos);
 
-		var logos = ['/img/brands/logo_1.svg'/*,'/img/brands/logo_2.svg','/img/brands/logo_3.svg','/img/brands/logo_4.svg','/img/brands/logo_1.svg','/img/brands/logo_2.svg','/img/brands/logo_3.svg','/img/brands/logo_4.svg','/img/brands/logo_1.svg','/img/brands/logo_2.svg','/img/brands/logo_3.svg','/img/brands/logo_4.svg','/img/brands/logo_1.svg','/img/brands/logo_2.svg','/img/brands/logo_3.svg','/img/brands/logo_4.svg'*/]
 		var spacing = viewWidth / logos.length;
-		var size = 100 // Math.max(viewWidth, viewHeight) / (logos.length * 0.9);
+		var size = Math.max(viewWidth, viewHeight) / (logos.length * 1);
 				
 		var circles = []
 		for(i = 0; i < logos.length; i++) {
@@ -91,13 +101,40 @@ Template.about.onRendered(function(){
 		world.add( Physics.behavior('body-collision-detection'));
 		world.add( Physics.behavior('sweep-prune')); //optimisation
 		world.add( edgeBounce );
-	  		  	
+		/*
+		world.on('interact:move', function(data){
+			renderer.el.style.cursor = world.findOne({$at: data}) ? 'pointer' : 'inherit';
+		})
+	  	*/	  	
 		world.add(Physics.behavior('interactive', {
 			el: "physics-canvas"
 		}));
 
 
 	});
+	
+	var messageTimer;
+	
+	function buttonMessage(message){
+		clearTimeout(messageTimer);
+		$('.submit').html(message);
+		messageTimer = setTimeout(function(){
+			$('.submit').text('Submit');
+		}, 2000);
+	}
+		
+	$('.mc-form').ajaxChimp({
+	    url: '//muddycreatures.us11.list-manage.com/subscribe/post?u=2e377c9cf27bf51f14250661b&amp;id=ae733fe0de',
+	    callback: function(r){
+		    console.log(r);
+            if(r.result === 'success'){
+                buttonMessage('&#9786;')
+            } else {
+                buttonMessage('&times;')
+        	}
+            $('.error').text(r.msg).addClass('active');
+        }
+    });
 
 })
 
@@ -108,7 +145,7 @@ Template.about.onDestroyed(function(){
 
 Template.about.helpers({
     'demoUniverse': function(){
-	    var ret = Session.equals(ANIMATION_START, true) ? DEMO_UNIVERSE : {shapes: []};
+	    var ret = Session.equals(ANIMATION_START, true) ? demoUniverse() : {shapes: []};
 	    return ret;
     }
 })

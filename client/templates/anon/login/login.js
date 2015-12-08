@@ -28,13 +28,13 @@ Template.login.events({
     var messages = {};
 
     if (! email) {
-      messages.email = {type: 'error', msg: 'Please enter your email.'};
+      messages.email = 'Please enter your email.';
     }
     
     if(!Session.get(FORGOT_PASSWORD)){
       var password = template.$('[name=password]').val();
       if (! password) {
-        messages.password = {type: 'error', msg: 'Please enter a password.'};
+        messages.password = 'Please enter a password.';
       }
     }
     
@@ -46,6 +46,7 @@ Template.login.events({
     if(!Session.get(FORGOT_PASSWORD)){
       
       Meteor.loginWithPassword(email, password, function(error) {
+	      debugger;
         if (error) {
           return Session.set(MESSAGES, {'none': error.reason});
         }
@@ -58,9 +59,9 @@ Template.login.events({
         email: email
       }, function(error){
         if (error) {
-          Session.set(MESSAGES, {'none': {type: 'error', msg: error.reason}});
+          Session.set(MESSAGES, {'none': error.reason});
         } else {
-          Session.set(MESSAGES, {'none': {type: 'message', msg: 'Password reset link sent to ' + email}})
+          Session.set(MESSAGES, {'none': 'Password reset link sent to ' + email})
           Session.set(FORGOT_PASSWORD, false);
         }
       });
