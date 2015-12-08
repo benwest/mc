@@ -19,7 +19,7 @@ body{
 
 #menu{
 	
-	$menuMargin: 0.8rem;
+	$menuMargin: 1.5rem;
 	
 	position: fixed;
 	top: 0;
@@ -76,7 +76,7 @@ body{
 		.list-title{
 			font-weight: 900;
 			text-transform: uppercase;
-			font-size: 1.5em;
+			font-size: 1em;
 			line-height: 1;
 			margin-bottom: 0.3rem;
 		}

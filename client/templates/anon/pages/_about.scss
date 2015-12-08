@@ -1,3 +1,10 @@
+#to-top {
+	top:1.5rem;
+	right:1.5rem;
+	position:fixed;
+	z-index:900;
+}
+
 .bg-about{
 	background-image: url(/img/about_bg.svg);
 	background-size: 100% auto;
