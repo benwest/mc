@@ -178,42 +178,50 @@ Meteor.startup(function(){
 	    
 	    var shells = Looks.insert({
 		    name: 'Sea shells on the sea shore',
-		    icon: '/img/looks/1/icon.svg'
+		    icon: '/img/looks/1/icon.svg',
+		    iconOrange: '/img/looks/1/icon_orange.svg'
 	    })
 	    
 	    var prints = Looks.insert({
 		    name: 'Pint-sized prints',
-		    icon: '/img/looks/2/icon.svg'
+		    icon: '/img/looks/2/icon.svg',
+		    iconOrange: '/img/looks/2/icon_orange.svg'
 	    })
 	    
 	    var happy = Looks.insert({
 		    name: 'Happy-go-lucky',
-		    icon: '/img/looks/3/icon.svg'
+		    icon: '/img/looks/3/icon.svg',
+		    iconOrange: '/img/looks/3/icon_orange.svg'
 	    })
 	    
 	    var basics = Looks.insert({
 		    name: 'Back to basics',
-		    icon: '/img/looks/4/icon.svg'
+		    icon: '/img/looks/4/icon.svg',
+		    iconOrange: '/img/looks/4/icon_orange.svg'
 	    })
 	    
 	    var roar = Looks.insert({
 		    name: 'Hear them roar',
-		    icon: '/img/looks/5/icon.svg'
+		    icon: '/img/looks/5/icon.svg',
+		    iconOrange: '/img/looks/5/icon_orange.svg'
 	    })
 	    
 	    var fjords = Looks.insert({
 		    name: 'Over the Fjords and Far Away',
-		    icon: '/img/looks/6/icon.svg'
+		    icon: '/img/looks/6/icon.svg',
+		    iconOrange: '/img/looks/6/icon_orange.svg'
 	    })
 	    
 	    var home = Looks.insert({
 		    name: 'Make Yourself at Home',
-		    icon: '/img/looks/7/icon.svg'
+		    icon: '/img/looks/7/icon.svg',
+		    iconOrange: '/img/looks/7/icon_orange.svg'
 	    })
 	    
 	    var glad = Looks.insert({
 		    name: 'Glad Rags',
-		    icon: '/img/looks/8/icon.svg'
+		    icon: '/img/looks/8/icon.svg',
+		    iconOrange: '/img/looks/8/icon_orange.svg'
 	    })
 	    
 	    LookImages.insert({
