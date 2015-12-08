@@ -20,6 +20,7 @@ Template.signup.events({
         
         var firstName = template.$('[name=firstName]').val();
         var lastName = template.$('[name=lastName]').val();
+        var phone = template.$('[name=phone]').val();
         var email = template.$('[name=email]').val();
         var password = template.$('[name=password]').val();
         var confirm = template.$('[name=confirm]').val();
@@ -36,6 +37,10 @@ Template.signup.events({
         
         if (!email){
             errors.email = 'Please enter your email.';
+        }
+        
+        if (!phone){
+            errors.phone = 'Please enter your phone number.';
         }
         
         if(!password){
@@ -57,7 +62,8 @@ Template.signup.events({
             profile: {
                 firstName: firstName,
                 lastName: lastName,
-                addresses: []
+                addresses: [],
+                phone: phone
             },
         }, function(error) {
                 

@@ -231,10 +231,7 @@ $helpTextHeight: 50px;
 				transform: rotate(-45deg);
 			}
 
-
 		}
-		
-		
 		
 	}
 		
@@ -319,13 +316,70 @@ $helpTextHeight: 50px;
 		
 		.look-thumb{
 			
-			width: 33%;
-			height: 33%;
+			width: 32%;
+			height: 32%;
+			margin: 0 1.33% 1.33% 0;
 			background-size: cover;
 			background-position: center center;
+			background-size: auto 110%;
+			transition: background-size 0.2s;
 			float: left;
 			cursor: pointer;
 			position: relative;
+			
+			&:after{
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				transition: opacity 0.2s;
+				z-index: 100;
+				opacity: 1;
+				mix-blend-mode: overlay;
+			}
+			
+			&:hover{
+				background-size: auto 100%;
+			}
+			
+			&:hover:after{
+				opacity: 0 !important;
+			}
+			
+			&:nth-child(1):after{
+				background: #62b1e6;
+			}
+			
+			&:nth-child(2):after{
+				background: #f7c1cf
+			}
+			
+			&:nth-child(3):after{
+				background: #b6dbc7
+			}
+			
+			&:nth-child(4):after{
+				background: #f29589;
+			}
+			
+			&:nth-child(5):after{
+				background: #f8b784;
+			}
+			
+			&:nth-child(6):after{
+				background: #b1bb99;
+			}
+			
+			&:nth-child(7):after{
+				background: #bfc9cc;
+			}
+			
+			&:nth-child(8):after{
+				background: #ffed00;
+				opacity: 0.6;
+			}
 			
 			.look-used-count{
 				
