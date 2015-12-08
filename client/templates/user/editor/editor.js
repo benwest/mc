@@ -1026,7 +1026,7 @@ Template.editor.events({
 		var mode = Session.get(MODE);
 				
 		if( mode === modes.DRAWING_COLOR ){
-						
+									
 			Session.set(DRAWING, true);
 			
 			pushUndo(this.universe.shapes);
@@ -1073,7 +1073,7 @@ Template.editor.events({
 	},
 	
 	'mouseup, touchend': function(){
-		
+				
 		if(Session.get(DRAWING)){
 			
 			var shape = this.universe.shapes[0];
@@ -1081,8 +1081,9 @@ Template.editor.events({
 			getBounds(shape);
 			
 			if(!bigEnough(shape)) {
-				this.universe.shapes.shift();
-				getColorsAndLooks(this.universe);
+				shape.points = [0,0,0.2,0,0.2,0.2,0,0.2];
+				getBounds(shape);
+				draw(this.universe.shapes);
 			}
 			
 			Session.set(DRAWING, false);

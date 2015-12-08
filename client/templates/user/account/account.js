@@ -1,10 +1,14 @@
 var NAME_ERRORS = 'accountEditErrors';
+var EMAIL_ERROR = 'accountEmailErrors';
+var PHONE_ERROR = 'accountPhoneErrors';
 var PASSWORD_MESSAGES = 'accountPasswordMessages';
 var EDITING_ADDRESS = 'accountEditingAddress';
 
 Template.account.onCreated(function(){
     Session.set(NAME_ERRORS, {});
     Session.set(PASSWORD_MESSAGES, {});
+    Session.set(EMAIL_ERROR, false);
+    Session.set(PHONE_ERROR, false);
     Session.set(EDITING_ADDRESS, false);
 })
 
@@ -18,6 +22,12 @@ Template.account.helpers({
     passwordErrorMessages: function() {
         return _.values(Session.get(PASSWORD_MESSAGES));
     },
+    emailError: function(){
+	    return Session.get(EMAIL_ERROR);
+    },
+    phoneError: function(){
+	    return Session.get(PHONE_ERROR);
+    },
     passwordErrorClass: function(key) {
         return Session.get(PASSWORD_MESSAGES)[key] && 'error';
     },
@@ -26,6 +36,9 @@ Template.account.helpers({
     },
     currentAddress: function(){
         return Meteor.user().profile.address;
+    },
+    userEmail: function(){
+	    return Meteor.user().emails[0];
     }
 })
 
@@ -107,10 +120,52 @@ Template.account.events({
         event.preventDefault();
         
         var address = template.$('.address-textarea').val();
-        
-        
                 
         Session.set(EDITING_ADDRESS, false);
 
+    },
+    
+    'click .change-email': function(e){
+	    
+	    e.preventDefault();
+	    
+	    var email = Session.get('accountEmail');
+	    
+	    if(!email) return Session.set(EMAIL_ERROR, 'Please enter an e-mail.');
+	    
+	    Meteor.call('changeEmail', email, function(error, result){
+		   
+			if(error) {
+				Session.set(EMAIL_ERROR, error.reason);
+			} else {
+				Session.set(EMAIL_ERROR, 'Your e-mail address was changed.')
+			}
+		    
+	    });
+	    
+    },
+    
+    'click .change-phone': function(e){
+	    
+	    e.preventDefault();
+	    
+	    var number = Session.get('accountPhone');
+	    
+	    if(!number) return Session.set(PHONE_ERROR, 'Please enter a phone number.');
+	    
+	    Meteor.call('changePhoneNumber', number, function(error, result){
+		   
+			if(error) {
+				Session.set(PHONE_ERROR, error.reason);
+			} else {
+				Session.set(PHONE_ERROR, 'Your phone number was changed.')
+			}
+		    
+	    });
+	    
+    },
+    
+    'click .verify-email': function(){
+	    Meteor.call('sendVerificationEmail');
     }
 });

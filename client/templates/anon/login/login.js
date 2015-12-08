@@ -46,7 +46,7 @@ Template.login.events({
     if(!Session.get(FORGOT_PASSWORD)){
       
       Meteor.loginWithPassword(email, password, function(error) {
-	      debugger;
+
         if (error) {
           return Session.set(MESSAGES, {'none': error.reason});
         }
