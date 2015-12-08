@@ -22,7 +22,7 @@ Template.profile.helpers({
 		return Children.find();
 	},
     'children': function(){
-		return Children.find().map(function(child){
+		return Children.find({owner: Meteor.userId()}).map(function(child){
 			return '<a href="/child/' + child._id + '">' + child.name + '</a>';
 		});
     },

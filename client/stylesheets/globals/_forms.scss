@@ -108,3 +108,7 @@ input[type="color"]{
 	color:white;
 } 
 
+button:focus{
+	background: transparent;
+	outline: 0;
+}

@@ -567,7 +567,7 @@ Template.editor.helpers({
 						
 					} else {
 						
-						return "";
+						return "Add more colours and looks, or click Finished.";
 						
 					}
 					

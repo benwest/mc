@@ -7,24 +7,37 @@
 				<img src="/img/logo.svg" alt="">
 				<div class="row pad-top-2">
 					<div class="medium-6 medium-centered columns text-center">
-						<a href="" class=" button white text-orange expand">FIND OUT HOW IT WORKS</a>
+						<a href="#howitworks" class=" button white text-orange expand">FIND OUT HOW IT WORKS</a>
 					</div> 
 				</div>
-			
+				
+				
 				<div class="row">
-					<div class="medium-5 medium-offset-2 columns text-center">
-						<a href="" class="button white text-orange expand">CREATE AN ACCOUNT</a>
-					</div> 
-					<div class="medium-3 columns text-center end">
-						<a href="" class="button white text-orange expand">LOG IN</a>
-					</div> 
+					
+					{{#if currentUser}}
+					
+						<div class="medium-6 medium-centered columns end text-center">
+							<a href="/profile" class="button white text-orange expand">YOUR PROFILE</a>
+						</div>
+						
+					{{ else }}
+					
+						<div class="medium-5 medium-offset-2 columns text-center">
+							<a href="/signup" class="button white text-orange expand">CREATE AN ACCOUNT</a>
+						</div> 
+						<div class="medium-3 columns text-center end">
+							<a href="/login" class="button white text-orange expand">LOG IN</a>
+						</div> 
+					
+					{{/if}}
+					
 				</div>
-	            
+				
 	        </div>
 	    </div>
 
 
-	    <div class="row">
+	    <div class="row" id="howitworks">
 	    	<div class="medium-6 hide-for-small-only text-right columns">
 		    	<div class="demo-universe">
 			    	{{> universePreview demoUniverse }}
@@ -129,15 +142,15 @@
 				</div>
 			</div> 
 			<div class="medium-5 columns text-center end">
-				<form action="">
+				<form class="mc-form" action="">
 					<div class="row pad-top-1">
 						<div class="medium-12 columns text-center">
-							<input type="text" placeholder="Sign up for updates">
+							<input class="" type="email" placeholder="Sign up for updates">
 						</div> 
 					</div>
 					<div class="row pad-top-3">
 						<div class="medium-5 medium-centered columns text-center end">
-							<button>Submit</button>
+							<button type="submit" class="submit">Submit</button>
 						</div> 
 					</div>
 				</form>

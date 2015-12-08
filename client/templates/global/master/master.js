@@ -30,6 +30,7 @@ Template.master.helpers({
 			case 'children':
 			case 'child':
 			case 'addChild':
+			case 'signup':
 				return 'bg-teal';
 				
 			case 'orderForm':
@@ -41,6 +42,7 @@ Template.master.helpers({
 				return 'bg-dark-grey';
 				
 			case 'account':
+			case 'login':
 				return 'bg-orange';
 				
 			case 'profile':
