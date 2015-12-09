@@ -99,7 +99,7 @@ Meteor.startup(function(){
 			return Looks.insert({
 				name: lookName,
 				icon: '/img/looks/' + (i+1) + '/icon.svg',
-				iconOrange: '/img/looks/' + (i+1) + '/',
+				iconOrange: '/img/looks/' + (i+1) + '/icon_orange.svg',
 				thumb: '/img/looks/' + (i+1) + '/thumb.jpg'
 			})
 			
