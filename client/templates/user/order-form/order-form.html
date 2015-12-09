@@ -4,26 +4,60 @@
 
 	{{# columnContainer }}
 	    
-	    <div class="pad-top-3 pad-bottom-3 text-2">
+	    <div class="pad-top-3 pad-bottom-6 gap-bottom-6 text-2">
+		    
+		    <div class="row">
+			    
+			    <div class="small-9 large-8 columns">
+				    
+				    <div class="row">
+					    
+					    <div class="medium-6 large-12 gap-bottom-2 columns">
 	    
-		    <p>You're ordering a box based on these colours:</p>
-		    
-		    <p>
-			    {{#each colors}}
-			    	{{>swatch color=color size=times}} <span class="text-xbold text-caps">{{name}}</span>
-			    {{/each}}
-		    </p>
-		    
-		    <p>And these looks:</p>
-		    
-		    <p>
+						    <p class="text-1">You're ordering a box based on these colours:</p>
+						    
+						    <p class="small-text-1 medium-text-1-5">
+							    {{#each colors}}
+							    	{{>swatch }} <span class="text-xbold text-caps">{{name}}</span>
+							    {{/each}}
+						    </p>
+						    
+					    </div>
+					    
+						<div class="medium-6 large-12 gap-bottom-2 columns">
+						    
+						    <p class="text-1">And the following looks:</p>
+						    
+						    <p class="small-text-1 medium-text-1-5">
+							    
+							    {{#each looks}}
+							    
+							    	{{>lookLabel }}{{listSeparator (count ../universe/looks) i}}
+							    <!--
+							    		<span class="{{textClass}} text-caps look-icon">{{> lookIcon }} {{name}}</span>
+							    		(&times;{{times}}){{listSeparator (count ../universe/looks) i}}
+							    -->
+							    {{/each}}
+							    
+						    </p>
+					    
+					    </div>
+				    
+				    </div>
 			    
-			    {{#each looks}}
-			    		<span class="{{textClass}} text-caps">{{> lookIcon }} {{name}}</span>
-			    		(&times;{{times}}){{listSeparator (count ../universe/looks) i}}
-			    {{/each}}
+			    </div>
 			    
-		    </p>
+			    <div class="small-3a medium-6 large-4 medium-push-3 large-push-0 columns small-pad-bottom-2">
+				    
+				    <div class="full-width canvas-ratio pos-rel">
+					    
+					    {{> universePreview universe}}
+					    
+				    </div>
+				    
+			    </div>
+		    
+		    </div>
 			
 			<p>
 				
@@ -93,19 +127,36 @@
 				
 				{{#if sizingConfirmed }}
 				
-					<p class='text-2'><b>Deliver this box to:</b></p>
+					<h3>Deliver this box to:</h3>
 					
-					{{> addressSelect id="orderFormAddress" select=true }}
+					<div class="gap-bottom-2">
 					
-					{{#if sessionGet 'orderFormAddress' }}
+						{{> addressSelect id="orderFormAddress" select=true }}
 					
-						<a class="place-order">Order your box!</a>
+					</div>
 					
-					{{/if}}
+						{{#if sessionGet 'orderFormAddress' }}
+						
+							<a class="place-order">Order your box!</a>
+						
+						{{/if}}
+					
 					
 				{{/if}}
 				
 			{{/ if }}
+					<p class='text-2'><b>Deliver this box to:</b></p>
+					<div class="gap-bottom-2">
+
+						{{> addressSelect id="orderFormAddress" select=true }}</div>
+						<p class="organic">
+							<span class="check {{#if sessionGet 'orderFormOrganicOnly'}}checked{{/if}}"><span class="checkbox"></span><span class="label">Organic Only</span></span>
+							<br>
+						</p>
+						<p class="text-1 gap-bottom-2-5">Most of our brands are organic; please tick this box if you <strong>only</strong> wish to receive organic products.</p>
+						<a class="place-order">Order your box!</a>
+						<p class="text-1 gap-bottom-2-5">We'll phone you for a chat, then charge £1 deposit.</p>
+						
 		
 		</div>
 		

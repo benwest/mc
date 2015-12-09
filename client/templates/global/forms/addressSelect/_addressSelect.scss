@@ -1,5 +1,9 @@
+.saved-address{
+}
+
 .can-select .saved-address{
 	cursor: pointer;
+	border-bottom: 2px dashed white;
 }
 
 .saved-address.selected{

@@ -2,6 +2,7 @@ var GARMENTS_LIST = 'orderFormGarmentsList';
 var SIZES_LIST = 'orderFormSizesList';
 var SIZES_ENTERED = 'orderFormSizesEntered';
 var SIZING_CONFIRMED = 'orderFormSizingConfirmed';
+var ORGANIC_ONLY = 'orderFormOrganicOnly';
 
 
 Template.orderForm.onCreated(function(){
@@ -22,6 +23,7 @@ Template.orderForm.onCreated(function(){
 	Session.set(SIZES_LIST, sizes);
 	Session.set(SIZES_ENTERED, {});
 	Session.set(SIZING_CONFIRMED, false);
+	Session.set(ORGANIC_ONLY, false);
 
 });
 
@@ -49,32 +51,14 @@ Template.orderForm.helpers({
 			.value();
 		
 	},
+	
 	'looks': function(){
 		
-		var minTimes = _.min(this.universe.looks);
-		var maxTimes = _.max(this.universe.looks);
-		
-		var maxSize = 2.5;
-		var minSize = Math.max(maxSize - (maxTimes - minTimes), 1)
-				
-		return _.chain(this.universe.looks)
-			.map(function(value, key){
-				
-				var scaledTimes = scale(value, minTimes, maxTimes, minSize, maxSize);
-				scaledTimes = nearest(scaledTimes, 0.5);
-				scaledTimes = String(scaledTimes).replace('.', '-');
-				
-				var look = Looks.findOne(key);
-				look.times = value;
-				look.textClass = 'text-xbold';
-				
-				return look;
-				
-			})
-			.sortBy(function(obj){return obj.times})
-			.reverse()
-			.map(function(obj, i){obj.i = i; return obj;})
-			.value();
+		return _.map(this.universe.looks, function(value, key){
+			var look = Looks.findOne(key);
+			look.times = value;
+			return look;
+		})
 		
 	},
 	
@@ -169,6 +153,10 @@ Template.orderForm.events({
 	
 	'click .change-sizing': function(){
 		Session.set('sizingConfirmed', false);
+	},
+	
+	'click .organic': function(){
+		Session.set(ORGANIC_ONLY, !Session.get(ORGANIC_ONLY));
 	},
 
     'click .place-order': function(event, template){

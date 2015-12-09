@@ -17,7 +17,7 @@ Template.inlineSelect.helpers({
 	},
 	
 	'scrolling': function(){
-		return this.options.split(', ').length >= 7;
+		return this.options.split(', ').length >= 5;
 	},
 	
 	'value': function(){

@@ -40,8 +40,10 @@
 	                <li>{{emailError}}</li>
 	        	</ul>
 	        {{/if}}
-			
-	        {{> inlineInput id="accountEmail" value=userEmail.address }} <a class="change-email">Do it</a>
+	        
+			<p class="text-1-5">
+		        {{> inlineInput id="accountEmail" value=userEmail.address }} <a class="change-email">Do it</a>
+			</p>
 	        
 	        <p class="text-1 pad-bottom-2">
 		        {{#if userEmail.verified}}
@@ -60,15 +62,16 @@
 	        	</ul>
 	        {{/if}}
 			
-			<div class="pad-bottom-2">
+			<div class="text-1-5 pad-bottom-2">
 		        {{> inlineInput id="accountPhone" value=currentUser.profile.phone }} <a class="change-phone">Do it</a>
 			</div>
 	        
 	        <h3>Change your Password</h3>
 	        
-	        <p class="text-2 pad-bottom-2">
+	        <p class="text-1-5 pad-bottom-2">
 	        
 	            <form id="changePassword" class="pad-bottom-2">
+		            
 	                {{#if passwordErrorMessages}}
 	                    {{#each passwordErrorMessages}}
 	                        {{this.type}}: {{this.msg}}
@@ -77,7 +80,7 @@
                     
                     <div class="row">
     	                
-    	                <div class="large-10 columns">
+    	                <div class="medium-8 large-6 columns">
                     
     		                <input type="password" name="old" placeholder="Current Password">
     		                <input type="password" name="new" placeholder="New Password">

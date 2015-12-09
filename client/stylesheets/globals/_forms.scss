@@ -112,3 +112,35 @@ button:focus{
 	background: transparent;
 	outline: 0;
 }
+
+.check{
+	
+	cursor: pointer;
+	user-select: none;
+	.checkbox{
+		box-sizing: border-box;
+		width: .8em;
+		height: .8em;
+		display: inline-block;
+		border-width: $underlineWidth;
+		border-style: solid;
+		border-color: white;
+		border-radius: 20% 20%;
+		transition: border-width .2s, background .01s;
+		margin-right: 0.5em;
+		&:hover{
+			border-width: $underlineWidth * 2;
+		}
+	}
+	
+	&.checked .checkbox{
+		border-width: .4em;
+		background: white;
+		transition: border-width .2s, background .01s .2s;
+	}
+	
+	&.checked .label{
+		font-weight: bold;
+	}
+	
+}

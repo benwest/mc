@@ -837,13 +837,8 @@ Template.editor.helpers({
 	'lookUsed': function(context){
 		var times = context.universe.looks[this._id];
 		if(times) return '&times;' + times;
-	},
-	
-	'lookPreview': function(){
-		var img = LookImages.findOne({owner: this._id});
-		return img.url;
-	}	
-		
+	}
+			
 });
 
 function showPen(){

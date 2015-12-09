@@ -27,11 +27,13 @@
 
     @for $i from 0 through $max*$steps {
 	    
-      .#{$className}-#{dashDecimal($i/$steps)},
-      .small-#{$className}-#{dashDecimal($i/$steps)} {
-        #{$property}: ($i/$steps) + $unit;
-      }
-      
+	  @media #{$small-up} {
+	      .#{$className}-#{dashDecimal($i/$steps)},
+	      .small-#{$className}-#{dashDecimal($i/$steps)} {
+	        #{$property}: ($i/$steps) + $unit;
+	      }
+		}
+		
 	  @media #{$medium-up} {
 	      .medium-#{$className}-#{dashDecimal($i/$steps)} {
 	        #{$property}: ($i/$steps) + $unit;

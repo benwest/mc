@@ -52,7 +52,7 @@
 		top: 0;
 		max-height: 0;
 		overflow: hidden;
-		padding-right: 1em * ($lineHeight * 0.61);
+		padding: 0 1em * ($lineHeight * 0.61) 0 0.5em;
 		transition: max-height 1s, padding-right 0.2s;
 		display: none;
 		background: none;
@@ -67,16 +67,17 @@
 	.scroll-fadeout{
 		position: absolute;
 		width: 100%;
-		top: 1.42em + (6.5em * $lineHeight) - 0.4em;
+		top: 1.42em + (4.5em * $lineHeight) - 0.4em;
 		pointer-events: none;
 		height: 0.5em;
-		background: linear-gradient($lightGreyTransparent, $lightGrey)
+		background: linear-gradient($lightGreyTransparent, $lightGrey);
+		z-index: 60;
 	}
 	
 	&.open .inline-select-options{
 		top: 1.42em;
 		display: inline-block;
-		max-height: 6.5em * $lineHeight;
+		max-height: 4.5em * $lineHeight;
 	}
 	
 	&.shadow .inline-select-options{

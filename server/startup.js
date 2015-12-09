@@ -19,97 +19,6 @@ Meteor.startup(function(){
             }
         });
     
-        Accounts.createUser({
-            email: 'willie@dad.com',
-            password: 'whatever',
-            profile: {
-                firstName: 'William',
-                lastName: 'Dadson',
-                addresses: []
-            }
-        });
-    
-        Accounts.createUser({
-            email: 'steve@dad.com',
-            password: 'whatever',
-            profile: {
-                firstName: 'Stephen',
-                lastName: 'Dadson',
-                addresses: []
-            }
-        });
-    
-        Accounts.createUser({
-            email: 'sweetcake@mum.com',
-            password: 'whatever',
-            profile: {
-                firstName: 'Emily',
-                lastName: 'Mumsworth',
-                addresses: []
-            }
-        });
-    
-        Accounts.createUser({
-            email: 'sheels@mum.com',
-            password: 'whatever',
-            profile: {
-                firstName: 'Sheila',
-                lastName: 'Mumsworth',
-                addresses: []
-            }
-        });
-    
-    }
-    
-    if(!Brands.find({}).count()){
-        
-        Brands.insert({
-            name: 'American Apparel'
-        });
-        
-        Brands.insert({
-            name: 'Petit Bateau'
-        });
-
-        Brands.insert({
-            name: 'Caramel'
-        });
-        
-        Brands.insert({
-            name: 'Cos'
-        });
-        
-    }
-    
-    if(!Inventory.find().count()){
-        
-        Inventory.insert({
-            brand: 'Petit Bateau',
-            garment: 'T-shirt',
-            description: 'Long sleeved with motif',
-            size: '5',
-            cost: 12,
-            quantity: 5
-        })
-        
-        Inventory.insert({
-            brand: 'Petit Bateau',
-            garment: 'Jumper',
-            description: 'Red turtleneck with sailboat print',
-            size: '3',
-            cost: 12,
-            quantity: 17
-        })
-        
-        Inventory.insert({
-            brand: 'Cos',
-            garment: 'Trousers',
-            description: 'Beige cotton twill chinos',
-            size: '4',
-            cost: 12,
-            quantity: 20
-        })
-        
     }
     
     if(!GarmentTypes.find().count()){
@@ -176,14 +85,38 @@ Meteor.startup(function(){
     
     if(!LookImages.find({}).count()){
 	    
+	    var looks = [
+	    	'Sea shells on the sea shore',
+			'Pint-sized prints',
+			'Happy-go-lucky',
+			'Back to basics',
+			'Hear them roar',
+			'Over the Fjords and Far Away',
+			'Make Yourself at Home',
+			'Glad Rags'
+		].map(function(lookName, i){
+			
+			return Looks.insert({
+				name: lookName,
+				icon: '/img/looks/' + (i+1) + '/icon.svg',
+				iconOrange: '/img/looks/' + (i+1) + '/',
+				thumb: '/img/looks/' + (i+1) + '/thumb.jpg'
+			})
+			
+		})
+		
+		/*
+	    
 	    var shells = Looks.insert({
 		    name: 'Sea shells on the sea shore',
-		    icon: '/img/looks/1/icon.svg'
+		    icon: '/img/looks/1/icon.svg',
+		    thumb: '/img/looks/1/thumb.jpg'
 	    })
 	    
 	    var prints = Looks.insert({
 		    name: 'Pint-sized prints',
-		    icon: '/img/looks/2/icon.svg'
+		    icon: '/img/looks/2/icon.svg',
+		    thumb: 
 	    })
 	    
 	    var happy = Looks.insert({
@@ -216,284 +149,286 @@ Meteor.startup(function(){
 		    icon: '/img/looks/8/icon.svg'
 	    })
 	    
+	    */
+	    
 	    LookImages.insert({
 		    url: '/img/looks/1/img0.jpg',
 		    w: 800,
 		    h: 1200,
-		    owner: shells
+		    owner: looks[0]
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/1/img1.jpg',
 		    w: 800,
 		    h: 1200,
-		    owner: shells
+		    owner: looks[0]
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/1/img2.jpg',
 		    w: 800,
 		    h: 1200,
-		    owner: shells
+		    owner: looks[0]
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/1/img3.jpg',
 		    w: 800,
 		    h: 1200,
-		    owner: shells
+		    owner: looks[0]
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/2/img0.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: prints
+		    owner: looks[1]
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/2/img1.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: prints
+		    owner: looks[1]
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/2/img2.jpg',
 		    w: 1200,
 		    h: 1021,
-		    owner: prints
+		    owner: looks[1]
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/2/img3.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: prints
+		    owner: looks[1]
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/2/img4.jpg',
 		    w: 1102,
 		    h: 1200,
-		    owner: prints
+		    owner: looks[1]
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/2/img5.jpg',
 		    w: 800,
 		    h: 1200,
-		    owner: prints
+		    owner: looks[1]
 	    })
 
 	    LookImages.insert({
 		    url: '/img/looks/2/img6.jpg',
 		    w: 800,
 		    h: 1200,
-		    owner: prints
+		    owner: looks[1]
 	    })	
 
 	    LookImages.insert({
 		    url: '/img/looks/3/img0.jpg',
 		    w: 1200,
 		    h: 919,
-		    owner: happy
+		    owner: looks[2]
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/3/img1.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: happy
+		    owner: looks[2]
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/3/img2.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: happy
+		    owner: looks[2]
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/3/img3.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: happy
+		    owner: looks[2]
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/4/img0.jpg',
 		    w: 800,
 		    h: 1200,
-		    owner: basics
+		    owner: looks[3]
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/4/img1.jpg',
 		    w: 800,
 		    h: 1200,
-		    owner: basics
+		    owner: looks[3]
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/4/img2.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: basics
+		    owner: looks[3]
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/4/img3.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: basics
+		    owner: looks[3]
 	    })
 	    
 	    LookImages.insert({
 		    url: '/img/looks/4/img4.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: basics
+		    owner: looks[3]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/5/img0.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: roar
+		    owner: looks[4]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/5/img1.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: roar
+		    owner: looks[4]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/5/img2.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: roar
+		    owner: looks[4]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/5/img3.jpg',
 		    w: 1200,
 		    h: 829,
-		    owner: roar
+		    owner: looks[4]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/5/img4.jpg',
 		    w: 800,
 		    h: 1200,
-		    owner: roar
+		    owner: looks[4]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/5/img5.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: roar
+		    owner: looks[4]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/6/img0.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: fjords
+		    owner: looks[5]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/6/img1.jpg',
 		    w: 1200,
 		    h: 849,
-		    owner: fjords
+		    owner: looks[5]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/6/img2.jpg',
 		    w: 800,
 		    h: 1200,
-		    owner: fjords
+		    owner: looks[5]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/7/img0.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: home
+		    owner: looks[6]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/7/img1.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: home
+		    owner: looks[6]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/7/img2.jpg',
 		    w: 800,
 		    h: 1200,
-		    owner: home
+		    owner: looks[6]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/7/img3.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: home
+		    owner: looks[6]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/7/img4.jpg',
 		    w: 800,
 		    h: 1200,
-		    owner: home
+		    owner: looks[6]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/7/img5.jpg',
 		    w: 800,
 		    h: 1200,
-		    owner: home
+		    owner: looks[6]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/8/img0.jpg',
 		    w: 800,
 		    h: 1200,
-		    owner: glad
+		    owner: looks[7]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/8/img1.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: glad
+		    owner: looks[7]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/8/img2.jpg',
 		    w: 1200,
 		    h: 800,
-		    owner: glad
+		    owner: looks[7]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/8/img3.jpg',
 		    w: 800,
 		    h: 1200,
-		    owner: glad
+		    owner: looks[7]
 	    })
 	    
 		LookImages.insert({
 		    url: '/img/looks/8/img4.jpg',
 		    w: 800,
 		    h: 1200,
-		    owner: glad
+		    owner: looks[7]
 	    })
 	    
 // Image 01 01 

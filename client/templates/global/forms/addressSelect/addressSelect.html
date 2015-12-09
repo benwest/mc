@@ -1,22 +1,30 @@
 <template name="addressSelect">
 
-	<ul class="address-select medium-block-grid-2 {{canSelect}}">
+	<ul class="address-select small-block-grid-2 medium-block-grid-2 small-text-1 medium-text-1-5 {{canSelect}}">
 		
 		{{#each addresses}}
 		
 			<li class="saved-address {{selected ..}}">
-				{{line1}}<br>
-				{{#if line2}}{{line2}}<br>{{/if}}
-				{{city}}<br>
-				{{county}}<br>
-				{{country}}<br>
-				{{postcode}}<br>
-				{{#if default}}
-					<b>Default</b>
-				{{else}}
-					<a class="make-default-address">Make Default</a>
-				{{/if}}
-				<a class='delete-address'>Delete</a>
+			
+				<p>
+					{{line1}}<br>
+					{{#if line2}}{{line2}}<br>{{/if}}
+					{{city}}<br>
+					{{county}}<br>
+					{{country}}<br>
+					{{postcode}}<br>
+					{{#unless line2}}<br>{{/unless}}
+				</p>
+				
+				<p>
+					{{#if default}}
+						<b>Default</b><br>
+					{{else}}
+						{{#unless canSelect}}<a class="make-default-address">Make Default</a>{{/unless}}<br>
+					{{/if}}
+					<a class='delete-address'>Delete</a>
+				</p>
+				
 			</li>
 		
 		{{/each}}

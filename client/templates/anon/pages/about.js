@@ -34,7 +34,7 @@ Template.about.onRendered(function(){
 		
 		var prefix = '/img/brands/';
 		var extension = '.svg';
-		var brands = 'angulus, joha, lol, mads, marmar, minirodini, mp, petitecrabe, poppyrose, popupshop, softgallery, wheat';
+		var brands = 'angulus, joha, lol, mads, marmar, minirodini, mp, petitecrabe, poppyrose, popupshop, softgallery, wheat, agatha, fub, gro, tinycottons';
 		var logos = _.map(brands.split(', '), function(brand){
 			return prefix + brand + extension;
 		});

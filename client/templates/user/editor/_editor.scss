@@ -337,7 +337,7 @@ $helpTextHeight: 50px;
 				transition: opacity 0.2s;
 				z-index: 100;
 				opacity: 1;
-				mix-blend-mode: overlay;
+				mix-blend-mode: soft-light;
 			}
 			
 			&:hover{
