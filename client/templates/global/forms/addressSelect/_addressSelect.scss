@@ -1,11 +1,29 @@
 .saved-address{
+	background-size: 50% auto;
+	background-position: bottom right;
+	background-repeat: no-repeat;
+}
+
+@media #{$large-up} {
+	.saved-address{
+		background-size: 40% auto;
+	}
+}
+
+@for $i from 1 through 3 {
+	.address-select li:nth-child(#{$i}) .saved-address{
+		background-image: url('/img/buildings/#{$i}.svg')
+	}
 }
 
 .can-select .saved-address{
 	cursor: pointer;
-	border-bottom: 2px dashed white;
-}
-
-.saved-address.selected{
-	border: $underlineWidth solid white;
+	transition: opacity 0.5s;
+	opacity: 0.5;
+	&.selected{
+		opacity: 1;
+		& .address{
+			font-weight: bold;
+		}
+	}
 }

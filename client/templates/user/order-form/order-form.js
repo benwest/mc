@@ -23,7 +23,6 @@ Template.orderForm.onCreated(function(){
 	Session.set(SIZES_LIST, sizes);
 	Session.set(SIZES_ENTERED, {});
 	Session.set(SIZING_CONFIRMED, false);
-	Session.set(ORGANIC_ONLY, false);
 
 });
 
@@ -34,6 +33,16 @@ Template.orderForm.helpers({
 	},
 	
 	'colors': function(){
+		
+		return _.chain(this.universe.colors)
+			.map( function(value, key){
+				var color = Colors.findOne(key);
+				color.times = value;
+				return color;
+			})
+			.sortBy('times')
+			.reverse()
+			.value()
 		
 		return _.chain(this.universe.colors)
 			.map(function(value, key){
@@ -171,6 +180,7 @@ Template.orderForm.events({
 	        forChild: this._id,
             address: Session.get('orderFormAddress'),
             garments: _.pluck( Session.get('orderFormGarments'), 'name'),
+            organic: Session.get(ORGANIC_ONLY)
         }
         
         Meteor.call('updateSizes', this._id, sizing, function(error, result){

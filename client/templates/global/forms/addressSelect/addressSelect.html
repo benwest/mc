@@ -4,26 +4,30 @@
 		
 		{{#each addresses}}
 		
-			<li class="saved-address {{selected ..}}">
+			<li>
 			
-				<p>
-					{{line1}}<br>
-					{{#if line2}}{{line2}}<br>{{/if}}
-					{{city}}<br>
-					{{county}}<br>
-					{{country}}<br>
-					{{postcode}}<br>
-					{{#unless line2}}<br>{{/unless}}
-				</p>
+				<div class="saved-address {{selected ..}}">
+			
+					<p class="address">
+						{{line1}}<br>
+						{{#if line2}}{{line2}}<br>{{/if}}
+						{{city}}<br>
+						{{county}}<br>
+						{{country}}<br>
+						{{postcode}}<br>
+						{{#unless line2}}<br>{{/unless}}
+					</p>
+					
+					<p>
+						{{#if default}}
+							<b>Default</b><br>
+						{{else}}
+							{{#unless canSelect}}<a class="make-default-address">Make Default</a>{{/unless}}<br>
+						{{/if}}
+						<a class='delete-address'>Delete</a>
+					</p>
 				
-				<p>
-					{{#if default}}
-						<b>Default</b><br>
-					{{else}}
-						{{#unless canSelect}}<a class="make-default-address">Make Default</a>{{/unless}}<br>
-					{{/if}}
-					<a class='delete-address'>Delete</a>
-				</p>
+				</div>
 				
 			</li>
 		
