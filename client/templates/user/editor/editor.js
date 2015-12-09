@@ -61,7 +61,7 @@ function drawSelection(){
 	
 	if(!selection) return;
 
-	selectCtx.fillStyle = 'rgba(156,156,147,0.5)';
+	selectCtx.fillStyle = 'rgba(255,255,255,0.5)';
 	selectCtx.fillRect(0,0, selectCanvas.width, selectCanvas.height);
 	selectCtx.globalCompositeOperation = 'destination-out';
 	drawShape(selection, selectCanvas, selectCtx);
