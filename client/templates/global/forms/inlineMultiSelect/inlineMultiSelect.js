@@ -70,7 +70,7 @@ Template.inlineMultiSelect.helpers({
 
 Template.inlineMultiSelect.events({
 	'click .select-modify': function(){
-		Session.set(this.id + 'Valid', true);
+		Session.set(this.id + 'Valid', !Session.get(this.id + 'Valid'));
 		Session.set(this.id + 'Modifying', !Session.get(this.id + 'Modifying'));
 	},
 	'click .remove-selection': function(event, template){

@@ -4,7 +4,7 @@
 
 	{{# columnContainer }}
 	    
-	    <div class="pad-top-3 pad-bottom-6 gap-bottom-6 text-2">
+	    <div class="order-form pad-top-3 pad-bottom-6 gap-bottom-6 text-1-5">
 		    
 		    <div class="row">
 			    
@@ -14,7 +14,7 @@
 					    
 					    <div class="medium-6 large-12 gap-bottom-2 columns">
 	    
-						    <p class="text-1">You're ordering a box based on these colours:</p>
+						    <p class="text-1">Based on these colours:</p>
 						    
 						    <p class="small-text-1 medium-text-1-5">
 							    {{#each colors}}
@@ -59,7 +59,7 @@
 		    
 		    </div>
 			
-			<p>
+			<p class="{{#unless sessionGet 'orderFormGarmentsValid' }}text-2{{/unless}} pad-bottom-3">
 				
 				{{name}} needs
 				
@@ -69,7 +69,7 @@
 			
 			{{#if sessionGet 'orderFormGarmentsValid' }}
 			
-				<p>
+				<p class="{{#unless sizingConfirmed }}text-2{{/unless}} pad-bottom-3">
 					
 					{{# unless sizingConfirmed }}
 				
@@ -142,7 +142,7 @@
 							<br>
 						</p>
 						<p class="text-1 gap-bottom-2-5">Most of our brands are organic; please tick this box if you <strong>only</strong> wish to receive organic products.</p>
-						<p><a class="place-order">Order your box!</a></p>
+						<p class="text-3"><a class="place-order">Order your box!</a></p>
 						<p class="text-1 gap-bottom-2-5">We'll phone you for a chat, then charge £1 deposit.</p>
 					
 					{{/if}}

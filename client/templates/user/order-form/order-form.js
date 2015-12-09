@@ -161,7 +161,7 @@ Template.orderForm.events({
 	},
 	
 	'click .change-sizing': function(){
-		Session.set('sizingConfirmed', false);
+		Session.set(SIZING_CONFIRMED, false);
 	},
 	
 	'click .organic': function(){
