@@ -6,6 +6,10 @@
 	    
         <div class="add-child text-2 small-12 medium-8 columns center">
 	        
+	        {{#if error}}
+		        <p class="text-1">{{error}}</p>
+	        {{/if}}
+	        
 			I have a {{> inlineSelect id='newChildGender' options='boy, girl' }}
 			
 			{{# if sessionGet 'newChildGender'}}
@@ -26,11 +30,12 @@
 				{{/if}}
 				
 			{{/ if }}
+			<!--
 			<br>
 			<br>
 			<br>
 			<a class="text-1">I'm expecting</a>
-
+			-->
 		</div>
 	</div>
 	

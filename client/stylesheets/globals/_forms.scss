@@ -128,9 +128,10 @@ button:focus{
 		border-radius: 20% 20%;
 		transition: border-width .2s, background .01s;
 		margin-right: 0.5em;
-		&:hover{
-			border-width: $underlineWidth * 2;
-		}
+	}
+	
+	&:hover .checkbox{
+		border-width: $underlineWidth * 2;
 	}
 	
 	&.checked .checkbox{

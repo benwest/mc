@@ -97,14 +97,14 @@ Template.inlineInput.events({
 			    event.preventDefault();
 			    return;
 		    }
-		    
+		    /*
 		    //Validate
 		    var newNumber = Number( text + (event.which - 48) );
-
+			
 		    if(newNumber > template.data.max || ( template.data.step && newNumber % template.data.step !== 0 ) ){
 				event.preventDefault();
 		    }
-		    
+		    */
 		}
 	},
 	

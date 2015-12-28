@@ -15,6 +15,8 @@
 @import 'globals/_notifications.scss';
 @import 'globals/_layout.scss';
 @import 'globals/_bg.scss';
+@import 'globals/_borders.scss';
+@import 'globals/_animations.scss';
 
 @import '../templates/anon/_loading.scss';
 @import '../templates/anon/pages/_about.scss';
@@ -29,6 +31,7 @@
 @import '../templates/global/universePreview/_universePreview.scss';
 @import '../templates/global/swatch/_swatch.scss';
 @import '../templates/global/lookLabel/_lookLabel.scss';
+@import '../templates/global/blobs/_blobs.scss';
 
 @import '../templates/anon/header/_header.scss';
 
@@ -38,6 +41,7 @@
 @import '../templates/user/child/_child.scss';
 @import '../templates/user/editor/_editor.scss';
 @import '../templates/user/order-form/_orderForm.scss';
+@import '../templates/user/order-form-2/_orderForm.scss';
 @import '../templates/user/orders/_orders.scss';
 
 @import '../templates/admin/_main.scss';

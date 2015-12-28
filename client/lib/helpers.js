@@ -1,21 +1,3 @@
-clamp = function(x, min, max){
-	return Math.max( min, Math.min( x, max ) );
-}
-
-normalize = function(x, min, max){
-	return (x-min) / (max-min);
-}
-
-scale = function(x, oldMin, oldMax, newMin, newMax){
-    if(oldMin !== 0 && oldMax !== 1){
-        x = normalize(x, oldMin, oldMax);
-    }
-    return newMin + x * (newMax - newMin);
-}
-
-nearest = function(x, to){
-	return Math.round(x/to) * to;
-}
 
 sessionDelete = function(key){
 	if(_.isArray(key)) return _.each(key, sessionDelete);
@@ -210,6 +192,8 @@ Template.registerHelper('globalSetting', function(field){
 Template.registerHelper('sessionGet', function(key){
 	return Session.get(key);
 });
+
+Template.registerHelper('uid', _.uniqueId)
 
 Template.registerHelper('list', function(array, pluck){
     

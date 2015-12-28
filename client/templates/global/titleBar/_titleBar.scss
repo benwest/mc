@@ -5,14 +5,16 @@
 	height: 5rem;
 	z-index: 50;
 	text-align: center;
+	top: 0;
 	
 	h3{
-		margin-top: 1.5rem;
+		padding: 0;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		margin-right: 1rem;
 		margin-left: 1rem;
+		text-transform: uppercase;
 	}
 	
 }
@@ -38,20 +40,20 @@
 @media #{$small-up} {
 	.title-bar h3{
 		font-size: 1.5rem;
-		margin-top: 1.35rem;
+		margin-top: 0.4rem;
 	}
 }
 
 @media #{$medium-up} {
 	.title-bar h3{
 		font-size: 2.2rem;
-		margin-top: 1rem;
+		margin-top: 0.5rem;
 	}
 }
 
 @media #{$large-up} {
 	.title-bar h3{
 		font-size: 2.2rem;
-		margin-top: 1rem;
+		margin-top: 0.7rem;
 	}
 }

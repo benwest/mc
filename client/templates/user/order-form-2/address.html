@@ -1,0 +1,9 @@
+<template name="orderFormAddress">
+
+	<p>Deliver this box to...</p>
+	
+	{{> addressSelect id="orderFormAddress" select=true }}
+	
+	{{#if valid}}<a class="next text-2">Looks good</a>{{/if}}
+
+</template>

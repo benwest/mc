@@ -20,6 +20,7 @@ function lastOrder(childId){
 
 Template.child.onDestroyed(function(){
 	sessionDelete('childJustAdded');
+	
 })
 
 Template.child.helpers({

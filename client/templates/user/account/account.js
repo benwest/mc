@@ -61,6 +61,8 @@ Template.account.events({
         
         Meteor.call('changeName', first, last);
         
+        Session.set(NAME_ERRORS, {none: 'Your name was changed.'});
+                
         Session.set('accountFirstNameTouched', false);
         Session.set('accountLastNameTouched', false);
         

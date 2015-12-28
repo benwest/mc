@@ -44,6 +44,9 @@
 			    
 			    <h3>Garments requested</h3>
 			    <p class="text-2 text-xbold">{{#each garments}}{{this}}<br>{{/each}}</p>
+			    {{#if organic}}
+			    	<p class="text-1">You've asked to recieve <b>only organic</b> products.</p>
+			    {{/if}}
 			   
 		    </div>
 			<div class="large-4 columns medium-pad-bottom-2">

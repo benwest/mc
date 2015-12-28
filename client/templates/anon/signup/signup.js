@@ -52,26 +52,23 @@ Template.signup.events({
         }
         
         Session.set(ERRORS, errors);
+        
         if (_.keys(errors).length) {
             return;
         }
         
-        Accounts.createUser({
-            email: email,
-            password: password,
-            profile: {
-                firstName: firstName,
-                lastName: lastName,
-                addresses: [],
-                phone: phone
-            },
-        }, function(error) {
-                
-                if(error) {
-                    return Session.set(ERRORS, {'none': error.reason});
-                }
-                
-        });
+        Meteor.call('createAccount', {
+	        firstName: firstName,
+	        lastName: lastName,
+	        email: email,
+	        phone: phone,
+	        password: password
+        }, function(err, res){
+	        if(err) {
+	            return Session.set(ERRORS, {'none': err.reason});
+	        }
+	        Meteor.loginWithPassword(email, password);
+        })
         
     }
 });

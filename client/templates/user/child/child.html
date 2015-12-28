@@ -1,5 +1,15 @@
 <template name="child">
+	
+	<div class="child-profile bg-dark-grey">
+		
+		<h1>{{{coloredName}}}</h1>
+		
+		{{> blobs big=6 colors=colors }}
+		
+	</div>
+	
 
+<!--
 	<div class="child-title title-bar hide-for-large-up">
 		<h3>{{{coloredName}}}</h3>
 	</div>
@@ -26,7 +36,7 @@
 					
 					{{#if noUniverse }}
 						
-						Welcome to Muddy Creatures, {{name}}. Time to show us your personality by <a href="/editor/{{ _id }}">creating a universe</a>.
+						Welcome to Muddy Creatures, {{name}}. Time to show us your personality by <a href="/editor/{{ _id }}">creating a universe</a>. It could take you a few minutes, or all afternoon.
 						
 					{{ else }}
 					
@@ -94,7 +104,7 @@
 		</div>
 		
 	</div>
-		
+		-->
     <!-- 
     <div class="row pad-bottom-4">
         <div class="small-12 columns">

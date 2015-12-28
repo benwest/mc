@@ -5,6 +5,13 @@ Template.addChild.onCreated(function(){
 	Session.set('newChildDobMonth', false);
 	Session.set('newChildDobDay', false);
 	Session.set('newChildDobYear', false);
+	Session.set("newChildError", false);
+})
+
+Template.addChild.helpers({
+	error: function(){
+		return Session.get('newChildError');
+	}
 })
 
 Template.addChild.events({
@@ -21,10 +28,18 @@ Template.addChild.events({
 		var month = dob[1];
 		var year = dob[2];
 		
+		var dob = moment().year(year).month(month).date(date);
+		var maxAge = globalSettings().maxAge;
+		
+		if(moment().diff(dob, 'years') >= maxAge){
+			Session.set('newChildError', 'Sorry, but ' + name + ' is too old. We stock clothing for ages 0-' + maxAge + '.')
+			return;
+		}
+		
 		Meteor.call('addChild', {
 			name: name,
 			gender: gender,
-			dob: moment().year(year).month(month).date(date).toDate()
+			dob: dob.toDate()
 		}, function(error, result){
 			
 			if(error){

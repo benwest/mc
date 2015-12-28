@@ -5,10 +5,6 @@ Template.inlineSelect.onCreated(function(){
 	if(!this.data.value) Session.set( OPEN, this.data.id );
 });
 
-Template.inlineSelect.onDestroyed(function(){
-	Session.set(this.data.id, false);
-	delete Session.keys[this.data.id];
-})
 
 Template.inlineSelect.helpers({
 	

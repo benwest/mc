@@ -102,6 +102,19 @@ body{
 			font-size: 1rem;
 		}
 		
+		.social{
+			position: absolute;
+			bottom: 0;
+			right: $menuMargin;
+			a{
+				border-bottom: none;
+			}
+			img{
+				height: 0.9em;
+				margin-left: 0.1em;
+			}
+		}
+		
 	}
 	
 }

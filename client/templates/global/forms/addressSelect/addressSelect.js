@@ -2,7 +2,6 @@ var ADDRESS_LINES = {
 	line1: 'Address line 1',
 	line2: 'Address line 2',
 	city: 'City',
-	county: 'County/state',
 	country: 'Country',
 	postcode: 'Postcode'
 };

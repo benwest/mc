@@ -75,10 +75,9 @@ Meteor.startup(function(){
         
         Settings.insert({
             owner: adminUser._id,
-            daysToReturn: 10,
-            minBrands: 1,
             minLooks: 1,
-            minColors: 1
+            minColors: 1,
+            maxAge: 4
         });
         
     }

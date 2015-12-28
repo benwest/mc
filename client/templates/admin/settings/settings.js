@@ -1,5 +1,5 @@
 Template.admin_settings.events({
-    
+    /*
     'submit #returnDays': function(event, template){
         
         event.preventDefault();
@@ -15,23 +15,17 @@ Template.admin_settings.events({
         })
         
     },
-        
+    */
     'submit #minColors': function(event, template){
         
         event.preventDefault();
         
         var value = parseInt(template.$('#minColorsInput').val());
+        
+        Meteor.call('changeMinColors', value);
                 
-        var adminSettings = Settings.findOne({owner: Meteor.userId()})._id;
-        
-        Settings.update(adminSettings, {
-            $set: {
-                minColors: value
-            }
-        })
-        
     },
-    
+    /*
     'submit #minBrands': function(event, template){
         
         event.preventDefault();
@@ -47,20 +41,25 @@ Template.admin_settings.events({
         })
         
     },
+    */
     
     'submit #minLooks': function(event, template){
         
         event.preventDefault();
         
         var value = parseInt(template.$('#minLooksInput').val());
-                
-        var adminSettings = Settings.findOne({owner: Meteor.userId()})._id;
         
-        Settings.update(adminSettings, {
-            $set: {
-                minLooks: value
-            }
-        })
+        Meteor.call('changeMinLooks', value);
+        
+    },
+    
+    'submit #maxAge': function(event, template){
+        
+        event.preventDefault();
+        
+        var value = parseInt(template.$('#maxAgeInput').val());
+        
+        Meteor.call('changeMaxAge', value);
         
     }
     

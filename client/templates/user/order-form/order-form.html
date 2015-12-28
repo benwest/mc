@@ -6,13 +6,13 @@
 	    
 	    <div class="order-form pad-top-3 pad-bottom-6 gap-bottom-6 text-1-5">
 		    
-		    <div class="row">
+		    <div class="row pad-bottom-6">
 			    
-			    <div class="small-9 large-8 columns">
+			    <div class="small-12 large-9 columns">
 				    
 				    <div class="row">
 					    
-					    <div class="medium-6 large-12 gap-bottom-2 columns">
+					    <div class="small-6 large-12 gap-bottom-2 columns">
 	    
 						    <p class="text-1">Based on these colours:</p>
 						    
@@ -24,7 +24,7 @@
 						    
 					    </div>
 					    
-						<div class="medium-6 large-12 gap-bottom-2 columns">
+						<div class="small-6 large-12 gap-bottom-2 columns">
 						    
 						    <p class="text-1">And the following looks:</p>
 						    
@@ -47,7 +47,7 @@
 			    
 			    </div>
 			    
-			    <div class="small-3a medium-6 large-4 medium-push-3 large-push-0 columns small-pad-bottom-2">
+			    <div class="large-3 columns show-for-large-up">
 				    
 				    <div class="full-width canvas-ratio pos-rel">
 					    
@@ -126,7 +126,13 @@
 				</p>
 				
 				{{#if sizingConfirmed }}		
-
+				
+					<p class="organic">
+						<span class="check {{#if sessionGet 'orderFormOrganicOnly'}}checked{{/if}}"><span class="checkbox"></span><span class="label">Organic Only</span></span>
+						<br>
+						<p class="text-1 gap-bottom-2-5">Most of our brands are organic; please tick this box if you <strong>only</strong> wish to receive organic products.</p>
+					</p>
+					
 					<h3>Deliver this box to:</h3>
 					
 					<div class="gap-bottom-2">
@@ -137,16 +143,9 @@
 					
 					{{#if sessionGet 'orderFormAddress' }}
 					
-						<p class="organic">
-							<span class="check {{#if sessionGet 'orderFormOrganicOnly'}}checked{{/if}}"><span class="checkbox"></span><span class="label">Organic Only</span></span>
-							<br>
-						</p>
-						<p class="text-1 gap-bottom-2-5">Most of our brands are organic; please tick this box if you <strong>only</strong> wish to receive organic products.</p>
-						<p class="text-3"><a class="place-order">Order your box!</a></p>
-						<p class="text-1 gap-bottom-2-5">We'll phone you for a chat, then charge £1 deposit.</p>
+						<p class="text-3"><a class="place-order" href="/pay">Proceed to payment</a></p>
 					
 					{{/if}}
-					
 					
 				{{/if}}
 				

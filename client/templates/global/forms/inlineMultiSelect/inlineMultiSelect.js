@@ -1,13 +1,12 @@
 Template.inlineMultiSelect.onCreated(function(){
-	Session.set(this.data.id, []);
+	console.log(this.data.value);
+	Session.set(this.data.id, this.data.value || []);
 	Session.set(this.data.id + 'Modifying', true);
 	Session.set(this.data.id + 'Valid', false);
 });
 
 Template.inlineMultiSelect.onDestroyed(function(){
-	Session.set(this.data.id, false);
 	Session.set(this.data.id + 'Modifying', false);
-	Session.set(this.data.id + 'Valid', false);
 });
 
 Template.inlineMultiSelect.helpers({

@@ -39,6 +39,7 @@ Template.master.helpers({
 				return 'bg-blue';
 				
 			case 'editor':
+			case 'orderForm2':
 				return 'bg-dark-grey';
 				
 			case 'account':

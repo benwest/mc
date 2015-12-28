@@ -23,6 +23,7 @@ Template.orderForm.onCreated(function(){
 	Session.set(SIZES_LIST, sizes);
 	Session.set(SIZES_ENTERED, {});
 	Session.set(SIZING_CONFIRMED, false);
+	Session.set(ORGANIC_ONLY, false);
 
 });
 
@@ -190,14 +191,14 @@ Template.orderForm.events({
 		        return;
 	        }
 	        
-	        Meteor.call('placeOrder', order, function(error, result){
+	        Meteor.call('createOrder', order, function(error, result){
 		        
 		        if(error){
 			        alert(error.reason);
 			        return;
 		        }
 		        
-		        Router.go('/order/' + result);
+		        Router.go('/pay/' + result);
 		        
 	        });
 	        
