@@ -4,38 +4,27 @@
 	width: 100%;
 	padding-top: 7rem;
 	transition: background-color 1s;
-	/*
-	.title-bar{
-		background: none;
-		[class^='bg-']{
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			top: 0;
-			left: 0;
-			opacity: 0;
-			transition: opacity 1s;
-		}
-		h3{
-			z-index: 20;
-		}
-	}
 	
-	@each $color in $colors{
-		
-		$className: nth($color, 1);
-		
-		&.bg-#{$className} .title-bar .bg-#{$className}{
-			opacity: 1;
+	.braintree-container{
+		background: url('/img/braintree.svg');
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: 80% auto;
+		min-height: 10rem;
+		.braintree{
+			transition: opacity .5s;
+			opacity: 0;
 		}
-		
+		&.ready{
+			.braintree{
+				opacity: 1;
+			}
+		}
 	}
-	*/
 	
 	.braintree{
 		background: white;
 		border-radius: .1em;
-		
 	}
 	
 	input[type="submit"]{
@@ -45,6 +34,10 @@
 		display: inline-block;
 		width: auto;
 		color: white;
+	}
+	
+	.column-container{
+		margin-top: 8rem;
 	}
 	
 }
@@ -60,88 +53,72 @@
 		transition: opacity .2s;
 		height: 2rem;
 		
+		&.visitable{
+			opacity: 1;
+		}
+		
+		&.visited.valid:not(.active):not(.stage-3) {
+			h3{
+				font-size: 1rem;
+				padding: 0;
+				font-weight: normal;
+			}
+			p {
+				opacity: 1;
+			}
+		}
+		
+		&.active{
+			opacity: 1;
+			animation: bob 1.5s linear infinite;
+			h3{
+				font-weight: 900;
+			}
+		}
+		
 		h3{
 			font-weight: 200;
-			font-size: 1.5em;
+			font-size: 1em;
 			transition: font-size .5s, padding .5s;
 		}
+		
 		p{
 			font-weight: 200;
 			transition: opacity .5s;
 			max-height: $lineHeight * 2em;
 			overflow: hidden;
 			text-overflow: ellipsis;
-			display: none;
+			opacity: 0;
+			pointer-events: none;
 		}
-	}
-	
-}
-
-@for $stage from 0 through 3 {
-	
-	@for $pastStage from 0 to $stage {
-		.order-progress.max-stage-#{$stage} .stage-#{$pastStage} {
-			opacity: 1;
-		}
-	}
-	
-	.order-progress.max-stage-#{$stage} .stage-#{$stage} {
-		opacity: 1;
+		
 	}
 		
-	.order-progress.stage-is-#{$stage} .stage-#{$stage}{
-		animation: bob 2s linear infinite;
-		opacity: 1;
-		h3{
-			font-weight: 900;
-		}
-	}
+}
+
+.place-order:not(.ready){
+	opacity: 0;
+	pointer-events: none;
 }
 
 @media #{$medium-up} {
 	
-	.order-form{
-		padding-top: 11rem;
-	}
+	.order-progress{
 	
-	.order-progress .columns div{
-		height: 6rem;
-		h3{
-			padding-top: 1em;
-		}
-		p{
-			display: inline;
-		}
-	}
-
-
-	@for $stage from 0 through 3 {
-		
-		@for $pastStage from 0 to $stage {
-			.order-progress.max-stage-#{$stage} .stage-#{$pastStage} {
-				h3{
-					padding-top: .2em;
-					font-size: 1em;
-				}
-			}
-		}
-		
-		.order-progress.max-stage-#{$stage} .stage-#{$stage} {
-			opacity: 1;
-		}
+		[class^="stage-"] {
 			
-		.order-progress.stage-is-#{$stage} .stage-#{$stage}{
-			animation: bob 1.5s linear infinite;
+			height: 5rem;
+			
 			h3{
-				font-weight: 900;
-				font-size: 1.5em !important;
-				padding-top: 1em !important;
+				padding-top: 1.5rem;
 			}
-			p{
-				opacity: 0;
-				pointer-events: none;
-			}
+			
 		}
+		
+		.stage-3 h3{
+			padding-top: .5rem;
+		}
+		
 	}
 	
 }

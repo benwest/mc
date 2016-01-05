@@ -1,12 +1,13 @@
 var $body = $('html, body');
 
-Template.titleBar.helpers({
+Template.titleBarContainer.helpers({
 	'sizeClass': function(){
+		if(!this.text) return;
 		return this.text.length > 15 && 'right';
 	}
 })
 
-Template.titleBar.events({
+Template.titleBarContainer.events({
 	'click .title-bar': function(){
 		$body.animate({scrollTop: 0}, 200);
 	}

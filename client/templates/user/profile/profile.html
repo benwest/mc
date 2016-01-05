@@ -1,77 +1,67 @@
 <template name="profile">
-    <div class="profile-logo pos-rel">
-	    
-	    <div class="center">
-		    <img src="/img/logo.svg" alt="" class="large-pad-top-4">
+	
+	{{#city classes="profile"}}
+			
+	    <div class="profile-logo pos-rel">
+		    
+		    <div class="center">
+			    <img src="/img/logotype.svg" alt="" class="large-pad-top-4">
+		    </div>
+	        
 	    </div>
-        
-    </div>
-    
-    <div class="profile-content text-center pos-rel">
 	    
-	    <div class="large-center">
-        
-	        <p class="text-1-5">
-		        
-				<b>{{greeting}}, {{currentUser.profile.firstName}}!</b>
-
-				{{# if children }}
-				
-					How {{ plural children 'is' 'are' }} {{{ list children }}}?
+	    <div class="profile-content text-center pos-rel">
+		    
+		    <div class="large-center">
+	        
+		        <p class="text-1-5">
+			        
+					<b>{{greeting}}, {{currentUser.profile.firstName}}!</b>
+	
+					{{# if children }}
 					
-					{{# if lastOrder }}
-					
-						{{# with lastOrder }}
+						How {{ plural children 'is' 'are' }} {{{ list children }}}?
 						
-							Your order <a href="order/{{number}}">#{{ number }}</a>, for {{ forChild }}, was {{ status }} {{ actionTime }}.
+						{{# if lastOrder }}
 						
-						{{/ with }}
-					
-						{{# if moreOrders }}
-					
-							You have <a href="/orders">{{ moreOrders }} more {{ plural moreOrders 'order' }}</a> in progress as well.
-					
-						{{/ if }}
-					
-					{{ else }}
-					
-						{{# if readyToOrder }}
+							{{# with lastOrder }}
+							
+								Your order <a href="/order/{{number}}">#{{ number }}</a>, for {{ forChild }}, was {{ status }} {{ actionTime }}.
+							
+							{{/ with }}
+						
+							{{# if moreOrders }}
+						
+								You have <a href="/orders">{{ moreOrders }} more {{ plural moreOrders 'order' }}</a> in progress as well.
+						
+							{{/ if }}
+						
+						{{ else }}
 						
 							{{# if oneChild }}
 							
-								Why not <a href="/order-form/{{ firstChild._id }}">order your first box?</a>
+								Why not <a href="/child/{{ firstChild._id }}">order your first box?</a>
 								
 							{{ else }}
 							
-								Why not <a href="/order-form/{{ firstChild._id }}">order your first box for {{ firstChild.name }}?</a>
+								Why not <a href="/child/{{ firstChild._id }}">order {{ firstChild.name }}'s first box?</a>
 							
 							{{/if}}
-						
-						{{ else }}
-							
-							{{# if oneChild }}
-							
-								Once you've <a href="/editor/{{ firstChild._id }}">created a universe for {{ firstChild.name }}</a>, you can order your first box.
-							
-							{{ else }}
-							
-								Once you've <a href="/children">created a universe for one of your children</a>, you can order your first box.
-							
-							{{/if}}
-						
+													
 						{{/ if }}
+						
+					{{ else }}
 					
+						You haven't added any profiles for your children yet. <a href="/addChild">Add one now</a> or <a href="/about">learn how Muddy Creatures works.</a>
+						
 					{{/ if }}
-					
-				{{ else }}
-				
-					You haven't added any profiles for your children yet. <a href="/addChild">Add one now</a> or <a href="/about">learn how Muddy Creatures works.</a>
-					
-				{{/ if }}
-		        
-	        </p>
-        
+			        
+		        </p>
+	        
+		    </div>
+	        
 	    </div>
-        
-    </div>
+	    
+	{{/city}}
+    
 </template>

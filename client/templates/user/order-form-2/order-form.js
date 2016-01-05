@@ -1,31 +1,42 @@
 var STAGE = 'orderFormStage';
 var MAX_STAGE = 'orderFormMaxStage';
 var GARMENTS = 'orderFormGarments';
+var ORGANIC = 'orderFormOrganic';
+var REPEAT = 'orderFormRepeat';
+var COMMENTS = 'orderFormComments';
+var REPEAT_INTERVAL = 'orderFormRepeatInterval';
 var ADDRESS = 'orderFormAddress';
 
-var STAGE_NAMES = ['garments', 'address', 'options', 'pay'];
-
 Template.orderForm2.onCreated(function(){
-	Session.setDefault(GARMENTS, []);
-	Session.setDefault(MAX_STAGE, 0);
-	Session.set(STAGE, Session.get(MAX_STAGE));
+	Session.set('back', '/child/' + this.data._id);
+	Session.set(GARMENTS, []);
+	Session.set(ADDRESS, false);
+	Session.set(REPEAT, false);
+	Session.set(REPEAT_INTERVAL, false);
+	Session.set(ORGANIC, false);
+	Session.set(COMMENTS, '');
+	Session.set(MAX_STAGE, 0);
+	Session.set(STAGE, 0);
+})
+
+Template.orderForm2.onDestroyed(function(){
+	Session.set('back', false);
 })
 
 Template.orderForm2.helpers({
 	title: function(){
-		return "A new order for " + this.name;
+		return "A box of joy for " + this.name;
 	},
-	bgClass: function(){
-		return ['bg-blue', 'bg-orange', 'bg-teal', 'bg-green'][Session.get(STAGE)];
-	},
-	currStage: function(){
-		return Session.get(STAGE);
-	},
-	maxStage: function(){
-		return Session.get(MAX_STAGE);
+	stageClasses: function(i){
+		var stage = STAGE_NAMES[i];
+		var classes = [];
+		if(Session.get(STAGE) === i) classes.push('active');
+		if(orderFormValidators[stage]()) classes.push('valid');
+		if(Session.get(MAX_STAGE) >= i) classes.push('visited');
+		if(orderFormVisitable(i)) classes.push('visitable');
+		return classes.join(' ');
 	},
 	currTemplate: function(){
-		console.log('orderForm' + capitalise( STAGE_NAMES[Session.get(STAGE)] ));
 		return 'orderForm' + capitalise( STAGE_NAMES[Session.get(STAGE)] );
 	},
 	chosenGarments: function(){
@@ -52,7 +63,7 @@ Template.orderForm2.helpers({
 		return address.line1 + '<br>' + address.city;
 	},
 	chosenOptions: function(){
-		if(Session.get(MAX_STAGE) < 2) return;
+		if(Session.get(MAX_STAGE) < 1) return;
 		var repeat = Session.get('orderFormRepeat');
 		var interval = Session.get('orderFormRepeatInterval');
 		if(repeat && !interval) return;
@@ -63,14 +74,9 @@ Template.orderForm2.helpers({
 	}
 })
 
-function setStage(to){
-	console.log(to);
-	if(to <= Session.get(MAX_STAGE) && !Session.equals(STAGE, to)) Session.set(STAGE, to);
-}
-
 Template.orderForm2.events({
-	'click .stage-0': function(event, template){ setStage(0) },
-	'click .stage-1': function(event, template){ setStage(1) },
-	'click .stage-2': function(event, template){ setStage(2) },
-	'click .stage-3': function(event, template){ setStage(3) }
+	'click .stage-0': function(event, template){ orderFormSetStage(0) },
+	'click .stage-1': function(event, template){ orderFormSetStage(1) },
+	'click .stage-2': function(event, template){ orderFormSetStage(2) },
+	'click .stage-3': function(event, template){ orderFormSetStage(3) }
 })

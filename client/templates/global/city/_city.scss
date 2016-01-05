@@ -1,0 +1,81 @@
+.bg-city{
+	background-image: url(/img/city/city.svg);
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	background-size: 200% auto;
+	position: relative;
+	
+	.float{
+		position: absolute;
+		left: 0;
+		transform: translate3d(-50vw,0,0);
+		transition: opacity 0.5s;
+	}
+	
+	#cloud1{
+		width: 5rem;
+		top: 20%;
+		animation: float-across 200s linear infinite;
+	}
+	
+	#cloud2{
+		width: 4rem;
+		top: 35%;
+		animation: float-across 150s linear infinite reverse;
+	}
+	
+	#cloud3{
+		width: 10rem;
+		top: 25%;
+		animation: float-across 180s linear infinite;
+	}
+	
+	#ufo{
+		width: 6rem;
+		animation: float-across 40s 20s linear infinite alternate;
+		top: 5%;
+	}
+	
+	#balloon{
+		width: 5rem;
+		top: 50%;
+		animation: float-across 140s 10s linear infinite alternate;
+	}
+	
+	#plane{
+		width: 7rem;
+		top: 33%;
+		animation: float-across 60s linear infinite;
+	}
+	
+	&.velocity-animating .float{
+		opacity: 0;
+	}	
+	
+}
+
+@keyframes float-across{
+	
+	from{
+		transform: translate3d(-50vw,0,0);
+	}
+	to{
+		transform: translate3d(100vw, 0, 0);
+	}
+	
+}
+
+@media #{$medium-up} {
+	.bg-city{
+		background-size: 200% auto;
+		.float{
+			opacity: 1;
+		}
+	}
+}
+
+@media #{$large-up} {
+	.bg-city{
+		background-size: 100% auto;
+	}
+}

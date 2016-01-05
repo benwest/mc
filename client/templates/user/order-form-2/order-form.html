@@ -1,60 +1,64 @@
 <template name="orderForm2">
-	
-	{{>blobs big=0 smallSize=4 colors=colors}}
-	
-	<div class="order-form">
-	
-	{{>titleBar text=title}}
-						
-		<div class="row order-progress text-center stage-is-{{currStage}} max-stage-{{maxStage}}">
-			
-			<div class="large-8 small-centered columns">
-				
-				<div class="row">
+
+	<section>
+		
+		{{>blobs big=false smallSize=1 colors=colors}}
+		
+		<div class="order-form">
+		
+			{{>titleBar text=title}}
 							
-					<div class="small-3 columns pad-top-0-5 border-right">
-						<div class="stage-0">
-							<h3 class='show-for-medium-up'>Garments</h3>
-							<h3 class="show-for-small-only">1</h3>
-							<p>{{chosenGarmentsList}}</p>
-						</div>
-					</div>
+			<div class="row order-progress text-center">
+				
+				<div class="large-8 small-centered columns">
 					
-					<div class="small-3 columns pad-top-0-5 border-right">
-						<div class="stage-1">
-							<h3 class='show-for-medium-up'>Where to?</h3>
-							<h3 class="show-for-small-only">2</h3>
-							<p>{{{chosenAddress}}}</p>
+					<div class="row">
+								
+						<div class="small-3 columns pad-top-0-5 border-right">
+							<div class="stage-0 {{stageClasses 0}}">
+								<h3 class='show-for-medium-up'>Garments</h3>
+								<h3 class="show-for-small-only">1</h3>
+								<p class='show-for-medium-up'>{{chosenGarmentsList}}</p>
+							</div>
 						</div>
-					</div>
+						
+						<div class="small-3 columns pad-top-0-5 border-right">
+							<div class="stage-1 {{stageClasses 1}}">
+								<h3 class='show-for-medium-up'>Options</h3>
+								<h3 class="show-for-small-only">2</h3>
+								<p class='show-for-medium-up'>{{{chosenOptions}}}</p>
+							</div>
+						</div>
+						
+						<div class="small-3 columns pad-top-0-5 border-right">
+							<div class="stage-2 {{stageClasses 2}}">
+								<h3 class='show-for-medium-up'>Where to?</h3>
+								<h3 class="show-for-small-only">3</h3>
+								<p class='show-for-medium-up'>{{{chosenAddress}}}</p>
+							</div>
+						</div>
+						
+						<div class="small-3 pad-top-0-5 columns">
+							<div class="stage-3 {{stageClasses 3}}">
+								<h3 class='show-for-medium-up'>Card<br>authorisation</h3>
+								<h3 class="show-for-small-only">4</h3>
+							</div>
+						</div>
 					
-					<div class="small-3 columns pad-top-0-5 border-right">
-						<div class="stage-2">
-							<h3 class='show-for-medium-up'>Options</h3>
-							<h3 class="show-for-small-only">3</h3>
-							<p>{{{chosenOptions}}}</p>
-						</div>
-					</div>
-					
-					<div class="small-3 pad-top-0-5 columns">
-						<div class="stage-3">
-							<h3 class='show-for-medium-up'>Pay</h3>
-							<h3 class="show-for-small-only">4</h3>
-						</div>
 					</div>
 				
 				</div>
-			
+								
 			</div>
+		
+			{{#columnContainer}}
 							
+				{{> Template.dynamic template=currTemplate }}
+			
+			{{/columnContainer}}
+						
 		</div>
 	
-		{{#columnContainer}}
-						
-			{{> Template.dynamic template=currTemplate }}
-		
-		{{/columnContainer}}
-					
-	</div>
+	</section>
 	        	    
 </template>

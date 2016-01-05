@@ -23,7 +23,7 @@ Template.profile.helpers({
 	},
     'children': function(){
 		return Children.find({owner: Meteor.userId()}).map(function(child){
-			return '<a href="/child/' + child._id + '">' + child.name + '</a>';
+			return '<a class="side-up" href="/child/' + child._id + '">' + child.name + '</a>';
 		});
     },
     'oneChild': function(){

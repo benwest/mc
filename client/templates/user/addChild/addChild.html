@@ -1,42 +1,46 @@
 <template name="addChild">
 
+	<section>
+
 	{{> titleBar text="Add a Little One"}}
 
-    <div class="row full-height">
-	    
-        <div class="add-child text-2 small-12 medium-8 columns center">
-	        
-	        {{#if error}}
-		        <p class="text-1">{{error}}</p>
-	        {{/if}}
-	        
-			I have a {{> inlineSelect id='newChildGender' options='boy, girl' }}
-			
-			{{# if sessionGet 'newChildGender'}}
-			
-				called {{> inlineInput id='newChildName' autofocus=true }}.<br>
+	    <div class="row full-height">
+		    
+	        <div class="add-child text-2 small-12 medium-8 columns center">
+		        
+		        {{#if error}}
+			        <p class="text-1">{{error}}</p>
+		        {{/if}}
+		        
+				I have a {{> inlineSelect id='newChildGender' options='boy, girl' }}
 				
-				{{# if sessionGet 'newChildName'}}
-					
-					{{ heShe (sessionGet 'newChildGender') true }} was born on<br>
-					{{> inlineDateInput id="newChildDob" after="." }}
-					
-					{{#if sessionGet 'newChildDobYear' }}
-					
-						<br><br><a class="done">Add {{ himHer (sessionGet 'newChildGender') false }}!</a>
-					
-					{{/ if }}
-					
-				{{/if}}
+				{{# if sessionGet 'newChildGender'}}
 				
-			{{/ if }}
-			<!--
-			<br>
-			<br>
-			<br>
-			<a class="text-1">I'm expecting</a>
-			-->
+					called {{> inlineInput id='newChildName' autofocus=true }}.<br>
+					
+					{{# if sessionGet 'newChildName'}}
+						
+						{{ heShe (sessionGet 'newChildGender') true }} was born on<br>
+						{{> inlineDateInput id="newChildDob" after="." }}
+						
+						{{#if sessionGet 'newChildDobYear' }}
+						
+							<br><br><a class="next">Next</a>
+						
+						{{/ if }}
+						
+					{{/if}}
+					
+				{{/ if }}
+				<!--
+				<br>
+				<br>
+				<br>
+				<a class="text-1">I'm expecting</a>
+				-->
+			</div>
 		</div>
-	</div>
+	
+	</section>
 	
 </template>

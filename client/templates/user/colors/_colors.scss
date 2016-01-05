@@ -1,0 +1,66 @@
+@mixin circle-stagger($period){
+	
+	$members: $period * 2;
+	
+	@for $i from 1 through $members {
+		
+		&:nth-child(#{$members}n+#{$i}){
+			@if $i <= $period { transform: translateX(-25%) }
+			@if $i > $period { transform: translateX(25%) }
+		}
+		
+	}
+	
+}
+
+.color-select, .look-select{
+	li{
+		.color-swatch, .look-swatch{
+			cursor: pointer;
+			transform: scale(0.9);
+			transition: transform .2s;
+			&:hover{
+				transform: scale(1);
+			}
+			&.selected{
+				animation: bob 1.5s linear infinite;
+				transform: scale(1.2);
+				&:before {
+					content: '';
+					position: absolute;
+					width: 20%;
+					height: 45%;
+					left: 40%;
+					border-right: 1px solid white;
+					border-bottom: 1px solid white;
+					transform: rotate(45deg);
+					top: 22%;
+					z-index: 20;
+				}
+				&.bright:before{
+					border-right: 1px solid $space;
+					border-bottom: 1px solid $space;					
+				}
+			}
+		}
+		.color-swatch{
+			position: relative;
+			width: 100%;
+			height: 0;
+			padding-bottom: 100%;
+			border-radius: 50%;
+			box-sizing: border-box;
+		}		
+	}
+}
+
+@media #{$medium-up}{
+	.color-select li {
+		@include circle-stagger(4);
+	}
+}
+@media #{$large-up}{
+	.color-select li {
+		@include circle-stagger(6);
+	}
+}

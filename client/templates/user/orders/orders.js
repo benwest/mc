@@ -1,12 +1,12 @@
 Template.orders.helpers({
 	'looks': function(){
-		return _.map(this.universe.looks, function(value, key){
-			return Looks.findOne(key);
+		return _.map(this.looks, function(id){
+			return Looks.findOne(id);
 		})
 	},
 	'colors':function(){
-		return _.map(this.universe.colors, function(value, key){
-			return Colors.findOne(key);
+		return _.map(this.colors, function(id){
+			return Colors.findOne(id);
 		})
 	},
 	'orders': function(){

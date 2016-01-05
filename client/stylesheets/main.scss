@@ -32,6 +32,7 @@
 @import '../templates/global/swatch/_swatch.scss';
 @import '../templates/global/lookLabel/_lookLabel.scss';
 @import '../templates/global/blobs/_blobs.scss';
+@import '../templates/global/city/_city.scss';
 
 @import '../templates/anon/header/_header.scss';
 
@@ -39,6 +40,8 @@
 @import '../templates/user/profile/_profile.scss';
 @import '../templates/user/addChild/_addChild.scss';
 @import '../templates/user/child/_child.scss';
+@import '../templates/user/colors/_colors.scss';
+@import '../templates/user/looks/_looks.scss';
 @import '../templates/user/editor/_editor.scss';
 @import '../templates/user/order-form/_orderForm.scss';
 @import '../templates/user/order-form-2/_orderForm.scss';

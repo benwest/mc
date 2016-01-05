@@ -1,0 +1,98 @@
+<template name="looks">
+
+	<section class="{{#if showPreview}}no-scroll{{/if}}">
+		<!--
+		<div class="icon-button top-right done-button">
+			<img src="/img/tick.svg">
+		</div>
+		-->
+		{{>blobs big=false colors=colors}}
+		
+		{{>titleBar text="Looks"}}
+		
+			
+		{{#columnContainer}}
+			
+			<div class="row">
+				
+				<div class="small-12 columns text-center">
+					<p>Pick {{posessive name}} favourite looks.</p>
+				</div>
+				
+			</div>
+			
+			<div class="row">
+				
+				<div class="small-10 medium-12 small-centered columns">
+					
+					<ul class="look-select small-block-grid-2 medium-block-grid-3 large-block-grid-{{largeGridSize}}">
+						
+						{{#each allLooks}}
+							<li>
+								<div class="look-swatch {{#if selected}}selected{{/if}} {{#if surprise}}surprise{{/if}}">
+									<div class="look-image" style="background-image: url({{thumb}})">
+										<img src="{{icon}}">
+									</div>
+								</div>
+								<div class="look-label">
+									<h3>{{name}}</h3>
+								</div>
+							</li>
+						{{/each}}
+					</ul>
+					
+				</div>
+				
+			</div>
+			{{#if valid}}
+				<div class="row">
+					<div class="small-12 columns text-2 text-center pad-bottom-5">
+						<a class="done-button">Done</a>
+					</div>
+				</div>
+			{{/if}}
+			
+		{{/columnContainer}}
+		
+		<div class="look-preview {{#if showPreview}}active{{/if}}">
+			
+			{{#with preview}}
+				
+				<div class="look-preview-images text-center">
+					{{#each images}}
+						<img src="{{url}}">
+					{{/each}}
+				</div>
+				
+				<div class="look-preview-select text-center text-2 pad-bottom-2">
+					<div class="row">
+						<div class="small-12 columns">
+							<h3 class="text-2">{{name}}</h3>
+						</div>
+					</div>
+					<div class="row">
+						<div class="small-12 columns">
+							<a class="toggle-look gap-right-1">
+								{{#if selected}}
+									Deselect
+								{{else}}
+									Select
+								{{/if}}
+							</a>
+							<a class="hide-preview">Cancel</a>
+						</div>
+					</div>
+				</div>
+				
+			{{/with}}
+			
+		</div>
+		
+		<!--
+		{{#if hoveredLook}}
+			<p class="hovered-circle show-for-large-up text-3 text-caps"><img src="{{hoveredLook.icon}}"><br>{{hoveredLook.name}}</p>
+		{{/if}}
+		-->
+	</section>
+	
+</template>

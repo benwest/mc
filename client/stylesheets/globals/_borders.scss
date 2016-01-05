@@ -2,4 +2,19 @@
 	.border-#{$side} {
 		border-#{$side}: 1px solid white;
 	}
+	@media #{$small-only}{
+		.small-border-#{$side} {
+			border-#{$side}: 1px solid white;
+		}
+	}
+	@media #{$medium-only}{
+		.medium-border-#{$side} {
+			border-#{$side}: 1px solid white;
+		}
+	}
+	@media #{$large-up}{
+		.large-border-#{$side} {
+			border-#{$side}: 1px solid white;
+		}
+	}
 }

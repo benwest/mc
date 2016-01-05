@@ -14,7 +14,7 @@ function childLikesUniverse(childId, universeId){
 
 function lastOrder(childId){
     return Orders.findOne({forChild: childId}, {
-           sort: {placedAt: -1, limit: 1} 
+        sort: {placedAt: -1, limit: 1} 
     })
 }
 
@@ -25,14 +25,50 @@ Template.child.onDestroyed(function(){
 
 Template.child.helpers({
 	
+	'nameSize': function(){
+				
+		if(this.name.length <= 5){
+			return 10;
+		} else if(this.name.length <= 10){
+			return 8;
+		} else {
+			return 6;
+		}
+				
+	},
+	
 	'readyToOrder': function(){
 				
 		var settings = globalSettings();
 		
-		return _.keys(this.universe.colors).length >= settings.minColors && _.keys(this.universe.looks).length >= settings.minLooks;
+		return this.colors.length >= settings.minColors && this.looks.length >= settings.minLooks;
 		
 	},
 	
+	'moreColoursAndLooks': function(){
+		
+		var settings = globalSettings();
+		var numColors = this.colors.length;
+		var numLooks = 0//this.looks.length;
+		var moreColors = Math.max(settings.minColors - numColors, 0);
+		var moreLooks = Math.max(settings.minLooks - numLooks, 0);
+		
+		var ret = '';
+		
+		if(moreColors) {
+			ret += '<a href="/colors/' + this._id + '">' + moreColors + ' more ' + plural(moreColors, 'colour') + '</a> ';
+		}
+		if(moreColors && moreLooks){
+			ret += 'and ';
+		}
+		if(moreLooks){
+			ret += '<a href="/looks/' + this._id + '">' + moreLooks + ' more ' + plural(moreLooks, 'look') + '</a>';
+		}
+		
+		return ret;
+		
+	},
+		
 	'lastOrder': function(){
 				
 		var orders = Orders.find({

@@ -1,14 +1,3 @@
-function validate(){
-	var valid;
-	if(Session.get('orderFormRepeat')){
-		valid = !!Session.get('orderFormRepeatInterval');
-	} else {
-		valid = true;
-	}
-	Session.set('orderFormMaxStage', valid ? 3 : 2);
-	return valid;
-}
-
 Template.orderFormOptions.helpers({
 	isOrganic: function(){
 		return Session.get('orderFormOrganic');
@@ -16,7 +5,12 @@ Template.orderFormOptions.helpers({
 	repeat: function(){
 		return Session.get('orderFormRepeat');
 	},
-	valid: validate
+	comments: function(){
+		return Session.get('orderFormComments')
+	},
+	valid: function(){
+		return orderFormValidators.options();
+	}
 })
 
 Template.orderFormOptions.events({
@@ -25,11 +19,15 @@ Template.orderFormOptions.events({
 	},
 	
 	'click .repeat .check': function(){
-		Session.set('orderFormRepeat', !Session.get('orderFormRepeat'));
-		validate();
+		if(Session.equals('orderFormRepeat', true)){
+			Session.set('orderFormRepeat', false);
+			Session.set('orderFormRepeatInterval', false);
+		} else {
+			Session.set('orderFormRepeat', true);
+		}
 	},
 	
 	'click .next': function(){
-		Session.set('orderFormStage', 3);
+		orderFormSetStage(2);
 	}
 })

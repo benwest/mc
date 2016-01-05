@@ -1,175 +1,100 @@
 <template name="about">
-	<section class="bg-about">
 
-	
-		<div id="to-top" class="text-1">
-			<strong>FOR YOUNG EXPLORERS</strong>
-		</div>
+	<section class="about no-scroll stage-{{stage}}">
 		
-
-	    <div class="row">
-	        <div class="medium-8 medium-centered columns pad-top-4 pad-bottom-4">  
-
-				<img src="/img/logo.svg" alt="">
-				<div class="row pad-top-2">
-					<div class="medium-6 medium-centered columns text-center">
-						<a href="#howitworks" class="button white text-orange expand">FIND OUT HOW IT WORKS</a>
-					</div> 
-				</div>
-				
-				
-				<div class="row">
-					
-					{{#if currentUser}}
-					
-						<div class="medium-6 medium-centered columns end text-center">
-							<a href="/profile" class="button white text-orange expand">YOUR PROFILE</a>
-						</div>
-						
-					{{ else }}
-					
-						<div class="medium-5 medium-offset-2 columns text-center">
-							<a href="/signup" class="button white text-orange expand">CREATE AN ACCOUNT</a>
-						</div> 
-						<div class="medium-3 columns text-center end">
-							<a href="/login" class="button white text-orange expand">LOG IN</a>
-						</div> 
-					
-					{{/if}}
-					
-				</div>
-				
-	        </div>
-	    </div>
-
-
-	    <div class="row" id="howitworks">
-	    	<div class="medium-6 hide-for-small-only text-right columns">
-		    	<div class="demo-universe">
-			    	{{> universePreview demoUniverse }}
-		    	</div>
-	    		<img src="/img/dotted-arc-left.svg" alt="" class="pad-top-5">
-	    	</div>
-	    	<div class="medium-5 small-12 columns end">
-	    		<h3><span class="text-5">1</span><br>SAY HELLO!</h3>
-	    		<p>Sign up online and start creating your Muddy Creatures profile. Select the styles that suit your little one (target group: 0-4 years boys and girls). Whether you’re into big, bold colours or dreamy hues, our universe has something for everyone and every mood.</p>
-	    	</div>
-	    </div>
-
-
-	    <div class="row">
-	    	<div class="medium-5 medium-offset-1 small-12 columns">
-	    		<h3><span class="text-5">2</span><br>WE BUILD YOU A BOX</h3>
-	    		<p>We’ll call for a quick chat to confirm your account has been set up. Once things are fine and dandy, we’ll set to work and build you a beautiful box filled with unique Muddy Creatures delights that are tailored to your little one.</p>
-	    	</div>
-	    	<div class="medium-4 hide-for-small-only columns end">
-				<img src="/img/dotted-arc-loop-right.svg" alt="" class="pad-top-5">
-				<div class="demo-clothes {{#if sessionGet 'aboutAnimationStart' }}animate{{/if}}">
-					<img class="body" src="/img/about/body.png">
-					<img class="jumper" src="/img/about/jumper.png">
-					<img class="tshirt" src="/img/about/tshirt.png">
-					<img class="skirt" src="/img/about/skirt.png">
-					<img class="tights" src="/img/about/tights.png">
-				</div>
-	    	</div>
-	    </div>
-
-
-	    <div class="row">
-	    	<div class="medium-3 medium-offset-3 hide-for-small-only columns">
-				<img src="/img/dotted-arc-left.svg" alt="" class="pad-top-3">
-	    	</div>
-	    	<div class="medium-5 small-12 columns end">
-	    		<h3><span class="text-5">3</span><br>TRY ON THE CLOTHES<br>AND TOUCH YOUR TOES</h3>
-	    		<p>We’ll ship your box to your home or work at a designated time and date. Once you receive it, try everything on for size, feel the Muddy Creatures love, and take up to 10 days to decide if you’d like to keep your hand-picked items.</p>
-	    	</div>
-	    </div>
-
-
-	    <div class="row">
-	    	<div class="medium-5 medium-offset-1 small-12 columns">
-	    		<h3><span class="text-5">4</span><br>SPEND MORE TIME WITH THE ONES YOU LOVE</h3>
-	    		<p>Return the items that weren’t quite right, free of charge. Pay for the ones you love and jump for joy. You’ve done everything from the comfort of your own castle and had more time to spend with the ones who matter the most. </p>
-	    	</div>
-	    	<div class="medium-3 columns hide-for-small-only end pad-top-4">
-				<img src="/img/dotted-arc-right.svg" alt="">
-	    	</div>
-	    </div>
-
-	    <div class="row">
-	    	<div class="medium-3 medium-offset-7 columns hide-for-small-only end pad-top-4 end">
-				<img src="/img/smile-icon.svg" alt="">
-	    	</div>
-	    </div>
-
-
-
-	    <div class="row pad-top-4">
-	    	<div class="medium-8 medium-centered small-12 columns text-center">
-	    		<h3>TAKE YOUR FAVOURITE BRAND FOR A SPIN (DRAG AND DROP)</h3>
-	    	</div>
-	    </div>
-		
-		<div class="row pad-top-4">
-			<div id="physics-canvas" class="medium-12 columns brands-container">
-
+		{{#unless currentUser}}
+		<div class="about-login row text-center">
+			<div class="small-4 medium-2 columns small-offset-2 medium-offset-4 border-right">
+				<a href="/login">Sign Up</a>
+			</div>
+			<div class="small-4 medium-2 columns end">
+				<a href="/login">Log In</a>
 			</div>
 		</div>
+		{{/unless}}
 		
-	    <div class="row">
-	        <div class="medium-8 medium-centered small-12 columns pad-top-4 pad-bottom-4">  
-				
-				<div class="row">
-					<div class="medium-8 medium-centered columns">
-						<img src="/img/logo.svg" alt="">
-					</div>
-				</div>
-			</div>
+		<img class="about-logo" src="/img/logo-left.svg">
+		
+		<div class="about-social">
+			<a href="https://www.facebook.com/muddycreatures" target="_blank">
+				<img src="/img/fb-white.svg">
+			</a>
+			<a href="https://www.instagram.com/muddycreatures/" target="_blank">
+				<img src="/img/insta-white.svg">
+			</a>
 		</div>
-
-
-		<div class="row pad-bottom-3">
-			<div class="medium-5 medium-centered columns text-center">
-				<div class="row">
-					<div class="medium-7 columns text-center">
-						<a href="" class="button white text-blue expand">CREATE AN ACCOUNT</a>
-					</div> 
-					<div class="medium-5 columns text-center end">
-						<a href="" class="button white text-blue expand">LOG IN</a>
-					</div> 
-				</div>
-				<div class="row">
-					<div class="small-6 columns">
-						<a href="https://www.facebook.com/muddycreatures" class="button expand white text-blue">FACEBOOK</a>
-					</div>
-					<div class="small-6 columns end">
-						<a href="https://www.instagram.com/muddycreatures/" class="button expand white text-blue">INSTAGRAM</a>
-					</div>
-				</div>
-			</div> 
-		</div>
-		<div class="row pad-bottom-2">
-			<div class="medium-5 medium-centered columns text-center end">
-				<form class="mc-form" action="">
-					<div class="row pad-top-1">
-						<div class="medium-12 columns text-center">
-							<input class="" type="email" placeholder="Sign up for updates">
-						</div> 
-					</div>
-					<div class="row pad-top-3">
-						<div class="medium-5 medium-centered columns text-center end">
-							<button type="submit" class="submit">Submit</button>
-						</div> 
-					</div>
-				</form>
-			</div> 
-		</div>
+		
+		<div class="about-main">
 			
-		<div class="row pad-0-5">
-			<div class="small-12 columns text-center">
-				<small>©2015 adventure awaits by Muddy Creatures</small>
+			<div class="about-page">
+				{{>blobs colors=colors looks=looks}}
+				<!--{{#city}}-->
+					<div class="row center">
+						<div class="medium-10 large-8 small-centered columns text-2 text-center">						
+							<img src="/img/logo.svg">
+							<h3 class='pad-bottom-1'>For Young Explorers</h3>
+							<a class="next-stage">
+								Find out how it works
+							</a>
+						</div>
+					</div>
+				<!--{{/city}}-->
+			</div>
+			
+			{{>aboutPage i=1 color="teal" text="You hear about Muddy Creatures and decide to give us a whirl."}}
+			{{>aboutPage i=2 color="orange" text="Sign up and create a profile for each kid."}}
+			{{>aboutPage i=3 color="pink" text="Then relax."}}
+			{{>aboutPage i=4 color="blue" text="We send you a box of things we think you'll love."}}
+			{{>aboutPage i=5 color="orange" text="You've got 10 days to try them on for size. Keep what you love, send back the stuff you don't."}}
+			{{>aboutPage i=6 color="teal" text="And free postage both ways. Only pay afterwards for what you keep."}}
+			
+		</div>			
+		
+	</section>
+	
+</template>
+
+<template name="aboutPage">
+
+	<div class="about-page">
+		
+		<div class="row page-image">
+			<div class="medium-10 large-8 small-centered columns text-center pad-top-5 gap-top-3">
+				<img src="/img/about-{{i}}.png">
 			</div>
 		</div>
-				
-    </section>
+		<div class="row page-text">
+			<div class="medium-8 large-6 columns small-centered pad-top-2">
+				<p class="text-1 medium-text-1-5 text-caps text-{{color}}">
+					{{text}}
+				</p>
+			</div>
+		</div>
+		{{#if last}}
+			<div class="row">
+				<div class="medium-8 large-6 columns small-centered">
+					<div class="row">
+						<div class="small-10 columns">
+							<p class="text-2">
+								{{#if currentUser}}
+									<a class="sign-up" href="/profile/">Back to my profile</a>
+								{{else}}
+									<a class="sign-up" href="/signup/">Sign me up!</a>
+								{{/if}}
+							</p>
+						</div>
+						<div class="small-2 columns text-right">
+							<a class="start-over">
+								<img src="/img/arrow-up.png">
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		{{/if}}
+		
+		{{#unless last}}<img class="next-arrow next-stage" src="/img/arrow-{{#if even}}right{{else}}left{{/if}}.png">{{/unless}}
+		
+	</div>
+		
 </template>

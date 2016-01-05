@@ -2,15 +2,18 @@ body{
 	background-color: $darkGrey;
 }
 
-#menuButton{
-	
-	position: fixed;
-	top: 1rem;
-	left: 1rem;
-	z-index: 500;
+.icon-button{
 	width: 1.5rem;
 	cursor: pointer;
-	
+	&.top-right{
+		position: fixed;
+		top: 1rem;
+		right: 1rem;
+		z-index: 550;
+	}
+	a{
+		border: none !important;
+	}
 	img {
 		width: 100%;
 	}
@@ -18,8 +21,27 @@ body{
 }
 
 @media #{$medium-up} {
-	#menuButton{
-		width: 2rem;
+	.icon-button.top-right{
+		top: 1.5rem;
+		right: 1.5rem;
+	}
+}
+
+#menuButton, #backButton{
+	
+	position: fixed;
+	top: 1rem;
+	left: 1rem;
+	z-index: 550;
+}
+
+@media #{$medium-up} {
+	
+	.icon-button{
+		width: 2rem;		
+	}
+	
+	#menuButton, #backButton{
 		top: 1.5rem;
 		left: 1.5rem;
 	}
@@ -61,7 +83,6 @@ body{
 		height: 2em;
 		background: linear-gradient(rgba(255,255,255,0) 0%, #ffffff 100%);
 	}
-
 	
 	#menu-top{
 		position: absolute;
@@ -110,11 +131,53 @@ body{
 				border-bottom: none;
 			}
 			img{
-				height: 0.9em;
+				height: 0.8em;
 				margin-left: 0.1em;
 			}
 		}
 		
+	}
+	
+	#ufo,
+	#balloon,
+	#cloud1,
+	#cloud2,
+	#cloud3{
+		position: absolute;
+		z-index: 20;
+		transform: translateX(-15rem);
+		pointer-events: none;
+		opacity: 0.7;
+	}
+	
+	#ufo{
+		top: 10%;
+		height: 6%;
+		animation: cross-menu 30s 10s linear infinite;
+	}
+	
+	#balloon{
+		top: 45%;
+		height: 9%;
+		animation: cross-menu 340s linear infinite alternate;
+	}
+	
+	#cloud1{
+		height: 9%;
+		top: 5%;
+		animation: cross-menu 140s linear infinite alternate;
+	}
+	
+	#cloud2{
+		height: 4%;
+		top: 65%;
+		animation: cross-menu 180s 14s linear infinite alternate;
+	}
+	
+	#cloud3{
+		height: 6%;
+		top: 27%;
+		animation: cross-menu 200s 7s linear infinite reverse;
 	}
 	
 }
@@ -152,69 +215,23 @@ body{
 
 #transition-container{
 	width: 100%;
-	position: relative;
-	display: table;
-	height: inherit;
+	height: 100%;
+	transition: background-color .5s;
 }
 
-.container{
-	width: 100%;
-	display: table;
-	height: inherit;
-	//min-height: 100vh;
-	position: relative;
-	//height: 100%;
-//	position: fixed;
-	//overflow-y: scroll;
-	transition: background 0.5s;
-	
-	&.open{
-
-	}
-	
+.transitioner > section{
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  vertical-align: top;
+  width: 100%;
+  overflow: scroll;
+  &.no-scroll{
+	  overflow: hidden;
+  }
 }
 
-#ufo,
-#balloon,
-#cloud1,
-#cloud2,
-#cloud3{
-	position: absolute;
-	z-index: 20;
-	transform: translateX(-15rem);
-	pointer-events: none;
-	opacity: 0.7;
-}
-
-#ufo{
-	top: 10%;
-	height: 6%;
-	animation: cross-menu 30s 10s linear infinite;
-}
-
-#balloon{
-	top: 45%;
-	height: 9%;
-	animation: cross-menu 340s linear infinite alternate;
-}
-
-#cloud1{
-	height: 9%;
-	top: 5%;
-	animation: cross-menu 140s linear infinite alternate;
-}
-
-#cloud2{
-	height: 4%;
-	top: 65%;
-	animation: cross-menu 180s 14s linear infinite alternate;
-}
-
-#cloud3{
-	height: 6%;
-	top: 27%;
-	animation: cross-menu 200s 7s linear infinite reverse;
-}
 
 @keyframes cross-menu{
 	0%{

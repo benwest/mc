@@ -1,0 +1,44 @@
+<template name="sizes">
+
+	<section>
+		
+		{{> titleBar text=title}}
+		
+		<div class="row full-height">
+			
+			<div class="add-child text-2 small-12 medium-8 columns center">
+				
+		        {{#if error}}
+			        <p class="text-1">{{error}}</p>
+		        {{/if}}
+		        
+		        {{name}} is {{> inlineInput id='sizingHeight' value=sizing.height type="number" }}cm tall
+		        
+				{{# if sessionGet 'sizingHeight' }}
+						
+					, weighs {{> inlineInput id='sizingWeight' value=sizing.weight type="number" }}kg
+					
+					{{# if sessionGet 'sizingWeight' }}
+					
+						and wears size {{> inlineInput id='sizingShoes' value=sizing.shoes type="number" }} shoes.
+						
+						{{#if valid }}
+						
+							<br><br><a class="confirm-sizing no-wrap">That's right</a><br>
+						
+						{{/if}}
+						
+						 <a class="text-1 no-wrap" href="/shoe_chart.pdf" target="_blank">Print a shoe size chart</a>
+					
+					{{/ if }}
+				
+				{{/ if }}
+
+				
+			</div>
+			
+		</div>
+		
+	</section>
+
+</template>

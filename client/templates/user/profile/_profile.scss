@@ -1,15 +1,16 @@
+.profile{
+	height: 100%;
+	position: relative;	
+}
+
+
 .profile-logo{
 	
-	height: 70%;
+	height: 40%;
 	
 	.center{
 		width: 80%;
-		
-		img{
-			transform: rotate(-90deg);
-			transform-origin: 50% 50%;
-		}
-		
+				
 	}
 	
 }
@@ -21,19 +22,16 @@
 @media #{$large-up} {
 	
 	.profile-logo{
-		height: 50%;
+		height: 25%;
 		
 		.center{
-			width: 60%;
-			img{
-				transform: none;
-			}
+			width: 40%;
 		}
 		
 	}
 	
 	.profile-content{
-		height: 50%;
+		height: 40%;
 		
 		.center{
 			width: 60%;

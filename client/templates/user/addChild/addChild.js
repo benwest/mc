@@ -1,3 +1,5 @@
+var MONTH_NAMES = []
+
 Template.addChild.onCreated(function(){
 	Session.set('newChildGender', false);
 	Session.set('newChildName', false);
@@ -16,8 +18,8 @@ Template.addChild.helpers({
 
 Template.addChild.events({
 	
-	'click .done': function(event, template){
-		
+	'click .next': function(event, template){
+				
 		var gender = Session.get('newChildGender');
 		var name = Session.get('newChildName');
 		var dob = Session.get('newChildDob').split(' ');
@@ -28,7 +30,20 @@ Template.addChild.events({
 		var month = dob[1];
 		var year = dob[2];
 		
-		var dob = moment().year(year).month(month).date(date);
+		_.find(MONTHS, function(mo, i){
+			if(mo.name === month) {
+				month = i;
+				return true;
+			}
+		})
+		
+		var dob = moment([year, month, date]);
+				
+		if(!dob.isValid()){
+			Session.set('newChildError', 'That date of birth is invalid.')
+			return;
+		}
+		
 		var maxAge = globalSettings().maxAge;
 		
 		if(moment().diff(dob, 'years') >= maxAge){
@@ -48,7 +63,7 @@ Template.addChild.events({
 			}
 			
 			Session.set('childJustAdded', result);
-			Router.go('/child/' + result);
+			Router.go('/sizes/' + result);
 			
 		});
 		

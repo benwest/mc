@@ -1,13 +1,139 @@
 <template name="child">
-	
-	<div class="child-profile bg-dark-grey">
+
+	<section class="child">
 		
-		<h1>{{{coloredName}}}</h1>
+		{{> blobs big=6 colors=colors looks=looks }}	
+
+		<div class="child-profile row text-center">
+			
+			<div class="large-8 columns small-centered">
+								
+				<div class="row text-center">
+					
+					<div class="medium-8 columns small-centered gap-bottom-2">
+						
+						<div class="row">
+							
+							<div class="small-4 columns border-right">
+								<strong>{{sizing.height}}</strong> cm
+							</div>
+							
+							<div class="small-4 columns border-right">
+								<strong>{{sizing.weight}}</strong> kg
+							</div>
+							
+							<div class="small-4 columns">
+								Size <strong>{{sizing.shoes}}</strong>
+							</div>
+							
+						</div>
+						
+					</div>
+					
+				</div>
+				
+				<div class="row">
+					<h1 style="font-size: {{nameSize}}rem">{{{coloredName}}}</h1>					
+				</div>
+							
+				<div class="row">
+					
+					<div class="medium-8 small-centered columns">
+						
+						<div class="row">
+							
+							<div class="small-4 columns border-right">
+								<a href="/sizes/{{_id}}/">Edit <strong>sizes</strong></a>
+							</div>
+							
+							<div class="small-4 columns border-right">
+								<a href="/colors/{{_id}}/">Edit <strong>colours</strong></a>
+							</div>
+							
+							<div class="small-4 columns">
+								<a href="/looks/{{_id}}/">Edit <strong>looks</strong></a>
+							</div>
+							
+							<div class="small-12 columns pad-top-1">
+								<a class="text-2" href="/order-form2/{{_id}}">Order a box!</a>
+								
+								{{# if lastOrder }}
+									
+									{{# with lastOrder }}
+									
+										Your order <a href="order/{{_id}}">#{{ number }}</a> was {{ status }} {{ ago actionTime }}.
+									
+									{{/ with }}
+								
+									{{# if moreOrders }}
+								
+										You have <a href="/orders">{{ moreOrders }} more {{ plural moreOrders 'order' }}</a> in progress as well.
+								
+									{{/ if }}
+									
+								{{/ if }}
+								
+							</div>
+							
+							<!--
+							<div class="small-12 columns">
+								
+								<p class="text-1-5">
+									
+									{{#if readyToOrder }}
+									
+										This universe is looking great. <a href="/colors/{{_id}}">Edit it</a> or <a href="/order-form2/{{_id}}">order a box</a>!
+														
+									{{ else }}
+									
+										Welcome! Before you place an order, you need to add {{{moreColoursAndLooks}}} to your universe.
+									
+									{{/if}}
+									
+								</p>
+								
+							</div>
+							-->
+						</div>
+						
+					</div>
+					
+					
+				</div>
+				<!--
+				<p>
+					
+					
+				</p>
+					
+				<p class='text-1-5'>
+					
+					
+				</p>
+				
+				{{#if justAdded }}
+				
+					<p><a href="/addChild">Add another little one</a></p>
+				
+				{{/if}}
+				<br>
+				<p class="text-light">
+					{{#unless sessionGet 'deleteChildConfirm'}}
+						<a class="remove">Delete {{name}}'s profile</a>
+					{{else}}
+						Are you sure? <a class="confirm-remove">Yes!</a> <a class="cancel-remove">No!</a>
+					{{/unless}}
+				</p>
+				-->				
+			</div>
+			
+		</div>
 		
-		{{> blobs big=6 colors=colors }}
-		
-	</div>
-	
+		<div class="icon-button down-button">
+			<a href="/profile">
+				<img src="/img/down.svg">
+			</a>
+		</div>
 
 <!--
 	<div class="child-title title-bar hide-for-large-up">
@@ -216,4 +342,6 @@
     
     <hr>
     -->
+    
+	</section>
 </template>

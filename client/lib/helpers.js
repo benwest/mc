@@ -87,6 +87,10 @@ numberAsWords = function(num){
 
 Template.registerHelper('numberAsWords', numberAsWords);
 
+Template.registerHelper('formatDate', function(date, format){
+	return moment(date).format(format);
+})
+
 Template.registerHelper('equals', function(thing1, thing2){
 	return thing1 === thing2;
 })
@@ -185,6 +189,12 @@ plural = function(x, singular, plural){
 
 Template.registerHelper('plural', plural);
 
+posessive = function(word){
+	return word.toLowerCase().slice(-1) === 's' ? word + "'" : word + "'s";
+}
+
+Template.registerHelper('posessive', posessive);
+
 Template.registerHelper('globalSetting', function(field){
     return globalSettings()[field];
 });
@@ -255,10 +265,10 @@ Template.registerHelper('coloredName', function(){
 		
 	}
 			
-	var colors = _.chain(this.universe.colors)
-		.keys()
+	var colors = _.chain(this.colors)
+		//.keys()
 		.map(function(key){return Colors.findOne(key).color})
-		.filter(function(color){ return tinycolor(color).getBrightness() < 185 })
+		//.filter(function(color){ return tinycolor(color).getBrightness() < 185 })
 		.value();
 	
 	var numColors = colors.length;

@@ -1,30 +1,76 @@
 <template name="orders">
 
-    {{> titleBar text='Your Orders' }}
-    
-    {{# columnContainer }}
-    
-    	{{#if orders.count }}
-            			
-			<div class="order-grid">
-			
-				{{#each orders}}
-					<a class="no-line no-hover" href="order/{{number}}">
-						<div class="text-center ">
-							
-							<div class="row pad-bottom-1">
-								
-								<div class="small-8 columns small-offset-2">
-									
-									<div class="full-width canvas-ratio">
-									
-										{{> universePreview universe }}
-									
-									</div>
-									
-								</div>
-								
-							</div>
+	<section class="orders">
+	
+	    {{> titleBar text='Your Orders' }}
+	    
+	    {{# columnContainer }}
+	    
+	    	{{#if orders.count }}
+	    	
+	    		{{#each orders}}
+	    		
+	    			<a href="/order/{{number}}">
+		    			
+		    			<div class="row pad-top-2">
+			    			
+			    			<div class='small-12 columns'>
+								<span class="text-2"><span class="text-xbold">#{{number}}</span> &mdash; for <strong>{{forChild}}</strong></span>
+			    			</div>
+			    			
+		    			</div>
+	    		
+		    			<div class="row pad-bottom-2 border-bottom">
+			    			
+			    			<div class="medium-4 columns">
+				    			<strong>{{capitalise status}}</strong><br>{{ago lastActionDate}}
+			    			</div>
+			    			
+			    			<div class="medium-4 columns">
+				    			{{list garments}}
+			    			</div>
+			    			
+			    			<div class="medium-4 columns">
+				    			<span>
+									{{#each colors}}
+										{{>swatch color=color bg='BLUE' }}
+									{{/each}}
+									{{#each looks}}
+										<img class="height-1em" src="{{icon}}">
+									{{/each}}
+				    			</span>
+								<br>
+						    	{{#if repeat}}
+						    		Repeat every <strong>{{repeat}}</strong>
+						    	{{else}}
+						    		One-off order<br>
+						    	{{/if}}
+			    			</div>
+			    			
+		    			</div>
+		    			<!--
+		    			<div class="row pad-bottom-2 border-bottom">
+			    			<div class="medium-8 columns">
+				    			<p><strong>{{capitalise status}}</strong> {{ago lastActionDate}}</p>
+			    			</div>
+			    			<div class="medium-4 columns medium-text-right">
+						    	{{#if repeat}}
+						    		Repeat every <strong>{{repeat}}</strong>
+						    	{{else}}
+						    		One-off order<br>
+						    	{{/if}}
+			    			</div>
+		    			</div>
+		    			-->
+	    			</a>
+	    		
+	    		{{/each}}
+	            <!--		
+				<div class="order-grid">
+				
+					{{#each orders}}
+						<a class="no-line no-hover" href="order/{{number}}">
+							<div class="text-center ">
 																	
 								<h3 class="no-gap">#{{number}}, for {{forChild}}</h3>
 								<div class="gap-bottom-0-5">
@@ -34,24 +80,26 @@
 								</div>
 								<div class="gap-bottom-0-5">
 									{{#each looks}}
-										{{> lookIcon }}
+										<img class="height-1em" src="{{icon}}">
 									{{/each}}
 								</div>
-								<p>{{capitalise status}} {{ago lastActionDate}}</p>
-							
-						</div>
-					</a>
-				{{/each}}
+								<p><strong>{{capitalise status}}</strong> {{ago lastActionDate}}</p>
+								
+							</div>
+						</a>
+					{{/each}}
+				</div>
+				-->
 			
-			</div>
-		
-		{{ else }}
-		
-			<p>No orders yet!</p>
+			{{ else }}
 			
-		{{/if}}
-			
-    {{/ columnContainer }}
+				<p>No orders yet!</p>
+				
+			{{/if}}
+				
+	    {{/ columnContainer }}
+    
+	</section>
     
 
 </template>

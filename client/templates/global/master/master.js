@@ -1,13 +1,15 @@
 var MENU_OPEN = 'menuOpen';
+var BACK = 'back';
 
 Template.master.onCreated(function(){
 	
 	Session.set(MENU_OPEN, false);
+	Session.set(BACK, false);
 	
 })
 
 Template.master.onRendered(function(){
-	
+	/*
 	this.find('#transition-container')._uihooks = {
 		insertElement: function(node, next){
 			$(node)
@@ -16,6 +18,7 @@ Template.master.onRendered(function(){
 				.fadeIn();
 		}
 	}
+	*/
 	
 });
 
@@ -29,13 +32,20 @@ Template.master.helpers({
 			
 			case 'children':
 			case 'child':
-			case 'addChild':
+			case 'colors':
+			case 'looks':
+			case 'about':
+				return 'bg-space';
+				
 			case 'signup':
 				return 'bg-teal';
 				
 			case 'orderForm':
 			case 'orders':
 			case 'order':
+			case 'profile':
+			case 'addChild':
+			case 'sizes':
 				return 'bg-blue';
 				
 			case 'editor':
@@ -45,10 +55,7 @@ Template.master.helpers({
 			case 'account':
 			case 'login':
 				return 'bg-orange';
-				
-			case 'profile':
-				return 'drip';
-				
+								
 			default:
 				return 'bg-dark-grey';
 			
@@ -63,11 +70,14 @@ Template.master.helpers({
 	'children': function(){
 		return Children.find({owner: Meteor.userId()});
 	},
-	
+	'back': function(){
+		return Session.get('back');
+	},
+	/*
 	'thisArray': function(){
 		return [this];
 	},
-	
+	*/
 	'orders': function(){
 		return Orders.find({owner: Meteor.userId()}).count() > 0;
 	}

@@ -1,3 +1,5 @@
+/*
+
 @font-face{
 	
 	font-family: 'Soleil';
@@ -18,8 +20,7 @@
 .text-light{
 	font-weight: 300;
 }
-
-
+*/
 @font-face{
 	
 	font-family: 'Soleil';
@@ -43,7 +44,7 @@
 	font-weight: normal;
 	font-style: italic;
 }
-
+/*
 @font-face{
 	
 	font-family: 'Soleil';
@@ -85,7 +86,7 @@
 .text-semibold{
 	font-weight: 600;
 }
-
+*/
 @font-face{
 	
 	font-family: 'Soleil';
@@ -93,7 +94,7 @@
 	src: url('fonts/Soleil-Bold.otf');
 	
 }
-
+/*
 @font-face{
 	
 	font-family: 'Soleil';
@@ -102,7 +103,7 @@
 	font-style: italic;
 	
 }
-
+*/
 .text-bold{
 	font-weight: bold;
 }
@@ -114,7 +115,7 @@
 	src: url('fonts/Soleil-XBold.otf');
 	
 }
-
+/*
 @font-face{
 	
 	font-family: 'Soleil';
@@ -123,7 +124,7 @@
 	font-style: italic;
 	
 }
-
+*/
 .text-xbold{
 	font-weight: 900;
 }
@@ -178,19 +179,19 @@ $underlineWidth: 0.08em;
 
 @media #{$small-up} {
 	html{
-		font-size: 15px;
+		font-size: 14px;
 	}
 }
 
 @media #{$medium-up} {
 	html{
-		font-size: 17px;
+		font-size: 16px;
 	}
 }
 
 @media #{$large-up} {
 	html{
-		font-size: 21px;
+		font-size: 18px;
 	}
 }
 

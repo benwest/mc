@@ -1,5 +1,4 @@
 DPR = window.devicePixelRatio || 1;
-CANVAS_RATIO = 210/297;
 MONTHS = [];
 
 (function(){
@@ -13,7 +12,8 @@ MONTHS = [];
 				
 		MONTHS[i] = {
 			name: mo.format('MMMM'),
-			days: mo.daysInMonth()
+			days: mo.daysInMonth(),
+			i: i
 		}
 		
 	}

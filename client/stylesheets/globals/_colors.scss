@@ -7,6 +7,7 @@ $lightGreyTransparent: rgba(226,226,226,0);
 $orange: #EDA989;
 $teal: #ACD9D5;
 $blue: #9C9CD2;
+$space: #4a4a4a;
 
 $colors: (pink $pink),
 	(green $green),
@@ -16,7 +17,8 @@ $colors: (pink $pink),
 	(teal $teal),
 	(blue $blue),
 	(white white),
-	(black black);
+	(black black),
+	(space $space);
 
 $background: white;
 $text: black;

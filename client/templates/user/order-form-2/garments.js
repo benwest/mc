@@ -19,18 +19,12 @@ Template.orderFormGarments.helpers({
 		return Session.get('orderFormGarments');
 	},
 	valid: function(){
-		if( Session.get('orderFormGarments').length ){
-			return true;
-		} else {
-			Session.set('orderFormMaxStage', 0 );
-			return false;
-		}
+		return orderFormValidators.garments();
 	}
 })
 
 Template.orderFormGarments.events({
 	'click .next': function(event, template){
-		Session.set('orderFormStage', 1);
-		Session.set('orderFormMaxStage', 1);
+		orderFormSetStage(1);
 	}
 })

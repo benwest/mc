@@ -1,19 +1,23 @@
 <template name="orderFormOptions">
 
 	<p class="organic">
-		<span class="text-2 check {{#if isOrganic}}checked{{/if}}"><span class="checkbox"></span><span class="label">I only want organic products</span></span>
+		<span class="text-2 check {{#if isOrganic}}checked{{/if}}"><span class="checkbox"></span><span class="label">Organic products only</span></span>
 		<br>
 		<p class="gap-bottom-2-5">Most of our brands are organic.</p>
 	</p>
 	
 	<p class="repeat">
-		<span class="text-2 check {{#if repeat}}checked{{/if}}"><span class="checkbox"></span><span class="label">Repeat Order</span></span><br>
+		<span class="text-2 check {{#if repeat}}checked{{/if}}"><span class="checkbox"></span><span class="label">Repeat</span></span><br>
 		{{#if repeat}}
 			<span class="text-2">
-				I want to repeat this order every {{>inlineSelect id="orderFormRepeatInterval" options="month, 3 months, 6 months, year"}}
+				I wish to receive a new box every {{>inlineSelect id="orderFormRepeatInterval" options="month, 3 months, 6 months, year"}}
 			</span>
 		{{/if}}
-		<p class="gap-bottom-2-5">Curabitur feugiat massa pharetra, viverra sem nec, porta tortor.</p>
+		<p class="gap-bottom-2-5">We will always call you before sending a box.</p>
+	</p>
+	
+	<p class="text-2 comments">
+		{{>inlineInput id="orderFormComments" value=comments placeholder="Additional comments?"}}
 	</p>
 	
 	{{#if valid}}
