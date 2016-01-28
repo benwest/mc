@@ -1,0 +1,8 @@
+body > *{
+	display: none !important;
+}
+
+#no-ie{
+	display: block !important;
+	color: black;
+}

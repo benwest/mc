@@ -1,16 +1,14 @@
 <template name="account">
 
-	<section>
+	<section class="bg-city-blue">
 	
 	    {{> titleBar text="Account" }}
 	    
-	    {{# columnContainer classes="text-2" }}
-		    
-	        <div class="pad-top-1">  
-	
-	            <h3>Change your Name</h3>
-	            
-	            <p class="text-1-5 pad-bottom-2">
+	    {{# columnContainer classes="text-1-5" }}
+    		<div class="row pad-top-2 pad-bottom-2 border-bottom">
+	            <div class="small-12 columns">
+		            
+		            <h3>Change your Name</h3>
 	            
 	                {{#if nameErrorMessages}}
 	                	<ul>
@@ -22,83 +20,95 @@
 	
 	                {{> inlineInput id="accountFirstName" value=currentUser.profile.firstName }} 
 	                {{> inlineInput id="accountLastName" value=currentUser.profile.lastName }}
+	                <br>
 	                <a class="change-name">Do it</a>
 	            
-	            </p>
+	            </div>
+    		</div>
+    		
+    		<div class="row pad-top-2 pad-bottom-2 border-bottom">
+	    		<div class="medium-6 columns">
 	                            
-		        <h3>Delivery Addresses</h3>
+			        <h3>Change your E-mail</h3>
 		        
-		        <div class="pad-bottom-2">
+			        {{#if emailError }}
+			        	<p>{{emailError}}</p>
+			        {{/if}}
+		        
+					<p>
+				        {{> inlineInput id="accountEmail" value=userEmail.address }}
+				        <br>
+				        <a class="change-email">Do it</a>
+					</p>
+				
+	    		</div>
+	    		
+	    		<div class="medium-6 columns">
+	        		        
+			        <h3>Change your Phone Number</h3>
+			        
+			        {{#if phoneError }}
+						{{phoneError}}
+			        {{/if}}
+					
+					<div class="text-1-5 pad-bottom-2">
+				        {{> inlineInput id="accountPhone" value=currentUser.profile.phone }}
+				        <br>
+				        <a class="change-phone">Do it</a>
+					</div>
+				
+	    		</div>
+
+    		</div>
+			
+			<div class="row pad-top-2 pad-bottom-2 border-bottom">
+				<div class="small-12 columns">
+	        
+			        <h3>Change your Password</h3>
+			        
+			        <p class="text-1-5">
+			        
+			            <form id="changePassword">
+				            
+			                {{#if passwordErrorMessages}}
+			                    {{#each passwordErrorMessages}}
+			                        {{this.type}}: {{this.msg}}
+		                        {{/each}}
+		                    {{/if}}
+		                    
+		                    <div class="row">
+		    	                
+		    	                <div class="medium-8 columns">
+		                    
+		    		                <input type="password" name="old" placeholder="Current Password">
+		    		                <input type="password" name="new" placeholder="New Password">
+		    		                <input type="password" name="confirm" placeholder="Confirm New Password">
+		    		                
+		    		                <button type="submit">Do it</button>
+		    		                
+		    	                </div>
+		    	                
+		                    </div>
+		                    
+		                </form>
+		                
+		            </p>
+		            
+				</div>
+			</div>
+			
+			<div class="row pad-top-2 pad-bottom-5">
+            	        
+		        <div class="small-12 columns pad-bottom-2">
+			        
+			        <h3>Delivery Addresses</h3>
 		       
 		            {{> addressSelect id="accountAddressSelect" }}
 		        
 		        </div>
-		        
-		        <h3>Change your E-mail</h3>
-		        
-		        {{#if emailError }}
-		        	<ul>
-		                <li>{{emailError}}</li>
-		        	</ul>
-		        {{/if}}
-		        
-				<p class="text-1-5">
-			        {{> inlineInput id="accountEmail" value=userEmail.address }} <a class="change-email">Do it</a>
-				</p>
-		        
-		        <p class="text-1 pad-bottom-2">
-			        {{#if userEmail.verified}}
-			        	This address is <strong>verified</strong>.
-			        {{else}}
-			        	This address is <strong>unverified</strong>.<br>
-			        	Check your inbox for a verification link. <a class="verify-email">Send it again?</a>
-			        {{/if}}
-		        </p>
-		        
-		        <h3>Change your Phone Number</h3>
-		        
-		        {{#if phoneError }}
-		        	<ul>
-		                <li>{{phoneError}}</li>
-		        	</ul>
-		        {{/if}}
-				
-				<div class="text-1-5 pad-bottom-2">
-			        {{> inlineInput id="accountPhone" value=currentUser.profile.phone }} <a class="change-phone">Do it</a>
-				</div>
-		        
-		        <h3>Change your Password</h3>
-		        
-		        <p class="text-1-5 pad-bottom-2">
-		        
-		            <form id="changePassword" class="pad-bottom-2">
-			            
-		                {{#if passwordErrorMessages}}
-		                    {{#each passwordErrorMessages}}
-		                        {{this.type}}: {{this.msg}}
-	                        {{/each}}
-	                    {{/if}}
-	                    
-	                    <div class="row">
-	    	                
-	    	                <div class="medium-8 large-6 columns">
-	                    
-	    		                <input type="password" name="old" placeholder="Current Password">
-	    		                <input type="password" name="new" placeholder="New Password">
-	    		                <input type="password" name="confirm" placeholder="Confirm New Password">
-	    		                
-	    		                <button type="submit">Do it</button>
-	    		                
-	    	                </div>
-	    	                
-	                    </div>
-	                    
-	                </form>
-	                
-	            </p>
-	            
-	        </div>
-	    
+	        
+			</div>
+	            	    
 	    {{/ columnContainer }}
 	    
 	</section>

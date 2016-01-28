@@ -8,7 +8,7 @@ Template.profile.helpers({
 	'greeting': function(){
 		
 		var hr = moment().hour();
-		
+				
 		if(hr < 12){
 			return 'Good morning';
 		} else if(hr < 19){
@@ -33,12 +33,7 @@ Template.profile.helpers({
 	    return Children.findOne({owner: Meteor.userId()});
     },
 	'lastOrder': function(){
-		var orders = Orders.find({
-			owner: Meteor.userId(),
-			status: {
-				$ne: 'cancelled'
-			}
-		}).fetch();
+		var orders = Orders.find({owner: Meteor.userId()}).fetch();
 		
 		return _.chain(orders)
 			.sortBy(function(order){
@@ -47,6 +42,9 @@ Template.profile.helpers({
 			.last()
 			.value();
 		
+	},
+	'orders': function(){
+		return Orders.find({owner: Meteor.userId()}).count() > 0;
 	},
 	'moreOrders': function(){
 		return Orders.find({

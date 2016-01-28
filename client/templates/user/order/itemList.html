@@ -1,0 +1,53 @@
+<template name="orderItemList">
+
+	<div class="order-item-list">
+
+		{{#if sqlOrderLines}}
+		
+			{{#each sqlOrderLines}}
+			
+	    		<div class="order-item row pad-top-0-5 pad-bottom-0-5">
+		    		
+		    		<div class="small-10 columns">
+			    		{{name}} {{#if gt quantity 1}}({{quantity}}){{/if}}
+		    		</div>
+		    		
+		    		<div class="small-2 columns text-right">
+						£{{price}}
+		    		</div>
+		    		
+	    		</div>
+	    					
+			{{/each}}
+			
+			{{#if more}}
+			
+				<div class="row pad-top-0-5 pad-bottom-0-5">
+					
+					<div class="small-12 columns text-center">
+				
+						{{#if expanded}}
+						
+							<a class="expand">Close</a>
+							
+						{{else}}
+						
+							<a class="expand">And {{more}} more...</a>
+							
+						{{/if}}
+				
+					</div>
+				
+				</div>
+			
+			{{/if}}
+		
+		{{else}}
+		
+			Loading...
+		
+		{{/if}}
+	
+	</div>
+		
+</template>

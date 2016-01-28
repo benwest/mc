@@ -11,6 +11,9 @@ Template.addChild.onCreated(function(){
 })
 
 Template.addChild.helpers({
+	gender: function(){
+		return Session.get('newChildGender');
+	},
 	error: function(){
 		return Session.get('newChildError');
 	}
@@ -39,7 +42,7 @@ Template.addChild.events({
 		
 		var dob = moment([year, month, date]);
 				
-		if(!dob.isValid()){
+		if(!dob.isValid() || dob.toDate() > Date.now()){
 			Session.set('newChildError', 'That date of birth is invalid.')
 			return;
 		}
@@ -51,11 +54,15 @@ Template.addChild.events({
 			return;
 		}
 		
+		Session.set('wait', true);
+		
 		Meteor.call('addChild', {
 			name: name,
 			gender: gender,
 			dob: dob.toDate()
 		}, function(error, result){
+			
+			Session.set('wait', false);
 			
 			if(error){
 				alert(error.reason);

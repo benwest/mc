@@ -1,5 +1,4 @@
 Template.inlineMultiSelect.onCreated(function(){
-	console.log(this.data.value);
 	Session.set(this.data.id, this.data.value || []);
 	Session.set(this.data.id + 'Modifying', true);
 	Session.set(this.data.id + 'Valid', false);

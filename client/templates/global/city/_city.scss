@@ -1,5 +1,24 @@
-.bg-city{
+.bg-city {
 	background-image: url(/img/city/city.svg);
+}
+
+.bg-city-blue {
+	background-image: url(/img/city/city-blue.svg);
+}
+
+.bg-city-orange {
+	background-image: url(/img/city/city-orange.svg);
+}
+
+.bg-city-color {
+	background-image: url(/img/city/city-color.svg);
+}
+
+.bg-city,
+.bg-city-orange,
+.bg-city-blue,
+.bg-city-color {
+	
 	background-repeat: no-repeat;
 	background-position: left bottom;
 	background-size: 200% auto;
@@ -66,7 +85,10 @@
 }
 
 @media #{$medium-up} {
-	.bg-city{
+	.bg-city,
+	.bg-city-orange,
+	.bg-city-blue,
+	.bg-city-color {
 		background-size: 200% auto;
 		.float{
 			opacity: 1;
@@ -75,7 +97,10 @@
 }
 
 @media #{$large-up} {
-	.bg-city{
+	.bg-city,
+	.bg-city-orange,
+	.bg-city-color,
+	.bg-city-blue {
 		background-size: 100% auto;
 	}
 }

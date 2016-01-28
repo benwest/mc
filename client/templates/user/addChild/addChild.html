@@ -1,6 +1,6 @@
 <template name="addChild">
 
-	<section>
+	<section class="addChild">
 
 	{{> titleBar text="Add a Little One"}}
 
@@ -12,9 +12,9 @@
 			        <p class="text-1">{{error}}</p>
 		        {{/if}}
 		        
-				I have a {{> inlineSelect id='newChildGender' options='boy, girl' }}
+				I have a {{#if gender}}<img src="/img/little-{{gender}}.png"> {{/if}}{{> inlineSelect id='newChildGender' options='boy, girl' }}
 				
-				{{# if sessionGet 'newChildGender'}}
+				{{# if gender }}
 				
 					called {{> inlineInput id='newChildName' autofocus=true }}.<br>
 					

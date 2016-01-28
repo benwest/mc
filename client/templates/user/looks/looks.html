@@ -1,6 +1,6 @@
 <template name="looks">
 
-	<section class="{{#if showPreview}}no-scroll{{/if}}">
+	<section class="looks {{#if showPreview}}no-scroll{{/if}}">
 		<!--
 		<div class="icon-button top-right done-button">
 			<img src="/img/tick.svg">
@@ -11,12 +11,12 @@
 		{{>titleBar text="Looks"}}
 		
 			
-		{{#columnContainer}}
+		{{#columnContainer size=12}}
 			
 			<div class="row">
 				
-				<div class="small-12 columns text-center">
-					<p>Pick {{posessive name}} favourite looks.</p>
+				<div class="columns text-center pad-bottom-1">
+					<p>Click <img src="/img/magnify.svg" class="height-1em"> to explore a look. Once you have chosen your favourite looks, we will put together a box inspired by your choices.</p>
 				</div>
 				
 			</div>
@@ -30,9 +30,13 @@
 						{{#each allLooks}}
 							<li>
 								<div class="look-swatch {{#if selected}}selected{{/if}} {{#if surprise}}surprise{{/if}}">
-									<div class="look-image" style="background-image: url({{thumb}})">
-										<img src="{{icon}}">
+									<div class="look-image toggle-look" style="background-image: url({{thumb}})">
+										{{#if isSurprise }}<img src="{{icon}}">{{/if}}
 									</div>
+									{{#unless isSurprise }}
+										<img class="magnify" src="/img/magnify.svg">
+										<img class="icon" src="{{icon}}">
+									{{/unless}}
 								</div>
 								<div class="look-label">
 									<h3>{{name}}</h3>
@@ -64,10 +68,10 @@
 					{{/each}}
 				</div>
 				
-				<div class="look-preview-select text-center text-2 pad-bottom-2">
+				<div class="look-preview-select text-center text-1-5 pad-bottom-2">
 					<div class="row">
 						<div class="small-12 columns">
-							<h3 class="text-2">{{name}}</h3>
+							<h3 class="text-1-5 no-gap">{{name}}</h3>
 						</div>
 					</div>
 					<div class="row">
@@ -79,7 +83,7 @@
 									Select
 								{{/if}}
 							</a>
-							<a class="hide-preview">Cancel</a>
+							<a class="hide-preview">Close</a>
 						</div>
 					</div>
 				</div>

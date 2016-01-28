@@ -22,74 +22,46 @@
 	//@include color-stagger(2);
 	
 	.look-swatch{
+		position: relative;
 		width: 100%;
 		padding-bottom: 100%;
+		cursor: pointer;
+		.look-image{
+			transition: transform .2s;
+			transform: scale(0.9);
+		}
 		&.selected{
 			&:before{
 				border-right: 3px solid white;
 				border-bottom: 3px solid white;
 			}
-			.look-image img{
-				display: none;
+			.look-image{
+				transform: scale(1);
+				img{
+					display: none;
+				}
 			}
 		}
 		&.surprise .look-image{
 			animation: surprise 10s infinite;
 		}
+		.look-image:hover{
+			transform: scale(1);
+		}
+		.icon{
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 10%;
+		}
+		.magnify{
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			width: 10%;
+		}
 	}
-	/*
-	.look-swatch:after{
-		content: '';
-		position: absolute;
-		border-radius: 50% 50%;
-		top: 0;
-		left: 0;
-		padding-bottom: 100%;
-		width: 100%;
-		transition: opacity 0.2s;
-		z-index: 100;
-		opacity: 1;
-		mix-blend-mode: soft-light;
-	}
-		
-	.look-swatch.selected:after,
-	.look-swatch:hover:after{
-		opacity: 0 !important;
-	}
-	
-	&:nth-child(1) .look-swatch:after{
-		background: #62b1e6;
-	}
-	
-	&:nth-child(2) .look-swatch:after{
-		background: #f7c1cf
-	}
-	
-	&:nth-child(3) .look-swatch:after{
-		background: #b6dbc7
-	}
-	
-	&:nth-child(4) .look-swatch:after{
-		background: #f29589;
-	}
-	
-	&:nth-child(5) .look-swatch:after{
-		background: #f8b784;
-	}
-	
-	&:nth-child(6) .look-swatch:after{
-		background: #b1bb99;
-	}
-	
-	&:nth-child(7) .look-swatch:after{
-		background: #bfc9cc;
-	}
-	
-	&:nth-child(8) .look-swatch:after{
-		background: #ffed00;
-		opacity: 0.6;
-	}
-	*/
+
 	.look-image{
 		border-radius: 50% 50%;
 		position: absolute;
@@ -109,6 +81,10 @@
 	}
 	
 	.look-label{
+		h3{
+			font-size: 0.7rem;
+			padding-top: 0.5rem;
+		}
 		width: 100%;
 		text-align: center;
 	}
@@ -138,7 +114,7 @@
 	transform: scale(0.75);
 	opacity: 0;
 	background: black;
-	position: absolute;
+	position: fixed;
 	z-index: 600;
 	width: 100%;
 	height: 100%;
@@ -160,10 +136,10 @@
 		overflow-y: scroll;
 		overflow-x: hidden;
 		img{
-			height: 80vh;
-			margin-bottom: 3rem;
+			max-height: 90vh;
+			margin-bottom: 1rem;
 			&:first-child{
-				margin-top: 3rem;
+				margin-top: 2rem;
 			}
 		}
 	}
@@ -176,10 +152,20 @@
 }
 
 @media #{$large-up}{
-	.look-select.large-block-grid-4 li {
-		@include circle-stagger(4);
+	.looks .large-block-grid-5{
+		li:nth-child(6),
+		li:nth-child(7),
+		li:nth-child(8),
+		li:nth-child(9) {
+			transform: translateX(50%);
+		}
 	}
-	.look-select.large-block-grid-5 li {
-		@include circle-stagger(5);
+	
+	.looks .large-block-grid-4{
+		li:nth-child(5),
+		li:nth-child(6),
+		li:nth-child(7) {
+			transform: translateX(50%);
+		}
 	}
 }

@@ -1,31 +1,61 @@
 <template name="signup">
-	
-    <div class="wave" style="background-image: url('/img/bg/wave_1.png');">
+
+	<section class="bg-city-blue text-1-5">
         
 		{{> titleBar text="Sign Up"}}        
         
 		{{# columnContainer size=6 }}
 	            
-            <form class="regular text-1-5 text-center pad-top-5">
-                
+            <form class="pad-top-5">
+	            
                 {{#if errorMessages}}
-                    {{#each errorMessages}}
-                        {{this}}
-                    {{/each}}
+                	<div class="row">
+	                	<div class="small-12 columns">
+		                    {{#each errorMessages}}
+		                        {{this}}
+		                    {{/each}}
+	                	</div>
+                	</div>
                 {{/if}}
-                 
-                <input class="text-center gap-bottom-1" type="text" required name="firstName" placeholder="First Name" />
-                <input class="text-center gap-bottom-1" type="text" required name="lastName" placeholder="Last Name" />
-                <input class="text-center gap-bottom-1" type="text" required name="phone" placeholder="Phone Number" />
-                <input class="text-center gap-bottom-1" type="email" required name="email" placeholder="Email" />
-                <input class="text-center gap-bottom-1" type="password" required name="password" placeholder="Password" />
-                <input class="text-center gap-bottom-1" type="password" required name="confirm" placeholder="Confirm Password" />
-                <button type="submit" class="pad-top-3">Sign Up</button>
+                
+                <div class="row pad-bottom-2">
+	                <div class="small-6 columns">
+		                <input type="text" required name="firstName" placeholder="First Name" />
+	                </div>
+	                <div class="small-6 columns">
+						<input type="text" required name="lastName" placeholder="Last Name" />
+	                </div>
+                </div>
+                
+                <div class="row pad-bottom-2">
+	                <div class="small-12 columns">
+		                <input type="text" required name="phone" placeholder="Phone Number" />
+	                </div>
+                </div>
+                
+                <div class="row pad-bottom-2">
+	                <div class="small-12 columns">                 
+						<input type="email" required name="email" placeholder="Email" />
+	                </div>
+                </div>
+                
+                <div class="row pad-bottom-2">
+	                <div class="small-6 columns">
+						<input type="password" required name="password" placeholder="Password" />
+	                </div>
+	                <div class="small-6 columns">
+						<input class="gap-bottom-2" type="password" required name="confirm" placeholder="Confirm Password" />		                
+	                </div>
+                </div>
+
+                <div class="pad-top-3">
+	                <button type="submit">Sign Up</button>	                
+                </div>
 				
             </form>
 	            
 		{{/ columnContainer }}
 
-
-    </div>
+	</section>
+	
 </template>

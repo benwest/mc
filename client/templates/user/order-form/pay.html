@@ -1,0 +1,43 @@
+<template name="orderFormPay">
+	
+	<form id="checkout" method="post" action="/checkout">
+		
+		<div class="row">
+			
+			<div class="medium-6 columns">
+				
+				<p class=text-2>Almost there</p>
+				
+				<p>
+					In order for us to send you a box of joy, we need to verify your card details.
+				</p>
+				<p>
+					To do this, a £1 deposit payment will be debited from your card, however, the £1 deposit is fully refundable and you will only be charged for items you decide to keep.
+				</p>
+				<p>
+					{{#unless ready}}Please wait a moment...{{else}}Please fill in the boxes on the right in order to proceed with your order.{{/unless}}
+				</p>
+			</div>
+		
+			<div class="medium-6 columns braintree-container {{ready}}">
+				
+				<div id="payment-form" class="braintree pad-0-5"></div>
+				
+			</div>
+		
+		</div>
+		
+		<div class="row pad-bottom-5">
+			
+			<div class="small-12 columns">
+				<input class="place-order {{ready}}" type="submit" value="Place order">
+				{{#if error}}
+					<br><strong>{{error}}</strong>
+				{{/if}}
+			</div>
+			
+		</div>
+						
+	</form>
+	
+</template>

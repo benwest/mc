@@ -18,11 +18,6 @@ function lastOrder(childId){
     })
 }
 
-Template.child.onDestroyed(function(){
-	sessionDelete('childJustAdded');
-	
-})
-
 Template.child.helpers({
 	
 	'nameSize': function(){
@@ -35,6 +30,29 @@ Template.child.helpers({
 			return 6;
 		}
 				
+	},
+	
+	'coloredName': function(){
+		
+		function coloredSpan(color, content){
+			return '<span style="color:' + color + ';">' + content + '</span>';		
+		}
+				
+		var colors = _.map(this.colors, function(id){
+			return Colors.findOne(id).color
+		});
+		
+		if( colors.length === 0 ) return this.name;
+		if( colors.length === 1 ) return coloredSpan( colors[0], this.name );
+		
+		var ret = '';
+		
+		for( var i = 0; i < this.name.length; ++i ){
+			ret += coloredSpan( colors[ i % colors.length ], this.name.charAt(i) );
+		}
+		
+		return ret;
+		
 	},
 	
 	'readyToOrder': function(){

@@ -2,18 +2,22 @@
 
 	<section class="about no-scroll stage-{{stage}}">
 		
-		{{#unless currentUser}}
-		<div class="about-login row text-center">
-			<div class="small-4 medium-2 columns small-offset-2 medium-offset-4 border-right">
-				<a href="/login">Sign Up</a>
+			<div class="about-login row text-center">
+				{{#if currentUser}}
+					<div class='small-12 columns text-center'>
+						<a href="/profile">Back to my profile</a>
+					</div>
+				{{else}}
+					<div class="small-4 medium-2 columns small-offset-2 medium-offset-4 border-right">
+						<a href="/login">Sign Up</a>
+					</div>
+					<div class="small-4 medium-2 columns end">
+						<a href="/login">Log In</a>
+					</div>
+				{{/if}}
 			</div>
-			<div class="small-4 medium-2 columns end">
-				<a href="/login">Log In</a>
-			</div>
-		</div>
-		{{/unless}}
 		
-		<img class="about-logo" src="/img/logo-left.svg">
+		<img class="about-logo start-over" src="/img/logo-left.svg">
 		
 		<div class="about-social">
 			<a href="https://www.facebook.com/muddycreatures" target="_blank">
@@ -26,23 +30,34 @@
 		
 		<div class="about-main">
 			
-			<div class="about-page">
+			<div class="about-page front-page">
+				
 				{{>blobs colors=colors looks=looks}}
-				<!--{{#city}}-->
-					<div class="row center">
+				
+				<p class="copyright">©2016 Muddy Creatures - All Rights Reserved. <a href="/privacy-policy/">Privacy</a> and <a href="/terms">Terms</a></p>
+				
+				<div class="center">
+					
+					<div class="row">
 						<div class="medium-10 large-8 small-centered columns text-2 text-center">						
-							<img src="/img/logo.svg">
-							<h3 class='pad-bottom-1'>For Young Explorers</h3>
-							<a class="next-stage">
-								Find out how it works
-							</a>
+							<img class="full-width" src="/img/logo.svg">
 						</div>
 					</div>
-				<!--{{/city}}-->
+					<div class="row">
+						<div class="medium-8 large-6 small-centered columns text-2 text-center">
+							<img class='full-width pad-bottom-1 medium-pad-bottom-2' src="/img/for-young-explorers.png">
+							<a class="next-stage">
+								Find out how it works
+							</a>							
+						</div>
+					</div>
+					
+				</div>
+				
 			</div>
 			
 			{{>aboutPage i=1 color="teal" text="You hear about Muddy Creatures and decide to give us a whirl."}}
-			{{>aboutPage i=2 color="orange" text="Sign up and create a profile for each kid."}}
+			{{>aboutPage i=2 color="orange" text="Sign up and create a profile for each kid. <br><span class='text-1'>(newborn to 4 years)</span>"}}
 			{{>aboutPage i=3 color="pink" text="Then relax."}}
 			{{>aboutPage i=4 color="blue" text="We send you a box of things we think you'll love."}}
 			{{>aboutPage i=5 color="orange" text="You've got 10 days to try them on for size. Keep what you love, send back the stuff you don't."}}
@@ -66,7 +81,7 @@
 		<div class="row page-text">
 			<div class="medium-8 large-6 columns small-centered pad-top-2">
 				<p class="text-1 medium-text-1-5 text-caps text-{{color}}">
-					{{text}}
+					{{{text}}}
 				</p>
 			</div>
 		</div>

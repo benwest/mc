@@ -28,3 +28,7 @@ cwaring:modernizr
 emgee:mssql
 patrickml:braintree
 ccorcos:transitioner
+email
+meteorhacks:inject-initial
+reactive-var
+gwendall:ui-hooks

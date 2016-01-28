@@ -1,4 +1,6 @@
 <template name="master">
+
+	<div id="wait" class="{{#if wait}}active{{/if}}"></div>
 	
 	{{#if back}}
 		<div class='icon-button' id="backButton">
@@ -32,7 +34,7 @@
 					</li>
 											
 					<li>
-						<a href="/orders">Order history</a>
+						<a href="/orders">Orders & Returns</a>
 					</li>
 									
 					<li>
@@ -137,7 +139,7 @@
 				</li>
 				
 				<li>
-					<a href="/faq">FAQ</a>
+					<a href="/contact">Contact / Who we Are</a>
 				</li>
 				
 				<li>
@@ -149,7 +151,7 @@
 				</li>
 				
 				<li>
-					<a href="/contact">Contact</a>
+					<a href="/faq">FAQ</a>
 				</li>
 				
 				<li class="social">

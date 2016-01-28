@@ -1,26 +1,32 @@
-@keyframes bob{
+@mixin bob-keyframes($name, $distance){
 	
-	$steps: 8;
-	$distance: 0.1rem;
-	
-	@for $step from 0 through $steps {
+	@keyframes #{$name}{
 		
-		$progress: $step/$steps;
+		$steps: 8;
 		
-		$progressRad: (($progress * 2 - 1) * $PI) + $PI/2;
-		$progressCos: cos($progressRad);
-		$progressSin: sin($progressRad);
-		$transformX: $progressCos * $distance;
-		$transformY: $progressSin * $distance;
-				
-		#{$progress*100}% {
-			transform: translate3d(#{$transformX}, #{$transformY + $distance}, 0);
+		@for $step from 0 through $steps {
+			
+			$progress: $step/$steps;
+			
+			$progressRad: (($progress * 2 - 1) * $PI) + $PI/2;
+			$progressCos: cos($progressRad);
+			$progressSin: sin($progressRad);
+			$transformX: $progressCos * $distance;
+			$transformY: $progressSin * $distance;
+					
+			#{$progress*100}% {
+				transform: translate3d(#{$transformX}, #{$transformY + $distance}, 0);
+			}
+			
 		}
 		
 	}
 	
+	.#{$name}{
+		animation: #{$name} 2s linear infinite;
+	}
+	
 }
 
-.bob{
-	animation: bob 2s linear infinite;
-}
+@include bob-keyframes(bob, 0.1rem);
+@include bob-keyframes(big-bob, 0.25rem);

@@ -1,130 +1,47 @@
-/*
+@import url("//hello.myfonts.net/count/2f5228");
+@import url("//hello.myfonts.net/count/300bd6");
 
-@font-face{
-	
-	font-family: 'Soleil';
-	src: url('fonts/Soleil-Light.otf');
-	font-weight: 300;
-	
+@font-face {
+	font-family: Soleil;
+	src: url('fonts/300BD6_1_0.eot');
+	src: url('fonts/300BD6_1_0.eot?#iefix') format('embedded-opentype'),url('fonts/300BD6_1_0.woff2') format('woff2'),url('fonts/300BD6_1_0.woff') format('woff'),url('fonts/300BD6_1_0.ttf') format('truetype');
 }
 
-@font-face{
-	
-	font-family: 'Soleil';
-	src: url('fonts/Soleil-Light Italic.otf');
-	font-weight: 300;
+@font-face {
+	font-family: Soleil;
 	font-style: italic;
-	
+	src: url('fonts/300BD6_0_0.eot');
+	src: url('fonts/300BD6_0_0.eot?#iefix') format('embedded-opentype'),url('fonts/300BD6_0_0.woff2') format('woff2'),url('fonts/300BD6_0_0.woff') format('woff'),url('fonts/300BD6_0_0.ttf') format('truetype');
 }
 
-.text-light{
-	font-weight: 300;
-}
-*/
-@font-face{
-	
-	font-family: 'Soleil';
-	src: url('fonts/Soleil-Regular.otf');
+@font-face {
+	font-family: Soleil;
+	font-weight: bold;
+	src: url('fonts/2F5228_0_0.eot');
+	src: url('fonts/2F5228_0_0.eot?#iefix') format('embedded-opentype'),url('fonts/2F5228_0_0.woff2') format('woff2'),url('fonts/2F5228_0_0.woff') format('woff'),url('fonts/2F5228_0_0.ttf') format('truetype');
 	
 }
+  
+@font-face {
+	font-family: Soleil;
+	font-weight: 900;
+	src: url('fonts/2F5228_1_0.eot');
+	src: url('fonts/2F5228_1_0.eot?#iefix') format('embedded-opentype'),url('fonts/2F5228_1_0.woff2') format('woff2'),url('fonts/2F5228_1_0.woff') format('woff'),url('fonts/2F5228_1_0.ttf') format('truetype');
+} 
 
 .text-regular{
 	font-weight: normal;
-}
-
-@font-face{
-	
-	font-family: 'Soleil';
-	src: url('fonts/Soleil-Regular Italic.otf');
-	font-style: italic;
-	
 }
 
 .text-italic{
 	font-weight: normal;
 	font-style: italic;
 }
-/*
-@font-face{
-	
-	font-family: 'Soleil';
-	src: url('fonts/Soleil-Book.otf');
-	font-weight: 500;
-	
-}
 
-@font-face{
-	
-	font-family: 'Soleil';
-	src: url('fonts/Soleil-Book Italic.otf');
-	font-weight: 500;
-	font-style: italic;
-	
-}
-
-.text-book{
-	font-weight: 500;
-}
-
-@font-face{
-	
-	font-family: 'Soleil';
-	src: url('fonts/Soleil-SemiBold.otf');
-	font-weight: 600;
-	
-}
-
-@font-face{
-	
-	font-family: 'Soleil';
-	src: url('fonts/Soleil-SemiBold Italic.otf');
-	font-weight: 600;
-	font-style: italic;
-	
-}
-
-.text-semibold{
-	font-weight: 600;
-}
-*/
-@font-face{
-	
-	font-family: 'Soleil';
-	font-weight: bold;
-	src: url('fonts/Soleil-Bold.otf');
-	
-}
-/*
-@font-face{
-	
-	font-family: 'Soleil';
-	font-weight: bold;
-	src: url('fonts/Soleil-Bold Italic.otf');
-	font-style: italic;
-	
-}
-*/
 .text-bold{
 	font-weight: bold;
 }
 
-@font-face{
-	
-	font-family: 'Soleil';
-	font-weight: 900;
-	src: url('fonts/Soleil-XBold.otf');
-	
-}
-/*
-@font-face{
-	
-	font-family: 'Soleil';
-	font-weight: 900;
-	src: url('fonts/Soleil-XBold Italic.otf');
-	font-style: italic;
-	
-}
-*/
 .text-xbold{
 	font-weight: 900;
 }
@@ -161,6 +78,7 @@
 
 @mixin underline{
 	
+	text-decoration: none;
 	padding-bottom: 0.1em;
 	border-bottom-width: $underlineWidth;
 	border-bottom-style: solid;
@@ -221,11 +139,9 @@ a.no-line{
 
 $text-class-names: (text font-size), (text font-size);
 $text-class-count: 6;
-$text-class-step: 0.5;
+$text-class-step: 0.2;
 
 @include class-creator( $text-class-names, $text-class-count, $text-class-step, rem);
-
-
 
 h2 {
 	font-size:1.5rem;
@@ -241,15 +157,12 @@ h3{
 	white-space: nowrap;
 }
 
-.child-name{
-	padding: 0.7rem 1.5rem 0.4rem 1.5rem;
-	background: white;
-	color: $teal;
-	display: inline-block;
+.no-overflow{
+	overflow: hidden;
 }
 
-hr{
-	border-color: white;
-	border-width: 1px;
-	margin: 0;
+.ellipsis{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }

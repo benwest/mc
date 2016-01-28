@@ -1,4 +1,7 @@
 {
+	"i2i": true,
+	"email": false,
+	"production": false,
 	"database": {
 		"server" : "i2i-sql02.cloudapp.net",
 		"port" : "60101",
@@ -6,9 +9,14 @@
 		"user" : "MuddyCreaturesUser",
 		"password" : "yEr43uUyi"
 	},
-	"braintree": {
+	"braintreeSandbox": {
 		"merchantID": "kyf3bqdzv3pkvbgw",
 		"publicKey": "n83jr9qpym6jwym3",
 		"privateKey": "94c2386b5bfa094c811360910dce9ac7"
+	},
+	"braintree": {
+		"merchantID": "m9kkcjmydr6ndmq7",
+		"publicKey": "vkq79rtk4cn5yc4k",
+		"privateKey": "3af36209daa75db5ef22997b4e495ad1"
 	}
 }

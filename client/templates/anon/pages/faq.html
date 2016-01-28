@@ -1,20 +1,91 @@
 <template name="faq">
-	<div class="wave page" style="background-image: url('/img/bg/wave_2.png');">
+	<section class="bg-city-blue page">
 
-		<div class="row pad-top-1-5 pad-bottom-3">
-			<div class="small-12 medium-7 medium-centered columns text-center">
-				<h2>Privacy Policy</h2>
-			</div> 
-		</div>
-	    <div class="row pad-bottom-5">
-	        <div class="small-12 medium-7 medium-centered columns end pad-bottom-2">
+		{{>titleBar text="Frequently Asked Questions"}}
 
-		        	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut, nihil accusamus molestias quod repellat iure amet, cum animi, cumque, dolorem. Nihil ullam adipisci vitae aperiam quo molestiae modi omnis ipsum fugiat maxime dolorum qui consectetur quae quasi quaerat voluptates esse, tempora laudantium provident veritatis. Facilis harum, aliquid quo sapiente.</p>
+		{{# columnContainer}}
 
-		        	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut, nihil accusamus molestias quod repellat iure amet, cum animi, cumque, dolorem. Nihil ullam adipisci vitae aperiam quo molestiae modi omnis ipsum fugiat maxime dolorum qui consectetur quae quasi quaerat voluptates esse, tempora laudantium provident veritatis. Facilis harum, aliquid quo sapiente.</p>
+	        <div id="accordion">
+	        	<h6 class="accordion-toggle pad-top-3 text-1-5"><strong>When will I receive my box?</strong></h6>	        
+	        	<div class="accordion-content text-1 pad-left-4 pad-top-2 pad-bottom-1">
+	        		<p>We call it speedy-gonzales!! All boxes will be shipped in 1-2 business days after your request has been received.</p>
+	        	</div>
 
-	        </div>
-	    </div>
+	        	<h6 class="accordion-toggle text-1-5"><strong>Will I have to stay in all day to receive the box?</strong></h6>	       	
+	        	<div class="accordion-content text-1 pad-left-4 pad-top-2 pad-bottom-1">
+	        		<p>We work together with DPD/Interlink Express as we believe they offer the most seamless service. You will receive a 1 hour delivery slot and be able to track your driver 15 minutes before delivery.</p>
+	        	</div>
 
-	</div>
+	        	<h6 class="accordion-toggle text-1-5"><strong>Can I have the box delivered to my work place?</strong></h6>	       	
+	        	<div class="accordion-content text-1 pad-left-4 pad-top-2 pad-bottom-1">
+	        		<p>Absolutely, just log into your account and add the address – in fact you can save several delivery addresses on your account should your preferred delivery address change from time to time.</p>
+	        	</div>
+
+	        	<h6 class="accordion-toggle text-1-5"><strong>Is the return process complicated?</strong></h6>
+	        	<div class="accordion-content text-1 pad-left-4 pad-top-2 pad-bottom-1">
+	        		<p>We think it couldn’t be easier, all you have to do is log into your account select the items you wish to return, peel off a return sticker and place on the outside of the box, seal the box with the provided stickers and drop off at any collect + store. Find your nearest drop off point <a href="https://www.collectplus.co.uk/store_locator/" target="_blank">here</a>.</p>
+	        		<p>Alternatively send us an email at <a href="mailto:returns@muddycreatures.com">returns@muddycreatures.com</a> and we will schedule a collection with DPD.</p>
+	        	</div>
+
+	        	<h6 class="accordion-toggle text-1-5"><strong>How much does it cost to sign up with Muddy Creatures?</strong></h6>
+	        	<div class="accordion-content text-1 pad-left-4 pad-top-2 pad-bottom-1">
+	        		<p>We do not charge any signup or membership fees. Our advice as well as delivery is complementary and you only pay for the items you decide to keep.</p>
+	        	</div>
+
+	        	<h6 class="accordion-toggle text-1-5"><strong>Can I add more than one child to my profile?</strong></h6>
+	        	<div class="accordion-content text-1 pad-left-4 pad-top-2 pad-bottom-1">
+	        		<p>Of course you can - you can add as many as you wish! Once you have created the adult profile you can add as many children with all their individual personalities and preferences you like.</p>
+	        	</div>
+
+	        	<h6 class="accordion-toggle text-1-5"><strong>Is it possible to decide or see what will be in my next box?</strong></h6>
+	        	<div class="accordion-content text-1 pad-left-4 pad-top-2 pad-bottom-1">
+	        		<p>Unfortunately not, however this is part of the concept. We use all information and preferences we have in order to make the box fit you and your child’s wishes.</p>
+	        	</div>
+	        	
+	        	<h6 class="accordion-toggle text-1-5"><strong>What’s in it for me?</strong></h6>
+	        	<div class="accordion-content text-1 pad-left-4 pad-top-2 pad-bottom-1">
+	        		<p>We are here to help you saving time and worries over your child’s wardrobe and make clothes shopping a joyful rather then stressful experience.</p>
+	        	</div>
+
+	        	<h6 class="accordion-toggle text-1-5"><strong>Are there any hidden charges?</strong></h6>
+	        	<div class="accordion-content text-1 pad-left-4 pad-top-2 pad-bottom-1">
+	        		<p>None at all, we work just like any other store. Which means that the price you pay for the things you keep will be just the same as in any other physical store.</p>
+	        	</div>
+	     
+	        	<h6 class="accordion-toggle text-1-5"><strong>How would you categorise the brands you stock?</strong></h6>
+	        	<div class="accordion-content text-1 pad-left-4 pad-top-2 pad-bottom-1">
+	        		<p>The majority of the brands we stock are from Scandinavia, however it has proved too difficult to avoid moving across the borders with so many precious brands in the US, Spain, France and UK. It is essential to us that the brands we stock are made for children allowing room for play, exploration and comfort and to still look good.</p>
+	        	</div>
+
+	        	<h6 class="accordion-toggle text-1-5"><strong>Do you stock organic products?</strong></h6>
+	        	<div class="accordion-content text-1 pad-left-4 pad-top-2 pad-bottom-1">
+	        		<p>Proudly most of our brands have an eco-friendly mindset and the vast majority use organic fabrics. If this is important for you too then please tick the eco friendly box during checkout.</p>
+	        	</div>
+
+	        	<h6 class="accordion-toggle text-1-5"><strong>How many pieces will be in each box and how often do you send them out?</strong></h6>
+	        	<div class="accordion-content text-1 pad-left-4 pad-top-2 pad-bottom-1">
+	        		<p>Usually you will receive between 10-15 items per box and we suggest for you to request a box 4-6 times a year to keep up with the growth of your little  one. In fact you can automate the service during check-out as often as you like to avoid your worry over remembering to reorder. We will always get in touch with you for confirmation before sending you a box.</p>
+	        	</div>
+
+	        	<h6 class="accordion-toggle text-1-5"><strong>Why don’t you offer the service to older children?</strong></h6>
+	        	<div class="accordion-content text-1 pad-left-4 pad-top-2 pad-bottom-1">
+	        		<p>Being a young company we have had to keep our age group from newborn –4 years as a starting point. Fear not it is our best intention and we do expect to gradually increase the age over time – stay tuned.</p>
+	        	</div>
+
+	        	<h6 class="accordion-toggle text-1-5"><strong>When will I pay for the goods?</strong></h6>
+	        	<div class="accordion-content text-1 pad-left-4 pad-top-2 pad-bottom-1">
+	        		<p>When you sign up to use Muddy Creatures we will ask you at check out for a £1 deposit in order to authorize the card. Only after the end of the 10 days try on period will we take full payment for the items kept and an invoice will be sent via email. Our payment solution is provided by Braintree a Paypal company.</p>
+	        	</div>
+
+	        	<h6 class="accordion-toggle text-1-5"><strong>When do things go into sale?</strong></h6>
+	        	<div class="accordion-content text-1 pad-left-4 pad-top-2">
+	        		<p>None of our stock will go into sale, we wish to sustain a loyal relationship with our customers and think one of the best ways of doing this is by ensuring that our prices are saving you worries over future deductions.</p>
+	        	</div>
+
+	        	<div class="pad-bottom-4"> &nbsp;</div>
+			</div>
+
+		{{/columnContainer}}
+
+	</section>
 </template>

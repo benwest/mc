@@ -3,6 +3,8 @@
 	bottom: 1rem;
 	left: 1rem;
 	transition: opacity .5s;
+	cursor: pointer;
+	z-index: 500;
 }
 
 .about-social{
@@ -10,6 +12,7 @@
 	bottom: 1rem;
 	right: 1rem;
 	transition: opacity .5s;
+	z-index: 500;
 	a{
 		border: none !important;
 	}
@@ -31,6 +34,20 @@
 	position: fixed;
 	width: 100%;
 	top: 1rem;
+	z-index: 550;
+}
+
+.front-page{
+	.copyright{
+		position: absolute;
+		bottom: 0.5rem;
+		right: 1.5rem;
+		font-size: 0.75rem;
+		z-index: 600;
+	}
+	.center{
+		width: 100%;
+	}
 }
 
 @media #{$medium-up}{
@@ -45,6 +62,7 @@
 	}
 	.about-login{
 		top: 1.5rem;
+		z-index: 500;
 	}
 }
 
@@ -85,11 +103,11 @@
 	}
 	.next-arrow{
 		position: absolute;
-		bottom: 5rem;
+		bottom: 10vh;
 		left: 50%;
-		margin-left: -10%;
-		width: 20%;
-		animation: bob 1s linear infinite;
+		margin-left: -11.5%;
+		width: 23%;
+		animation: big-bob 1s linear infinite;
 		cursor: pointer;
 	}
 	.sign-up{
@@ -99,7 +117,7 @@
 		position: relative;
 		top: 0.4rem;
 		border: none !important;
-		animation: bob 1s linear infinite;
+		animation: big-bob 1s linear infinite;
 		cursor: pointer;
 		img{
 			height: 2rem;

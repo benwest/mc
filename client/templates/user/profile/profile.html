@@ -5,7 +5,7 @@
 	    <div class="profile-logo pos-rel">
 		    
 		    <div class="center">
-			    <img src="/img/logotype.svg" alt="" class="large-pad-top-4">
+			    <img src="/img/logotype.svg" alt="" class="full-width large-pad-top-4">
 		    </div>
 	        
 	    </div>
@@ -22,11 +22,16 @@
 					
 						How {{ plural children 'is' 'are' }} {{{ list children }}}?
 						
+						{{#if orders}}
+						
+							You can <a href="/orders">review your orders here.</a>
+												
+						<!--
 						{{# if lastOrder }}
 						
 							{{# with lastOrder }}
 							
-								Your order <a href="/order/{{number}}">#{{ number }}</a>, for {{ forChild }}, was {{ status }} {{ actionTime }}.
+								Your order <a href="/order/{{i2iId}}">#{{ number }}</a>, for {{ forChild }}, was {{ status }} {{ actionTime }}.
 							
 							{{/ with }}
 						
@@ -35,7 +40,7 @@
 								You have <a href="/orders">{{ moreOrders }} more {{ plural moreOrders 'order' }}</a> in progress as well.
 						
 							{{/ if }}
-						
+						-->
 						{{ else }}
 						
 							{{# if oneChild }}

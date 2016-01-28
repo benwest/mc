@@ -1,10 +1,10 @@
 Template.inlineInput.onCreated(function(){
-	console.log(this.data.value);
 	this.data.min = this.data.min ? Number(this.data.min) : -Infinity;
 	this.data.max = this.data.max ? Number(this.data.max) : Infinity;
 	this.data.maxLength = this.data.maxLength ? Number(this.data.maxLength) : Infinity;
 	this.data.placeholder = this.data.placeholder || '';
-	INPUTS.sessionSet( this.data.id, this.data.value || false );
+	Session.set( this.data.id, this.data.value || false );
+	console.log(this.data);
 });
 
 Template.inlineInput.onRendered(function(){
@@ -20,14 +20,14 @@ Template.inlineInput.helpers({
 	},
 	
 	'value': function(){
-		var value = INPUTS.sessionGet( this.id );
+		var value = Session.get( this.id );
 		var input = Template.instance().input;
 		if(value === false && input) input.text(this.placeholder || '');
-		return value;
+		return value !== this.placeholder ? value : false;
 	},
 	
 	'valid': function(){
-		var value = INPUTS.sessionGet(this.id);
+		var value = Session.get(this.id);
 		if(!value) return false;
 		return value !== this.placeholder && 'valid';
 	}
@@ -36,22 +36,20 @@ Template.inlineInput.helpers({
 
 Template.inlineInput.events({
 	
-	'focus span': function(event){
+	'mouseup span, touchend span': function(event){
 		
-		setTimeout(function() {
-	        var sel, range;
-	        if (window.getSelection && document.createRange) {
-	            range = document.createRange();
-	            range.selectNodeContents(event.target);
-	            sel = window.getSelection();
-	            sel.removeAllRanges();
-	            sel.addRange(range);
-	        } else if (document.body.createTextRange) {
-	            range = document.body.createTextRange();
-	            range.moveToElementText(event.target);
-	            range.select();
-	        }
-	    }, 1);		
+        var sel, range;
+        if (window.getSelection && document.createRange) {
+            range = document.createRange();
+            range.selectNodeContents(event.target);
+            sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+        } else if (document.body.createTextRange) {
+            range = document.body.createTextRange();
+            range.moveToElementText(event.target);
+            range.select();
+        }		
 		
 	},
 	
@@ -108,12 +106,12 @@ Template.inlineInput.events({
 		}
 	},
 	
-	'input span': function(event, template){
-		
+	'input span, textInput span, keydown span, blur span': function(event, template){
+				
 		var span = $(event.target);
 		var text = span.text();
 		
-		INPUTS.sessionSet(this.id, text)
+		Session.set(this.id, text !== template.data.placeholder ? text : false);
 				
 	}
 		

@@ -1,21 +1,21 @@
 <template name="orders">
 
-	<section class="orders">
+	<section class="orders bg-city-orange">
 	
 	    {{> titleBar text='Your Orders' }}
 	    
 	    {{# columnContainer }}
 	    
-	    	{{#if orders.count }}
+	    	{{#if orders }}
 	    	
 	    		{{#each orders}}
 	    		
-	    			<a href="/order/{{number}}">
+	    			<a href="/order/{{i2iId}}">
 		    			
 		    			<div class="row pad-top-2">
 			    			
 			    			<div class='small-12 columns'>
-								<span class="text-2"><span class="text-xbold">#{{number}}</span> &mdash; for <strong>{{forChild}}</strong></span>
+								<span class="text-2"><span class="text-xbold">#{{i2iId}}</span> &mdash; for <strong>{{forChild}}</strong></span>
 			    			</div>
 			    			
 		    			</div>
@@ -23,7 +23,11 @@
 		    			<div class="row pad-bottom-2 border-bottom">
 			    			
 			    			<div class="medium-4 columns">
-				    			<strong>{{capitalise status}}</strong><br>{{ago lastActionDate}}
+				    			{{#if status}}
+					    			<strong>{{status}}</strong>{{#if showReturnLink}} – <a href="/order/{{i2iId}}">Return Box</a>{{/if}}
+					    		{{else}}
+					    			&nbsp;
+					    		{{/if}}
 			    			</div>
 			    			
 			    			<div class="medium-4 columns">

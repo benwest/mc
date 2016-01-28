@@ -1,0 +1,12 @@
+<template name="orderFormGarments">
+
+	<p class="text-2 pad-top-4">
+		{{name}} needs
+		
+		{{> inlineMultiSelect id="orderFormGarments" options=garmentNames value=chosenGarments }}
+		
+		{{#if valid }}<a class='next no-wrap'>That's all</a>{{/if}}
+		
+	</p>
+	
+</template>

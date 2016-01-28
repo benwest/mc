@@ -8,53 +8,38 @@ Template.master.onCreated(function(){
 	
 })
 
-Template.master.onRendered(function(){
-	/*
-	this.find('#transition-container')._uihooks = {
-		insertElement: function(node, next){
-			$(node)
-				.hide()
-				.insertBefore(next)
-				.fadeIn();
-		}
-	}
-	*/
-	
-});
-
 Template.master.helpers({
 	
 	'bgClass': function(){
 				
-		console.log(Router.current().route.getName());
-		
 		switch(Router.current().route.getName()){
 			
-			case 'children':
 			case 'child':
 			case 'colors':
 			case 'looks':
 			case 'about':
+			case 'orderForm':
 				return 'bg-space';
 				
-			case 'signup':
-				return 'bg-teal';
-				
-			case 'orderForm':
 			case 'orders':
 			case 'order':
-			case 'profile':
 			case 'addChild':
 			case 'sizes':
 				return 'bg-blue';
-				
-			case 'editor':
-			case 'orderForm2':
-				return 'bg-dark-grey';
-				
+								
 			case 'account':
 			case 'login':
+			case 'reset-password':
+			case 'signup':
+			case 'faq':
+			case 'contact':
+			case 'terms':
+			case 'privacy-policy':
+			case 'who-we-are':
 				return 'bg-orange';
+				
+			case 'profile':
+				return 'bg-teal';
 								
 			default:
 				return 'bg-dark-grey';
@@ -70,18 +55,15 @@ Template.master.helpers({
 	'children': function(){
 		return Children.find({owner: Meteor.userId()});
 	},
+	
 	'back': function(){
 		return Session.get('back');
 	},
-	/*
-	'thisArray': function(){
-		return [this];
-	},
-	*/
-	'orders': function(){
-		return Orders.find({owner: Meteor.userId()}).count() > 0;
-	}
 	
+	'wait': function(){
+		return Session.get('wait');
+	}
+		
 });
 
 
@@ -93,9 +75,7 @@ Template.master.events({
 	},
 	
 	'click #overlay, click #menu a': function(){
-		
 		Session.set(MENU_OPEN, false);
-		
 	},
 	    
     'click .logout': function() {

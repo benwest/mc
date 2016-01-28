@@ -26,20 +26,26 @@
 var TAU = Math.PI * 2;
 var MIN_SIZE = .5 / DPR;
 
-var bigCircles = [], smallCircles = [], frame;
+var bigColors = [], bigLooks = [], smallCircles = [], frame;
 
 function color(colors){
-			
-	var colors = _.map(colors, function(color){
-		return Colors.findOne(color).color;
-	})
-
-	if(colors.length === 0) colors = ['rgba(0,0,0,0)']
+		
+	if(colors.length === 0) {
+		colors = ['rgba(0,0,0,0)']
+	} else if(colors[0].charAt(0) !== '#'){
+		colors = _.map(colors, function(color){
+			return Colors.findOne(color).color;
+		})
+	}
 	
 	_.each(smallCircles, function(circ){
 		circ.color = _.sample(colors);
 	})
-			
+		
+	_.each(bigColors, function(circ, i){
+		circ.color = colors[i];
+	})
+
 }
 
 Template.blobs.onRendered(function(){
@@ -101,7 +107,8 @@ Template.blobs.onRendered(function(){
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 		_.each(smallCircles, draw);
-		_.each(bigCircles, draw);
+		_.each(bigColors, draw);
+		_.each(bigLooks, draw);
 						
 		template.data.frame = requestAnimationFrame(tick);
 		
@@ -109,13 +116,10 @@ Template.blobs.onRendered(function(){
 	
 	function make(){
 		
-		bigCircles = [];
+		bigColors = [];	
+		bigLooks = [];
 		smallCircles = [];
 				
-		var colors = _.map(template.data.colors, function(color){
-			return Colors.findOne(color).color;
-		});
-		
 		var looks = _.map(template.data.looks, function(id){
 			return Looks.findOne(id).thumb;
 		});
@@ -143,10 +147,8 @@ Template.blobs.onRendered(function(){
 		}
 		
 		if(template.data.big !== false){
-			
-			var bigColors = [];
-			
-			for(var i = 0; i < colors.length; ++i){
+						
+			for(var i = 0; i < template.data.colors.length; ++i){
 				bigColors.push({
 					x: Math.random() * window.innerWidth,
 					y: Math.random() * window.innerHeight,
@@ -154,12 +156,10 @@ Template.blobs.onRendered(function(){
 					vx: velocity(0, .75),
 					vy: velocity(0, .75),
 					type: 'color',
-					color: colors[i]
+					color: '#000000'
 				})
 			}
-			
-			var bigLooks = [];
-						
+									
 			for(i = 0; i < looks.length; ++i){
 				bigLooks.push({
 					x: Math.random() * window.innerWidth,
@@ -200,9 +200,7 @@ Template.blobs.onRendered(function(){
 				return circle;
 				
 			});
-			
-			bigCircles = bigColors.concat(bigLooks);
-			
+						
 		}
 		
 	}

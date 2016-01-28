@@ -9,7 +9,7 @@ Template.about.helpers({
 		return Session.get(STAGE);
 	},
 	colors: function(){
-		return _.sample(Colors.find({}).fetch(), 10);
+		return [COLORS.BLUE, COLORS.PINK, COLORS.TEAL, COLORS.ORANGE, COLORS.GREEN];
 	},
 	looks: function(){
 		return _.pluck(Looks.find().fetch(), '_id');

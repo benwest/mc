@@ -17,10 +17,13 @@ Template.colors.helpers({
 	},
 	allColors: function(){
 		var selected = Session.get(SELECTED_COLORS);
-		return Colors.find({}).map(function(color){
+		var colors = Colors.find({}).map(function(color){
 			color.selected = _.contains(selected, color._id);
 			color.bright = tinycolor(color.color).isLight();
 			return color;
+		});
+		return _.sortBy(colors, function(c){
+			return tinycolor(c.color).toHsl().h;
 		})
 	},
 	valid: function(){

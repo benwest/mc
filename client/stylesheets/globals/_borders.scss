@@ -1,20 +1,28 @@
+@mixin boring-border($side){
+	
+	border-#{$side}-width: 1px;
+	border-#{$side}-style: solid;
+	border-#{$side}-color: white;
+	
+}
+
 @each $side in top, bottom, left, right {
 	.border-#{$side} {
-		border-#{$side}: 1px solid white;
+		@include boring-border($side);
 	}
 	@media #{$small-only}{
 		.small-border-#{$side} {
-			border-#{$side}: 1px solid white;
+			@include boring-border($side);
 		}
 	}
 	@media #{$medium-only}{
 		.medium-border-#{$side} {
-			border-#{$side}: 1px solid white;
+			@include boring-border($side);
 		}
 	}
 	@media #{$large-up}{
 		.large-border-#{$side} {
-			border-#{$side}: 1px solid white;
+			@include boring-border($side);
 		}
 	}
 }

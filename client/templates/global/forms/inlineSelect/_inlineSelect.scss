@@ -74,6 +74,10 @@
 		z-index: 60;
 	}
 	
+	&:not(.open) .scroll-fadeout{
+		display: none;
+	}
+	
 	&.open .inline-select-options{
 		top: 1.42em;
 		display: inline-block;

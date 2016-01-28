@@ -13,15 +13,9 @@ $colors: (pink $pink),
 	(green $green),
 	(dark-grey $darkGrey),
 	(light-grey $lightGrey),
-	(orange $orange),
 	(teal $teal),
 	(blue $blue),
 	(white white),
 	(black black),
-	(space $space);
-
-$background: white;
-$text: black;
-$notification: orange;
-$warning: red;
-$selected: #dddddd;
+	(space $space),
+	(orange $orange);

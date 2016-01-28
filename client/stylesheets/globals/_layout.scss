@@ -22,7 +22,6 @@
 	}
 }
 
-
 .full-width{
 	width: 100%;
 }
@@ -39,10 +38,6 @@
 	position: relative;
 }
 
-.canvas-ratio{
-	padding-bottom: (297/210) * 100%;
-}
-
 .no-pointer{
 	pointer-events: none !important;
 }
@@ -53,4 +48,11 @@
 
 .height-1em{
 	height: 1em;
+	vertical-align: baseline;
+}
+
+@media only screen and (max-width: 960px) and (orientation: landscape) {
+	body {
+		transform: rotate(-90deg);
+	}
 }

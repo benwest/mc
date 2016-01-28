@@ -47,6 +47,9 @@ Template.looks.helpers({
 	},
 	valid: function(){
 		return Session.get(SELECTED_LOOKS).length > 0;
+	},
+	isSurprise: function(){
+		return this.name === 'Surprise me!';
 	}/*,
 	hoveredLook: function(){
 		return Session.get(HOVERED_LOOK);
@@ -71,13 +74,9 @@ Template.looks.events({/*
 	'mouseleave .look-swatch': function(){
 		Session.set(HOVERED_LOOK, false);
 	},*/
-	'click .look-swatch': function(){
-		if(this.name === 'Surprise me!'){
-			toggle(this);
-		} else {
-			Session.set(SHOW_PREVIEW, true);
-			Session.set(PREVIEW, this);			
-		}
+	'click .magnify': function(){
+		Session.set(SHOW_PREVIEW, true);
+		Session.set(PREVIEW, this);
 	},
 	'click .toggle-look': function(){
 		toggle(this);

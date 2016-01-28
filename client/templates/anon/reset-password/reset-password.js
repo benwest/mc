@@ -22,9 +22,7 @@ Template.resetPassword.events({
         var newPassword = template.$('[name=password]').val();
         var confirm = template.$('[name=confirm]').val();
         var token = Iron.controller().getParams().token;
-        
-        console.log(Iron.controller().getParams());
-        
+                
         var messages = {};
 
         if (! newPassword) {
